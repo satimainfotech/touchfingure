@@ -1,0 +1,39 @@
+table{
+	border:1px solid #ddd;
+	width:100%;
+	font-size:10px;
+}
+table thead th{
+	background-color: #ddd;
+	text-align:left;
+	padding:5px;
+	font-size:10px;
+}
+table tbody td{
+	background-color: #ddd;
+	text-align:left;
+	padding:5px;
+	font-size:10px;
+}
+tr.even{
+	background-color:#eee;
+}
+tr.odd{
+	background-color:#e6e6e6;
+}
+.header{
+	width:100%;
+	float:left;
+	margin-bottom:10px;
+}
+h4{
+	font-size:14px;
+	float:left;
+	width:48%;
+}
+.pdfdate{
+	float:right;
+	font-size:14px;
+	width:48%;
+	text-align:right;
+}
