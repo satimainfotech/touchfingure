@@ -21,7 +21,14 @@
 										<td>1</td>
 										<td>Home Page</td>
 										<td class="text-center">
-											<a href="<?php echo base_url(); ?>admin/manage_website/cms_pages/home_page/1" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="home_page_edit" data-container="body"><?php echo translate('edit');?></a>
+											<a href="<?php echo base_url(); ?>admin//manage_website/cms_pages/home_page/1" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="home_page_edit" data-container="body"><?php echo translate('edit');?></a>
+										</td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td>About Us</td>
+										<td class="text-center">
+											<a href="<?php echo base_url(); ?>admin//manage_website/cms_pages/about_us/1" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="home_page_edit" data-container="body"><?php echo translate('edit');?></a>
 										</td>
 									</tr>
 									
@@ -29,7 +36,7 @@
 										<td>3</td>
 										<td>Contact Us</td>
 										<td class="text-center">
-											<a href="<?php echo base_url(); ?>admin/manage_website/cms_pages/contactus/1" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="home_page_edit" data-container="body"><?php echo translate('edit');?></a>
+											<a href="<?php echo base_url(); ?>admin//manage_website/cms_pages/contactus/1" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="home_page_edit" data-container="body"><?php echo translate('edit');?></a>
 										</td>
 									</tr>
 								</tbody>
@@ -44,7 +51,7 @@
 <span id="achievement" style="display:none;"></span>
 <script>
 	var base_url = '<?php echo base_url(); ?>'
-	var user_type = 'admin';
+	var user_type = 'admin/abdaily';
 	var module = 'manage_website/achievements';
 	var delete_function = 'delete';
 </script>

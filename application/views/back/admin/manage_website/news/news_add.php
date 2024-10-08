@@ -2,9 +2,9 @@
 	<div id="page-title">
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('add_news');?></h1>
 		<?php if(@$category != ''){?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/manage_website/news?c_i=<?php echo @$category; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//manage_website/news?c_i=<?php echo @$category; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
 		<?php }else{ ?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/manage_website/news<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//manage_website/news<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
 		<?php } ?>
 	</div>
 	<div class="tab-base">
@@ -14,7 +14,7 @@
 					<div class="tab-pane fade active in" id="list">
 						<div class="viewpages panel-body">
 							<?php
-								echo form_open(base_url() . 'admin/manage_website/news_do_add/', array(
+								echo form_open(base_url() . 'admin//manage_website/news_do_add/', array(
 									'class' => 'form-horizontal',
 									'method' => 'post',
 									'id' => 'news_add',

@@ -2,7 +2,7 @@
 	<div id="page-title" class="manybutton">
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('manage_city');?></h1>
 		<?php if($this->crud_model->admin_permission('city_add')){?>
-			<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin/master_manage/city_add"><?php echo translate('create_city');?> </a>
+			<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin//master_manage/city_add"><?php echo translate('create_city');?> </a>
 		<?php } ?>
 	</div>
 	<div class="tab-base">
@@ -12,7 +12,7 @@
 					<div class="tab-pane fade active in">
 						<div class="orderstable panel-body">
 							<div class="reportfilterdiv">
-								<form action="<?php echo base_url(); ?>admin/master_manage/city" method="get">
+								<form action="<?php echo base_url(); ?>admin//master_manage/city" method="get">
 									<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px searchboxs">
 										<label>Country</label>
 										<select name="c_i" class="demo-chosen-select" onchange="select_country(this.value)"  data-placeholder="Choose a country" id="country">
@@ -43,7 +43,7 @@
 									<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
 										<button class="reportbutton">Search</button>
 										<?php if(@$country != '' || @$state != '' || @$city != ''){ ?>
-											<a class="creportbutton" href="<?php echo base_url(); ?>admin/master_manage/city">Reset</a>
+											<a class="creportbutton" href="<?php echo base_url(); ?>admin//master_manage/city">Reset</a>
 										<?php } ?>
 									</div>
 								</form>
@@ -55,6 +55,7 @@
 											<tr>
 												<th><?php echo translate('Sr No.');?></th>
 												<th><?php echo translate('city');?></th>
+												<th><?php echo translate('District');?></th>
 												<th><?php echo translate('state');?></th>
 												<th><?php echo translate('country');?></th>
 												<th><?php echo translate('status');?></th>
@@ -72,6 +73,7 @@
 											<tr>
 												<td><?php echo $i; ?></td>
 												<td><?php echo $row['city_name']; ?></td>
+												<td><?php echo $row['district_name']; ?></td>
 												<td><?php echo $row['state_name']; ?></td>
 												<td><?php echo $row['country_name']; ?></td>
 												<td>
@@ -87,16 +89,16 @@
 													<td class="text-center">
 														<?php if($this->crud_model->admin_permission('city_view')){ ?> 
 															<?php if(@$country != '' || @$state != '' || @$city != ''){?>
-																<a class="btn btn-success btn-xs btn-labeled fa fa-eye" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/city_view?c_i=<?php echo @$country; ?>&s_i=<?php echo @$state; ?>&c_n=<?php echo @$city; ?>&ci_i=<?php echo $row['city_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
+																<a class="btn btn-success btn-xs btn-labeled fa fa-eye" data-toggle="tooltip" href="<?php echo base_url(); ?>admin//master_manage/city_view?c_i=<?php echo @$country; ?>&s_i=<?php echo @$state; ?>&c_n=<?php echo @$city; ?>&ci_i=<?php echo $row['city_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
 															<?php }else{ ?>
-																<a class="btn btn-success btn-xs btn-labeled fa fa-eye" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/city_view?ci_i=<?php echo $row['city_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
+																<a class="btn btn-success btn-xs btn-labeled fa fa-eye" data-toggle="tooltip" href="<?php echo base_url(); ?>admin//master_manage/city_view?ci_i=<?php echo $row['city_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
 															<?php } ?> 
 														<?php } ?> 
 														<?php if($this->crud_model->admin_permission('city_edit')){ ?> 
 															<?php if(@$country != '' || @$state != '' || @$city != ''){?>
-																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/city_edit?c_i=<?php echo @$country; ?>&s_i=<?php echo @$state; ?>&c_n=<?php echo @$city; ?>&ci_i=<?php echo $row['city_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
+																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin//master_manage/city_edit?c_i=<?php echo @$country; ?>&s_i=<?php echo @$state; ?>&c_n=<?php echo @$city; ?>&ci_i=<?php echo $row['city_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
 															<?php }else{ ?>
-																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/city_edit?ci_i=<?php echo $row['city_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
+																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin//master_manage/city_edit?ci_i=<?php echo $row['city_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
 															<?php } ?>
 														<?php } ?>
 														<?php if($this->crud_model->admin_permission('city_delete')){ ?> 

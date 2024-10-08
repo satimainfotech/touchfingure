@@ -1,7 +1,7 @@
 <div id="content-container">
 	<div id="page-title">
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('add_testimonials');?></h1>
-		<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/manage_website/testimonials<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+		<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//manage_website/testimonials<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
 	</div>
 	<div class="tab-base">
 		<div class="panel">
@@ -10,7 +10,7 @@
 					<div class="tab-pane fade active in" id="list">
 						<div class="viewpages panel-body">
 							<?php
-								echo form_open(base_url() . 'admin/manage_website/testimonials_do_add/', array(
+								echo form_open(base_url() . 'admin//manage_website/testimonials_do_add/', array(
 									'class' => 'form-horizontal',
 									'method' => 'post',
 									'id' => 'testimonials_add',
@@ -73,7 +73,7 @@
 										<span class="btn btn-purple btn-labeled fa fa-refresh pro_list_btn pull-left " 
 											onclick="page_reload(); "><?php echo translate('reset');?>
 										</span>
-										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="ajax_form_submit('testimonials_add','<?php echo translate('testimonials_has_been_added!'); ?>','manage_website/testimonials');"><?php echo translate('submit');?></span>
+										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="ajax_form_submit('testimonials_add','<?php echo translate('testimonials_has_been_added!'); ?>','/manage_website/testimonials');"><?php echo translate('submit');?></span>
 									</div>
 								</div>
 							</form>

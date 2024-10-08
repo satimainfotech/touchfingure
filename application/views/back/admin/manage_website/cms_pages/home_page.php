@@ -1,8 +1,8 @@
 <div id="content-container">
 	<div id="page-title">
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('home_page');?></h1>
-		<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/manage_website/cms_pages"><?php echo translate('back');?> </a>
-		<input type="hidden" value="<?php echo base_url(); ?>admin/manage_website/cms_pages" id="return_url">
+		<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//manage_website/cms_pages"><?php echo translate('back');?> </a>
+		<input type="hidden" value="<?php echo base_url(); ?>admin//manage_website/cms_pages" id="return_url">
 	</div>
 	<div class="tab-base">
 		<div class="panel">
@@ -14,7 +14,7 @@
 								foreach($home_page_data as $row){
 							?>
 								<?php
-									echo form_open(base_url() . 'admin/manage_website/update_home_page/' . $row['home_page_id'], array(
+									echo form_open(base_url() . 'admin//manage_website/update_home_page/' . $row['home_page_id'], array(
 										'class' => 'form-horizontal',
 										'method' => 'post',
 										'id' => 'form_edits',
@@ -195,9 +195,9 @@
 															</div>
 														</div>
 														
-														<h4 style="display:none;" class="pagetitless">Our Brand Portfolio Section</h4>
-														<div style="display:none;" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingallzero">
-															<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 paddingleftzero">
+														<h4 class="pagetitless">Setvices Section</h4>
+														<div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingallzero">
+															<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 paddingleftzero" style="display:none;" >
 																<div class="form-group ">
 																	<label class="col-sm-2 control-label" for="demo-hor-1"><?php echo translate('our_brand_section_show_/_hide');?></label>
 																	<div class="col-sm-12">
@@ -208,7 +208,7 @@
 																		</select>
 																	</div>
 																</div>
-																<div class="form-group">
+																<div class="form-group" style="display:none;" >
 																	<label class="col-sm-12 control-label" for="demo-hor-1"><?php echo translate('item_show');?></label>
 																	<div class="col-sm-12">
 																		<input type="number" min="6" name="our_brand_show_item" id="demo-hor-1" placeholder="<?php echo translate('item_show');?>" class="number form-control" value="<?php if($row['our_brand_show_item'] == ''){ echo '6'; }else{ echo $row['our_brand_show_item']; }  ?>">
@@ -231,7 +231,7 @@
 																	</div>
 																</div>
 															</div>
-															<div class="form-group">
+															<div class="form-group" style="display:none;" >
 																<label class="col-sm-12 control-label" for="demo-hor-1"><?php echo translate('content');?></label>
 																<div class="col-sm-12">
 																	<textarea rows="9"  class="textarea" data-height="200" name="our_brand_content" placeholder="content"><?php echo $row['our_brand_content']; ?></textarea>
@@ -239,9 +239,9 @@
 															</div>
 														</div>
 														
-														<h4 style="display:none;" class="pagetitless">Our Technology Section</h4>
-														<div style="display:none;" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingallzero">
-															<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 paddingleftzero">
+														<h4  class="pagetitless">Client Section</h4>
+														<div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingallzero">
+															<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 paddingleftzero" style="display:none;">
 																<div class="form-group ">
 																	<label class="col-sm-2 control-label" for="demo-hor-1"><?php echo translate('our_technolgy_show_/_hide');?></label>
 																	<div class="col-sm-12">
@@ -252,7 +252,7 @@
 																		</select>
 																	</div>
 																</div>
-																<div class="form-group">
+																<div class="form-group"style="display:none;">
 																	<label class="col-sm-12 control-label" for="demo-hor-1"><?php echo translate('item_show');?></label>
 																	<div class="col-sm-12">
 																		<input type="number" min="6" name="our_technolgy_show_item" id="demo-hor-1" placeholder="<?php echo translate('item_show');?>" class="number form-control" value="<?php if($row['our_technolgy_show_item'] == ''){ echo '6'; }else{ echo $row['our_technolgy_show_item']; }  ?>">
@@ -275,7 +275,7 @@
 																	</div>
 																</div>
 															</div>
-															<div class="form-group">
+															<div class="form-group" >
 																<label class="col-sm-12 control-label" for="demo-hor-1"><?php echo translate('content');?></label>
 																<div class="col-sm-12">
 																	<textarea rows="9"  class="textarea" data-height="200" name="our_technolgy_content" placeholder="content"><?php echo $row['our_technolgy_content']; ?></textarea>

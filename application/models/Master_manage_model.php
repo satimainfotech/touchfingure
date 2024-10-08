@@ -18,7 +18,7 @@ class Master_manage_model extends CI_Model
 		$this->taluka_table_name = 'taluka';
 		$this->taluka_m_table_name = 'taluka_m';
 		$this->gram_panchayat_table_name = 'gram_panchayat';
-		
+		$this->pm_table_name = 'process_master';
     }
 	public function get_total_country_data_count($country){
 		$this->db->select('*');
@@ -29,6 +29,18 @@ class Master_manage_model extends CI_Model
 		
 		$this->db->where_not_in('country_status','delete');
 		$this->db->order_by('country_id','desc');
+		return $this->db->get()->result_array();
+	}
+
+	public function get_total_pm_data_count($country){
+		$this->db->select('*');
+		$this->db->from($this->pm_table_name);
+		if($country != ''){
+			$this->db->like('pm_name',$country,'both');
+		}
+		
+		$this->db->where_not_in('pm_status','delete');
+		$this->db->order_by('pm_id','desc');
 		return $this->db->get()->result_array();
 	}
 	
@@ -43,11 +55,29 @@ class Master_manage_model extends CI_Model
 		$this->db->order_by('country_id','desc');
 		return $this->db->get()->result_array();
 	}
+	public function get_total_pm_data($country,$limit,$start){
+		$this->db->select('*');
+		$this->db->from($this->pm_table_name);
+		if($country != ''){
+			$this->db->like('pm_name',$country,'both');
+		}
+		$this->db->limit($limit,$start);
+		$this->db->where_not_in('pm_status','delete');
+		$this->db->order_by('pm_id','desc');
+		return $this->db->get()->result_array();
+	}
 	
 	public function get_country_details($country){
 		$this->db->select('*');
 		$this->db->from($this->country_table_name);
 		$this->db->where('country_id',$country);
+		return $this->db->get()->result_array();
+	}
+
+	public function get_pm_details($country){
+		$this->db->select('*');
+		$this->db->from($this->pm_table_name);
+		$this->db->where('pm_id',$country);
 		return $this->db->get()->result_array();
 	}
 	

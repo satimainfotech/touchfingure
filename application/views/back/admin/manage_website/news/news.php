@@ -3,9 +3,9 @@
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('manage_news');?></h1>
 		<?php if($this->crud_model->admin_permission('news_add')){?>
 			<?php if(@$category != ''){?>
-				<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin/manage_website/news_add?c_i=<?php echo @$category; ?>"><?php echo translate('create_news');?> </a>
+				<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin//manage_website/news_add?c_i=<?php echo @$category; ?>"><?php echo translate('create_news');?> </a>
 			<?php }else{ ?>
-				<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin/manage_website/news_add"><?php echo translate('create_news');?> </a>
+				<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin//manage_website/news_add"><?php echo translate('create_news');?> </a>
 			<?php } ?>
 			
 		<?php } ?>
@@ -16,7 +16,7 @@
 				<div class="tab-content">
 					<div class="tab-pane fade active in" id="list">
 						<div class="reportfilterdiv">
-							<form action="<?php echo base_url(); ?>admin/manage_website/news" method="get">
+							<form action="<?php echo base_url(); ?>admin//manage_website/news" method="get">
 								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px searchboxs">
 									<label>Category</label>
 									<select name="c_i" class="demo-chosen-select" data-placeholder="Choose a category" id="category">
@@ -86,16 +86,16 @@
 										<td class="text-right">
 											<?php if($this->crud_model->admin_permission('news_view')){ ?>
 												<?php if(@$category != ''){ ?>
-													<a href="<?php echo base_url(); ?>admin/manage_website/news_view?b_t=<?php echo $row['news_token']; ?>&b_i=<?php echo $row['news_id']; ?>&c_i=<?php echo @$category; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="proof" data-container="body"><?php echo translate('view');?></a>
+													<a href="<?php echo base_url(); ?>admin//manage_website/news_view?b_t=<?php echo $row['news_token']; ?>&b_i=<?php echo $row['news_id']; ?>&c_i=<?php echo @$category; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="proof" data-container="body"><?php echo translate('view');?></a>
 												<?php }else{ ?>
-													<a href="<?php echo base_url(); ?>admin/manage_website/news_view?b_t=<?php echo $row['news_token']; ?>&b_i=<?php echo $row['news_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="proof" data-container="body"><?php echo translate('view');?></a>
+													<a href="<?php echo base_url(); ?>admin//manage_website/news_view?b_t=<?php echo $row['news_token']; ?>&b_i=<?php echo $row['news_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="proof" data-container="body"><?php echo translate('view');?></a>
 												<?php } ?>
 											<?php } ?>
 											<?php if($this->crud_model->admin_permission('news_edit')){ ?>
 												<?php if(@$category != ''){ ?>
-													<a href="<?php echo base_url(); ?>admin/manage_website/news_edit?b_t=<?php echo $row['news_token']; ?>&b_i=<?php echo $row['news_id']; ?>&c_i=<?php echo @$category; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="Edit" data-container="body"><?php echo translate('edit');?></a>
+													<a href="<?php echo base_url(); ?>admin//manage_website/news_edit?b_t=<?php echo $row['news_token']; ?>&b_i=<?php echo $row['news_id']; ?>&c_i=<?php echo @$category; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="Edit" data-container="body"><?php echo translate('edit');?></a>
 												<?php }else{ ?>
-													<a href="<?php echo base_url(); ?>admin/manage_website/news_edit?b_t=<?php echo $row['news_token']; ?>&b_i=<?php echo $row['news_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="Edit" data-container="body"><?php echo translate('edit');?></a>
+													<a href="<?php echo base_url(); ?>admin//manage_website/news_edit?b_t=<?php echo $row['news_token']; ?>&b_i=<?php echo $row['news_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="Edit" data-container="body"><?php echo translate('edit');?></a>
 												<?php } ?>
 												
 											<?php } ?>
@@ -125,7 +125,7 @@
 <div id="vendr"></div>
 <script>
 var base_url = '<?php echo base_url(); ?>'
-var user_type = 'admin';
+var user_type = 'admin/abdaily';
 var module = 'manage_website/newss';
 var delete_function = 'delete';
 

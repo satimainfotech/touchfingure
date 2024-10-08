@@ -1,10 +1,10 @@
 <div id="content-container">
 	<div id="page-title">
-		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('add_category');?></h1>
-		<?php if(@$category != ''){ ?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/category?c_n=<?php echo @$category; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('add_team');?></h1>
+		<?php if(@$team != ''){ ?>
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//team?c_n=<?php echo @$team; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
 		<?php }else{ ?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/category<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//team<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
 		<?php } ?>
 	</div>
 	<div class="tab-base">
@@ -14,10 +14,10 @@
 					<div class="tab-pane fade active in" id="list">
 						<div class="viewpages panel-body">
 							<?php
-								echo form_open(base_url() . 'admin/category/category_do_add/', array(
+								echo form_open(base_url() . 'admin//team/team_do_add/', array(
 									'class' => 'form-horizontal',
 									'method' => 'post',
-									'id' => 'category_add',
+									'id' => 'team_add',
 									'enctype' => 'multipart/form-data'
 								));
 							?>
@@ -30,9 +30,15 @@
 														<div class="form-group ">
 															<label class="col-sm-2 control-label" for="demo-hor-1"><?php echo translate('name');?></label>
 															<div class="col-sm-10">
-																<input type="text" name="category_name" id="demo-hor-1" placeholder="<?php echo translate('name');?>" class="form-control">
+																<input type="text" name="team_name" id="demo-hor-1" placeholder="<?php echo translate('name');?>" class="form-control">
 															</div>
 														</div>
+														<div class="form-group ">
+																<label class="col-sm-2 control-label" for="demo-hor-1"><?php echo translate('position');?></label>
+																<div class="col-sm-10">
+																	<input type="text" name="team_position" id="demo-hor-1" placeholder="<?php echo translate('position');?>" class="form-control" value="">
+																</div>
+															</div>
 														<div class="form-group">
 															<label class="col-sm-2 control-label" for="demo-hor-2">
 																<?php echo translate('icon');?>
@@ -40,10 +46,10 @@
 															<div class="col-sm-10">
 																<span class="pull-left btn btn-default btn-file">
 																	<?php echo translate('select_icon');?>
-																	<input type="file" name="category_image" id='category_image' accept="image">
+																	<input type="file" name="team_image" id='team_image' accept="image">
 																</span>
-																<span id='category_icon_wrap' class=" show_iin_image" style="width: 100px;float:right; border:1px solid #ddd;border-radius:5px;padding:5px">
-																	<img src="<?php echo base_url(); ?>uploads/category_image/default.png" width="100%" id='category_image_blah' />
+																<span id='team_icon_wrap' class=" show_iin_image" style="width: 100px;float:right; border:1px solid #ddd;border-radius:5px;padding:5px">
+																	<img src="<?php echo base_url(); ?>uploads/abdaily_team_image/default.png" width="100%" id='team_image_blah' />
 																</span>
 															</div>
 														</div>
@@ -58,7 +64,7 @@
 										<span class="btn btn-purple btn-labeled fa fa-refresh pro_list_btn pull-left " 
 											onclick="page_reload(); "><?php echo translate('reset');?>
 										</span>
-										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="ajax_form_submit('category_add','<?php echo translate('category_has_been_added!'); ?>','category');"><?php echo translate('submit');?></span>
+										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="ajax_form_submit('team_add','<?php echo translate('team_has_been_added!'); ?>','team');"><?php echo translate('submit');?></span>
 									</div>
 								</div>
 							</form>
@@ -92,18 +98,18 @@
         $(this).parent().parent().remove();
     });
 	
-	function category_image(input) {
+	function team_image(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 	
 			reader.onload = function(e) {
-				$('#category_image_blah').attr('src', e.target.result);
+				$('#team_image_blah').attr('src', e.target.result);
 			}
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-	$("#category_image").change(function() {
-		category_image(this);
+	$("#team_image").change(function() {
+		team_image(this);
 	});
 	
 	$(document).ready(function() {

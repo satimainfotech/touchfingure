@@ -4,7 +4,7 @@
 			<thead>
 				<tr>
 					<th><?php echo translate('no');?></th>
-					<th><?php echo translate('country_name');?></th>
+					<th><?php echo translate('Material');?></th>
 					<?php if($this->crud_model->admin_permission('country_edit') || $this->crud_model->admin_permission('country_delete')){?>
 					<th class="text-right"><?php echo translate('options');?></th>
 					<?php } ?>

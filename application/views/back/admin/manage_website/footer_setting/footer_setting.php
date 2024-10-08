@@ -1,7 +1,7 @@
 <div id="content-container">
 	<div id="page-title">
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('footer_setting');?></h1>
-		<input type="hidden" value="<?php echo base_url(); ?>admin/manage_website/footer_setting" id="return_url">
+		<input type="hidden" value="<?php echo base_url(); ?>admin//manage_website/footer_setting" id="return_url">
 	</div>
 	<div class="tab-base">
 		<div class="panel">
@@ -13,7 +13,7 @@
 								foreach($footer_data as $row){
 							?>
 								<?php
-									echo form_open(base_url() . 'admin/manage_website/footer_setting_update/' . $row['footer_id'], array(
+									echo form_open(base_url() . 'admin//manage_website/footer_setting_update/' . $row['footer_id'], array(
 										'class' => 'form-horizontal',
 										'method' => 'post',
 										'id' => 'form_edits',
@@ -27,6 +27,27 @@
 													<div id="vendor_details" class="tab-pane fade active in">
 														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 															<div class="form-group ">
+															<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 paddinglzero">
+																	<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('description_title');?></label>
+																	<div class="col-sm-12">
+																		<input type="text" name="description_title" id="demo-hor-1" placeholder="<?php echo translate('description_title');?>" class="form-control"  value="<?php echo $row['description_title']; ?>">
+																	</div>
+																</div>
+																
+																<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 paddinglzero">
+																	<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('menu_title');?></label>
+																	<div class="col-sm-12">
+																		<input type="text" name="menu_title" id="demo-hor-1" placeholder="<?php echo translate('menu_title');?>" class="form-control"  value="<?php echo $row['menu_title']; ?>">
+																	</div>
+																</div>
+																
+																
+																<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 paddinglzero">
+																	<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('contact_title');?></label>
+																	<div class="col-sm-12">
+																		<input type="text" name="address_title" id="demo-hor-1" placeholder="<?php echo translate('contact_title');?>" class="form-control"  value="<?php echo $row['address_title']; ?>">
+																	</div>
+																</div>
 																<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 paddinglzero">
 																	<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('content');?></label>
 																	<div class="col-sm-12">
@@ -76,9 +97,17 @@
 																	</div>
 																</div>
 																<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 paddingrzero">
-																	<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('contact_two');?></label>
+																	<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('whatsapp_number');?></label>
 																	<div class="col-sm-12">
-																		<input type="text" name="contact_two" id="demo-hor-1" placeholder="<?php echo translate('contact_two');?>" class="form-control"  value="<?php echo $row['contact_two']; ?>">
+																		<input type="text" name="contact_two" id="demo-hor-1" placeholder="<?php echo translate('whatsapp_number');?>" class="form-control"  value="<?php echo $row['contact_two']; ?>">
+																	</div>
+																</div>
+															</div>
+																<div class="form-group ">
+																<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 paddinglzero">
+																	<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('whatsapp_message');?></label>
+																	<div class="col-sm-12">
+																		<textarea rows="9"  class="textareas" style="height:100px" name="whatsapp_message"><?php echo $row['whatsapp_message']; ?></textarea>
 																	</div>
 																</div>
 															</div>

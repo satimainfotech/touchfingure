@@ -4,11 +4,11 @@
 		<?php
 			if(@$state != '' || @$state != ''){
 		?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/master_manage/state?c_i=<?php echo @$country; ?>&s_n=<?php echo @$state; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
-			<input type="hidden" value="<?php echo base_url(); ?>admin/master_manage/state?c_i=<?php echo @$country; ?>&s_n=<?php echo @$state; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" id="page_return_url">
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//master_manage/state?c_i=<?php echo @$country; ?>&s_n=<?php echo @$state; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<input type="hidden" value="<?php echo base_url(); ?>admin//master_manage/state?c_i=<?php echo @$country; ?>&s_n=<?php echo @$state; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" id="page_return_url">
 		<?php }else{ ?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/master_manage/state<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
-			<input type="hidden" value="<?php echo base_url(); ?>admin/master_manage/state<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="page_return_url">
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//master_manage/state<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<input type="hidden" value="<?php echo base_url(); ?>admin//master_manage/state<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="page_return_url">
 		<?php } 
 		?>
 	</div>
@@ -19,7 +19,7 @@
                     <div class="tab-pane fade active in">
 						<?php
 							foreach($state_data as $row){
-							echo form_open(base_url() . 'admin/master_manage/state_update/'. $row['state_id'], array(
+							echo form_open(base_url() . 'admin//master_manage/state_update/'. $row['state_id'], array(
 								'class' => 'form-horizontal',
 								'method' => 'post',
 								'id' => 'state_edit',

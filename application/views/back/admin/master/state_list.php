@@ -27,7 +27,7 @@
 				<?php if($this->crud_model->admin_permission('state_edit') || $this->crud_model->admin_permission('state_delete')){?>
 					<td class="text-right">
 						<?php if($this->crud_model->admin_permission('state_edit')){?>
-							<a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/state/edit/<?php echo $row['state_id']; ?>" > <?php echo translate('edit');?> </a>
+							<a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" href="<?php echo base_url(); ?>admin//master_manage/state/edit/<?php echo $row['state_id']; ?>" > <?php echo translate('edit');?> </a>
 						<?php } ?>
 						<?php if($this->crud_model->admin_permission('state_delete')){?>
 							<a onclick="delete_confirm('<?php echo $row['state_id']; ?>','<?php echo translate('really_want_to_delete_this?'); 	?>')" class="btn btn-danger btn-xs btn-labeled fa fa-trash" data-toggle="tooltip" data-original-title="Delete" data-container="body"> <?php echo translate('delete');?>

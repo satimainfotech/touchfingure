@@ -6,7 +6,7 @@
 			<button class="btn btn-primary btn-labeled fa fa-file-pdf-o add_pro_btn pull-right custombutton">Excel</button>
 		</form> -->
 		<?php if($this->crud_model->admin_permission('state_add')){?>
-			<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin/master_manage/state_add"><?php echo translate('create_state');?> </a>
+			<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin//master_manage/state_add"><?php echo translate('create_state');?> </a>
 		<?php } ?>
 	</div>
 	<div class="tab-base">
@@ -16,7 +16,7 @@
 					<div class="tab-pane fade active in">
 						<div class="orderstable panel-body">
 							<div class="reportfilterdiv">
-								<form action="<?php echo base_url(); ?>admin/master_manage/state" method="get">
+								<form action="<?php echo base_url(); ?>admin//master_manage/state" method="get">
 									<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px searchboxs">
 										<label>Country</label>
 										<select name="c_i" class="demo-chosen-select" data-placeholder="Choose a Country" id="country">
@@ -39,7 +39,7 @@
 									<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
 										<button class="reportbutton">Search</button>
 										<?php if(@$country != '' || @$state != ''){ ?>
-											<a class="creportbutton" href="<?php echo base_url(); ?>admin/master_manage/state">Reset</a>
+											<a class="creportbutton" href="<?php echo base_url(); ?>admin//master_manage/state">Reset</a>
 										<?php } ?>
 									</div>
 								</form>
@@ -58,7 +58,7 @@
 										</thead>
 										<tbody>
 										<?php
-										//echo "<pre>"; print_r($all_product);
+										
 											if(!empty($all_state)){
 												$i = $page_id+0;
 												foreach($all_state as $row){
@@ -81,16 +81,16 @@
 													<td class="text-center">
 														<?php if($this->crud_model->admin_permission('state_view')){ ?> 
 															<?php if(@$country != '' || @$state != ''){?>
-																<a class="btn btn-success btn-xs btn-labeled fa fa-eye" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/state_view?c_i=<?php echo @$country; ?>&s_n=<?php echo @$state; ?>&s_i=<?php echo $row['state_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
+																<a class="btn btn-success btn-xs btn-labeled fa fa-eye" data-toggle="tooltip" href="<?php echo base_url(); ?>admin//master_manage/state_view?c_i=<?php echo @$country; ?>&s_n=<?php echo @$state; ?>&s_i=<?php echo $row['state_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
 															<?php }else{ ?>
-																<a class="btn btn-success btn-xs btn-labeled fa fa-eye" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/state_view?s_i=<?php echo $row['state_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
+																<a class="btn btn-success btn-xs btn-labeled fa fa-eye" data-toggle="tooltip" href="<?php echo base_url(); ?>admin//master_manage/state_view?s_i=<?php echo $row['state_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
 															<?php } ?> 
 														<?php } ?> 
 														<?php if($this->crud_model->admin_permission('state_edit')){ ?> 
 															<?php if(@$country != '' || @$state != ''){?>
-																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/state_edit?c_i=<?php echo @$country; ?>&s_n=<?php echo @$state; ?>&s_i=<?php echo $row['state_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
+																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin//master_manage/state_edit?c_i=<?php echo @$country; ?>&s_n=<?php echo @$state; ?>&s_i=<?php echo $row['state_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
 															<?php }else{ ?>
-																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/state_edit?s_i=<?php echo $row['state_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
+																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin//master_manage/state_edit?s_i=<?php echo $row['state_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
 															<?php } ?>
 														<?php } ?>
 														<?php if($this->crud_model->admin_permission('state_delete')){ ?> 

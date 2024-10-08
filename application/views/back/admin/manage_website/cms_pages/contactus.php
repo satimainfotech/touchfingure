@@ -1,8 +1,8 @@
 <div id="content-container">
 	<div id="page-title">
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('contactus');?></h1>
-		<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/manage_website/cms_pages"><?php echo translate('back');?> </a>
-		<input type="hidden" value="<?php echo base_url(); ?>admin/manage_website/cms_pages" id="return_url">
+		<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//manage_website/cms_pages"><?php echo translate('back');?> </a>
+		<input type="hidden" value="<?php echo base_url(); ?>admin//manage_website/cms_pages" id="return_url">
 	</div>
 	<div class="tab-base">
 		<div class="panel">
@@ -14,7 +14,7 @@
 								foreach($contactus_data as $row){
 							?>
 								<?php
-									echo form_open(base_url() . 'admin/manage_website/update_contactus/' . $row['contactus_id'], array(
+									echo form_open(base_url() . 'admin//manage_website/update_contactus/' . $row['contactus_id'], array(
 										'class' => 'form-horizontal',
 										'method' => 'post',
 										'id' => 'form_edits',
@@ -33,6 +33,21 @@
 																	<label class="col-sm-12 control-label" for="demo-hor-1"><?php echo translate('title');?></label>
 																	<div class="col-sm-12">
 																		<input type="text" name="title" id="demo-hor-1" placeholder="<?php echo translate('title');?>" class="form-control " value="<?php echo $row['title']; ?>">
+																	</div>
+																</div>
+																<div class="form-group">
+																	<label class="col-sm-12 control-label" for="demo-hor-1"><?php echo translate('main_title');?></label>
+																	<div class="col-sm-12">
+																		<input type="text" name="page_small_title" id="demo-hor-1" placeholder="<?php echo translate('title');?>" class="form-control " value="<?php echo $row['title']; ?>">
+																	</div>
+																</div>
+															</div>
+															
+															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingallzero">
+																<div class="form-group">
+																	<label class="col-sm-12 control-label" for="demo-hor-1"><?php echo translate('description');?></label>
+																	<div class="col-sm-12">
+																		<textarea type="text" name="page_description" id="demo-hor-1" placeholder="<?php echo translate('office_address_map');?>" class="form-control"><?php echo $row['page_description']; ?></textarea>
 																	</div>
 																</div>
 															</div>

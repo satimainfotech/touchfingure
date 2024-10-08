@@ -2,7 +2,7 @@
 	<div id="page-title">
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('social_media');?></h1>
 		<?php if($this->crud_model->admin_permission('social_media_add')){?>
-			<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin/manage_website/social_media_add"><?php echo translate('add_a_new_social_media');?> </a>
+			<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin//manage_website/social_media_add"><?php echo translate('add_a_new_social_media');?> </a>
 		<?php } ?>
 	</div>
 	<div class="tab-base">
@@ -70,7 +70,7 @@
 									<?php if($this->crud_model->admin_permission('social_media_view') || $this->crud_model->admin_permission('social_media_delete') || $this->crud_model->admin_permission('social_media_edit')){ ?>
 										<td class="text-center">
 											<?php if($this->crud_model->admin_permission('social_media_edit')){ ?>
-												<a href="<?php echo base_url(); ?>admin/manage_website/social_media_edit?s_t=<?php echo $row['w_s_token']; ?>&s_i=<?php echo $row['w_s_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="proof" data-container="body"><?php echo translate('edit');?>
+												<a href="<?php echo base_url(); ?>admin//manage_website/social_media_edit?s_t=<?php echo $row['w_s_token']; ?>&s_i=<?php echo $row['w_s_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="proof" data-container="body"><?php echo translate('edit');?>
 													</a>
 											<?php } ?>
 											<?php if($this->crud_model->admin_permission('social_media_delete')){ ?> 
@@ -100,7 +100,7 @@
 <span id="social_media" style="display:none;"></span>
 <script>
 	var base_url = '<?php echo base_url(); ?>'
-	var user_type = 'admin';
+	var user_type = 'admin/abdaily';
 	var module = 'manage_website/social_medias';
 	var delete_function = 'delete';
 </script>

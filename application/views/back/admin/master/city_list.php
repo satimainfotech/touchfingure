@@ -5,6 +5,7 @@
 				<tr>
 					<th><?php echo translate('no');?></th>
 					<th><?php echo translate('city_name');?></th>
+					<th><?php echo translate('district_name');?></th>
 					<th><?php echo translate('state_name');?></th>
 					<th><?php echo translate('country_name');?></th>
 					<?php if($this->crud_model->admin_permission('city_edit') || $this->crud_model->admin_permission('city_delete')){?>
@@ -22,12 +23,13 @@
 			<tr>
 				<td><?php echo $i; ?></td>
 				<td><?php echo $row['city_name']; ?></td>
+				<td><?php echo $row['district_name']; ?></td>
 				<td><?php echo $row['state_name']; ?></td>
 				<td><?php echo $row['country_name']; ?></td>
 				<?php if($this->crud_model->admin_permission('city_edit') || $this->crud_model->admin_permission('city_delete')){?>
 					<td class="text-right">
 						<?php if($this->crud_model->admin_permission('city_edit')){?>
-							<a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/city/edit/<?php echo $row['city_id']; ?>" > <?php echo translate('edit');?> </a>
+							<a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" href="<?php echo base_url(); ?>admin//master_manage/city/edit/<?php echo $row['city_id']; ?>" > <?php echo translate('edit');?> </a>
 						<?php } ?>
 						<?php if($this->crud_model->admin_permission('city_delete')){?>
 							<a onclick="delete_confirm('<?php echo $row['city_id']; ?>','<?php echo translate('really_want_to_delete_this?'); ?>')" class="btn btn-danger btn-xs btn-labeled fa fa-trash" data-toggle="tooltip" data-original-title="Delete" data-container="body"> <?php echo translate('delete');?>

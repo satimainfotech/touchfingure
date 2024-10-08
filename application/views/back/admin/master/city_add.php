@@ -4,11 +4,11 @@
 		<?php
 			if(@$country != '' || @$state != '' || @$city != ''){
 		?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/master_manage/city?c_i=<?php echo @$country; ?>&s_i=<?php echo @$state; ?>&c_n=<?php echo @$city; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
-			<input type="hidden" value="<?php echo base_url(); ?>admin/master_manage/city?c_i=<?php echo @$country; ?>&s_i=<?php echo @$state; ?>&d_i=<?php echo @$district; ?>&c_n=<?php echo @$city; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" id="page_return_url">
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//master_manage/city?c_i=<?php echo @$country; ?>&s_i=<?php echo @$state; ?>&c_n=<?php echo @$city; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<input type="hidden" value="<?php echo base_url(); ?>admin//master_manage/city?c_i=<?php echo @$country; ?>&s_i=<?php echo @$state; ?>&d_i=<?php echo @$district; ?>&c_n=<?php echo @$city; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" id="page_return_url">
 		<?php }else{ ?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/master_manage/city<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
-			<input type="hidden" value="<?php echo base_url(); ?>admin/master_manage/city<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="page_return_url">
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//master_manage/city<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<input type="hidden" value="<?php echo base_url(); ?>admin//master_manage/city<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="page_return_url">
 		<?php } 
 		?>
 	</div>
@@ -18,7 +18,7 @@
                     <div class="tab-content">
                     <div class="tab-pane fade active in">
 						<?php
-							echo form_open(base_url() . 'admin/master_manage/city_added/', array(
+							echo form_open(base_url() . 'admin//master_manage/city_added/', array(
 								'class' => 'form-horizontal',
 								'method' => 'post',
 								'id' => 'city_add',
@@ -51,9 +51,22 @@
 															</select>
 														</div>
 													</div>
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="demo-hor-2"><?php echo translate('District');?></label>
+														<div class="col-sm-9" id="district_data">
+															<select name="district" class="demo-chosen-select" data-placeholder="Choose a Disctrict" id="district">
+																<option value="">First select a Disctrict</option>
+															</select>
+														</div>
+													</div>
 													<div class="form-group " id="sel_sta" style="display:none;">
 														<label class="col-sm-3 control-label paddingfive" for="demo-hor-3"><?php echo translate('state');?></label>
 														<div class="col-sm-9 paddingfive" id="sel_state">
+														</div>
+													</div>
+													<div class="form-group " id="sel_dist" style="display:none;">
+														<label class="col-sm-3 control-label paddingfive" for="demo-hor-3"><?php echo translate('district');?></label>
+														<div class="col-sm-9 paddingfive" id="sel_district">
 														</div>
 													</div>
 													<div class="form-group">
@@ -148,4 +161,5 @@
 			});
 		}
 	}
+
 </script>

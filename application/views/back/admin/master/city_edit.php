@@ -4,11 +4,11 @@
 		<?php
 			if(@$country != '' || @$state != '' || @$city != ''){
 		?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/master_manage/city?c_i=<?php echo @$country; ?>&s_i=<?php echo @$state; ?>&c_n=<?php echo @$city; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
-			<input type="hidden" value="<?php echo base_url(); ?>admin/master_manage/city?c_i=<?php echo @$country; ?>&s_i=<?php echo @$state; ?>&d_i=<?php echo @$district; ?>&c_n=<?php echo @$city; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" id="page_return_url">
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//master_manage/city?c_i=<?php echo @$country; ?>&s_i=<?php echo @$state; ?>&c_n=<?php echo @$city; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<input type="hidden" value="<?php echo base_url(); ?>admin//master_manage/city?c_i=<?php echo @$country; ?>&s_i=<?php echo @$state; ?>&d_i=<?php echo @$district; ?>&c_n=<?php echo @$city; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" id="page_return_url">
 		<?php }else{ ?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/master_manage/city<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
-			<input type="hidden" value="<?php echo base_url(); ?>admin/master_manage/city<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="page_return_url">
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//master_manage/city<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<input type="hidden" value="<?php echo base_url(); ?>admin//master_manage/city<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="page_return_url">
 		<?php } 
 		?>
 	</div>
@@ -18,8 +18,9 @@
                     <div class="tab-content">
                     <div class="tab-pane fade active in">
 						<?php
+						
 							foreach($city_data as $row){
-							echo form_open(base_url() . 'admin/master_manage/city_update/'. $row['city_id'], array(
+							echo form_open(base_url() . 'admin//master_manage/city_update/'. $row['city_id'], array(
 								'class' => 'form-horizontal',
 								'method' => 'post',
 								'id' => 'city_edit',
@@ -54,6 +55,14 @@
 														<div class="col-sm-9" id="state_data">
 															<select name="state" class="demo-chosen-select" data-placeholder="Choose a State" id="state">
 																<option value="">First select a country</option>
+															</select>
+														</div>
+													</div>
+														<div class="form-group" id="sel_district">
+														<label class="col-sm-3 control-label" for="demo-hor-3"><?php echo translate('District');?></label>
+														<div class="col-sm-9" id="district_data">
+															<select name="district" class="demo-chosen-select" data-placeholder="Choose a District" id="district">
+																<option value="">First select a State</option>
 															</select>
 														</div>
 													</div>
@@ -103,14 +112,18 @@
     }
 	var selected_country = '<?php echo $city_data[0]["country_id"]; ?>';
 	var selected_state = '<?php echo $city_data[0]["state_id"]; ?>';
+	var selected_district = '<?php echo $city_data[0]["district_id"]; ?>';
 	
 	$(document).ready(function() {
         $('.demo-chosen-select').chosen();
         $('.demo-cs-multiselect').chosen({width:'100%'});
 		
+	
+		
 		if(selected_country != ''){
 			select_country(selected_country);
 			$("#country").val(selected_country).trigger("chosen:updated");
+			select_state(selected_country,selected_state);
 		}
     });
 	
@@ -129,6 +142,27 @@
 						$('#state_data').html(data);
 						if($.trim(selected_state) != ''){
 							$("#state").val(selected_state).trigger("chosen:updated");
+						}
+					}
+				}
+			});
+		}
+	}
+	function select_state(country_id,state_id){
+		var base_url = $('#base_url').val();	
+		if(country_id == ''){
+			
+		}else{
+			$.ajax({
+				url : base_url+'master_manage/get_district_data',
+				type: 'POST',
+				dataType: 'html',
+				data: {country_id:country_id,state_id:state_id},
+				success: function(data){
+					if(data != ''){
+						$('#district_data').html(data);
+						if($.trim(selected_district) != ''){
+							$("#district").val(selected_district).trigger("chosen:updated");
 						}
 					}
 				}

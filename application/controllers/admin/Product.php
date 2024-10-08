@@ -101,7 +101,7 @@ class Product extends CI_Controller
 			$data['page_id'] = $page;
 			$data['page_name'] = "product_master/product/product";
             $data['page_name_link'] = "product";
-            $this->load->view('back/admin/index', $data);
+            $this->load->view('back/abdaily/index', $data);
         } else {
             $data['control'] = "admin";
             $this->load->view('back/admin/login',$data);

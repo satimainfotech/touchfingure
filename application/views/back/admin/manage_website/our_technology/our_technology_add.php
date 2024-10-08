@@ -1,7 +1,7 @@
 <div id="content-container">
 	<div id="page-title">
-		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('add_why convart');?></h1>
-		<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/manage_website/our_technology<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('add_statics');?></h1>
+		<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//manage_website/our_technology<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
 	</div>
 	<div class="tab-base">
 		<div class="panel">
@@ -10,7 +10,7 @@
 					<div class="tab-pane fade active in" id="list">
 						<div class="viewpages panel-body">
 							<?php
-								echo form_open(base_url() . 'admin/manage_website/our_technology_do_add/', array(
+								echo form_open(base_url() . 'admin//manage_website/our_technology_do_add/', array(
 									'class' => 'form-horizontal',
 									'method' => 'post',
 									'id' => 'our_technology_add',
@@ -40,7 +40,7 @@
 															</label>
 															<div class="col-sm-10">
 																<span class="pull-left btn btn-default btn-file">
-																	<?php echo translate('select_our_technology_image');?>
+																	<?php echo translate('select_image');?>
 																	<input type="file" name="our_technology_image" id='our_technology_image' accept="image">
 																</span>
 																<span id='our_technology_image_wrap' class=" show_iin_image" style="width: 200px;float:right; border:1px solid #ddd;border-radius:5px;padding:5px">
@@ -58,7 +58,7 @@
 										<span class="btn btn-purple btn-labeled fa fa-refresh pro_list_btn pull-left " 
 											onclick="page_reload(); "><?php echo translate('reset');?>
 										</span>
-										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="ajax_form_submit('our_technology_add','<?php echo translate('our_technology_has_been_added!'); ?>','manage_website/our_technology');"><?php echo translate('submit');?></span>
+										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="ajax_form_submit('our_technology_add','<?php echo translate('our_technology_has_been_added!'); ?>','/manage_website/our_technology');"><?php echo translate('submit');?></span>
 									</div>
 								</div>
 							</form>

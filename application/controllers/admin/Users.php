@@ -39,7 +39,7 @@ class Users extends CI_Controller
 			
 			$config = array();		
 			$config['total_rows'] = count($count_data);
-			$config['base_url'] = base_url() . "admin/users".$searchurl;
+			$config['base_url'] = base_url() . "admin/abdaily/users".$searchurl;
 			$config['per_page'] = 30;
 			$config['uri_segment'] = '3';
 			$config['page_query_string']= TRUE;
@@ -83,14 +83,15 @@ class Users extends CI_Controller
 			}
 			
 			$data['all_users'] = $this->users_model->get_total_users_data($name,$mobile_number,$refrence_code,$account_status,$plan_type,$config["per_page"],$page);
-			$data['mem_plan'] = $this->db->get_where('plan_master',array('status'=>'active'))->result_array();
+			
 			$data["links"] = $this->pagination->create_links();
 			$data['msg'] = "";		
 			$data['total_rows'] = $config["total_rows"];
 			$data['page_id'] = $page;
-			$data['page_name'] = "users/franchise/users";
+			$data['page_name'] = "users/users";
             $data['page_name_link'] = "users";
-            $this->load->view('back/admin/index', $data);
+			$this->load->view('back/abdaily/index', $data);
+           
         } else {
             $data['control'] = "admin";
             $this->load->view('back/admin/login',$data);
@@ -1614,7 +1615,7 @@ class Users extends CI_Controller
 			$data['plan_type'] = @$_GET['p_t'];
 			$data['page_id'] = @$_GET['page'];
 			
-			$data['page_name'] = "users/regular/users_add";
+			$data['page_name'] = "users/users_add";
 			$data['country_data'] = $this->db->get_where('country',array('country_status'=>'Active'))->result_array();
             $data['page_name_link'] = "regular_users";
             $this->load->view('back/admin/index', $data);

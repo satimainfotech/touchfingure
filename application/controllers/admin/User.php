@@ -1,6 +1,8 @@
 <?php
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
+require_once 'vendor/autoload.php';
+use Mpdf\Mpdf; // Import MPDF
 class User extends CI_Controller
 {
     function __construct()
@@ -9,7 +11,7 @@ class User extends CI_Controller
         $this->load->database();
         $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
         $this->output->set_header('Pragma: no-cache');
-        $this->load->model('product_model');
+        $this->load->model('user_model');
     }
     
     /* Dashboard */
@@ -24,29 +26,25 @@ class User extends CI_Controller
 			if($export_type == 'excel'){
 				$new_pdf = $this->excel_export();
 			}
-			$category = @$_GET['c_i'];
-			$sub_category = @$_GET['s_c_i'];
-			$product_name = @$_GET['p_n'];
-			$brand = @$_GET['b_i'];
-			$our_range = @$_GET['or_i'];
+			$member_type = @$_GET['member_type'];
+			$name = @$_GET['name'];
+			$mobile = @$_GET['mobile'];
 			
-			$data['category'] = $category;
-			$data['sub_category'] = $sub_category;
-			$data['product_name'] = $product_name;
-			$data['brand'] = $brand;
-			$data['our_range'] = $our_range;
+			$data['member_type'] = $member_type;
+			$data['name'] = $name;
+			$data['mobile'] = $mobile;
 			
-			if($category != '' || $sub_category != '' || $product_name != '' || $brand != '' || $our_range != ''){
-				$searchurl='?c_i='.$category.'&s_c_i='.$sub_category.'&b_i='.$brand.'&or_i='.$our_range.'&p_n='.$product_name;
+			if($member_type != '' || $name != '' || $mobile != '' ){
+				$searchurl='?member_type='.$member_type.'&name='.$name.'&mobile='.$mobile;
 			}else{
 				$searchurl='';
 			}
 			
-			$count_data = $this->product_model->get_total_product_data_count($category,$sub_category,$product_name,$brand,$our_range);
+			$count_data = $this->user_model->get_total_user_data_count($member_type,$name,$mobile);
 			
 			$config = array();		
 			$config['total_rows'] = count($count_data);
-			$config['base_url'] = base_url() . "admin/product".$searchurl;
+			$config['base_url'] = base_url() . "admin/user".$searchurl;
 			$config['per_page'] = 20;
 			$config['uri_segment'] = '3';
 			$config['page_query_string']= TRUE;
@@ -89,19 +87,16 @@ class User extends CI_Controller
 				$page = 0;
 			}
 			
-			$data['all_product'] = $this->product_model->get_total_product_data($category,$sub_category,$product_name,$brand,$our_range,$config["per_page"],$page);
-			$data["links"] = $this->pagination->create_links();
-			$data["category_data"] = get_category();
-			$data["brand_data"] = get_brand();
-			$data["our_range_data"] = get_our_range();
-			$data["city_data"] = get_city();
+			$data['all_user'] = $this->user_model->get_total_user_data($member_type,$name,$mobile,$config["per_page"],$page);
 			
+			$data["links"] = $this->pagination->create_links();
+			$data["member_type_data"] = get_member_type();
 			$data['msg'] = "";		
 			$data['total_rows'] = $config["total_rows"];
 			$data['page_id'] = $page;
 			$data['page_name'] = "user/user/user";
-            $data['page_name_link'] = "product";
-            $this->load->view('back/abdaily/index', $data);
+            $data['page_name_link'] = "user";
+            $this->load->view('back/admin/index', $data);
         } else {
             $data['control'] = "admin";
             $this->load->view('back/admin/login',$data);
@@ -109,7 +104,6 @@ class User extends CI_Controller
     }
 	
 	function user_add(){
-		
 		$page_id = @$_GET['page'];
 		if ($this->session->userdata('admin_login') == 'yes') {
 			if (!$this->crud_model->admin_permission('product')) {
@@ -121,30 +115,22 @@ class User extends CI_Controller
 			$brand = @$_GET['b_i'];
 			$our_range = @$_GET['or_i'];
 			
-			$page_data['category'] = $category;
-			$page_data['sub_category'] = $sub_category;
+			
 			$page_data['product_name'] = $product_name;
-			$page_data['brand'] = $brand;
 			$page_data['our_range'] = $our_range;
-			$page_data["category_data"] = get_category();
+			$page_data["member_type_data"] = get_member_type();
+			
 			$page_data['page_id'] = $page_id;
-			$page_data["brand_data"] = get_brand();
-			$page_data["city_data"] = get_city();
-			$page_data["our_range_data"] = get_our_range();
-			$data["city_data"] = get_city();
-		    $page_data['page_name'] = "user/user/product_add";
+			$page_data['page_name'] = "user/user/user_add";
             $page_data['page_name_link'] = "user";
-            $this->load->view('back/abdaily/index', $page_data);
+            $this->load->view('back/admin/index', $page_data);
         } else {
             $data['control'] = "admin";
             $this->load->view('back/admin/login',$page_data);
         }
 	}
 	
-	function product_added($para1 = '', $para2 = '', $para3 = ''){
-		
-		
-		
+	function user_added($para1 = '', $para2 = '', $para3 = ''){
 		$length1= 50;
 		$characters1 = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		$charactersLength1 = strlen($characters1);
@@ -163,41 +149,75 @@ class User extends CI_Controller
 		}
 		$otp2 = $randomString;
 		
-		$data['event_name'] = $this->input->post('event_name');
 		
-		$main_title = $data['event_name'];
-		$final_main_title = str_replace(' ', '-', strtolower($main_title));
-		
-		$final_main_title2 = str_replace('_', '-', strtolower($final_main_title));
-		
-		$data['event_slug'] = $final_main_title2;
-		$data['event_token'] = $token;
-		$data['category_id'] = $this->input->post('category_id');
-		$data['city_id'] = $this->input->post('city_id');
-		$data['start_date'] = $this->input->post('start_date');
-		$data['end_date'] = $this->input->post('end_date');
+		$data['user_token'] = $token;
+		$data['member_type_id'] = $this->input->post('member_type_id');
+		$data['member_type_name'] = get_field_id_name('member_type','member_type_id','member_type_name',$this->input->post('member_type_id'));		
+		$data['name'] = $this->input->post('name');
+		$data['email'] = $this->input->post('email');
+		$data['mobile'] = $this->input->post('mobile');
+		$data['password'] = $this->input->post('password');
 		$data['address'] = $this->input->post('address');
-		$data['description'] = $this->input->post('description');
-		$data['event_time'] = $this->input->post('event_time');
+		$data['adharcard'] = $this->input->post('adharcard');
+		$data['pancard'] = $this->input->post('pancard');
 		
-		$event_main_images = $_FILES['event_main_images']['name'];
-		if($event_main_images != ''){
-			$ext = pathinfo($event_main_images, PATHINFO_EXTENSION);
+		$profile_main_images = $_FILES['profile_main_images']['name'];
+		if($profile_main_images != ''){
+			$profileext = pathinfo($profile_main_images, PATHINFO_EXTENSION);
 			
-			$uploadedFile = $_FILES['event_main_images']['tmp_name']; 
-			$dirPath = "uploads/event_main_images/";
-			$newFileName = $otp2."_p_main_image";
+			$profileuploadedFile = $_FILES['profile_main_images']['tmp_name']; 
+			$profiledirPath = "uploads/abdaily_profile_images/";
+			$profilenewFileName = $otp2."_profile_main_images";
 			
-			if(move_uploaded_file($uploadedFile, $dirPath. $newFileName. ".". $ext)){
-				$data['main_event_image'] = $otp2.'_p_main_image.'.$ext;
+			if (!file_exists($profiledirPath)) {
+			mkdir($profiledirPath, 0777, true); // Create the directory with 0777 permissions
 			}
+			chmod($profiledirPath, 0777);
+			
+			if(move_uploaded_file($profileuploadedFile, $profiledirPath. $profilenewFileName. ".". $profileext)){
+				$data['profile_image'] = $otp2.'_profile_main_images.'.$profileext;
+			}
+			
 		}
 			
+		$adharcard_main_images = $_FILES['adharcard_main_images']['name'];
+		if($adharcard_main_images != ''){
+			$adharcardext = pathinfo($adharcard_main_images, PATHINFO_EXTENSION);
+			
+			$adharuploadedFile = $_FILES['adharcard_main_images']['tmp_name']; 
+			$adhardirPath = "uploads/abdaily_adharcard_images/";
+			$adharnewFileName = $otp2."_adharcard_main_images";
+			if (!file_exists($adhardirPath)) {
+			mkdir($adhardirPath, 0777, true); // Create the directory with 0777 permissions
+			}
+			chmod($adhardirPath, 0777);
+			
+			if(move_uploaded_file($adharuploadedFile, $adhardirPath. $adharnewFileName. ".". $adharcardext)){
+				$data['adharcard_image'] = $otp2.'_adharcard_main_images.'.$adharcardext;
+			}
+		}
+		$pancard_main_images = $_FILES['pancard_main_images']['name'];
+		if($pancard_main_images != ''){
+			$pancardext = pathinfo($pancard_main_images, PATHINFO_EXTENSION);
+			
+			$pancarduploadedFile = $_FILES['pancard_main_images']['tmp_name']; 
+			$pancarddirPath = "uploads/abdaily_pancard_images/";
+			$pancardnewFileName = $otp2."_pancard_main_images";
+			if (!file_exists($pancarddirPath)) {
+			mkdir($pancarddirPath, 0777, true); // Create the directory with 0777 permissions
+			}
+			chmod($pancarddirPath, 0777);
+			
+			
+			if(move_uploaded_file($pancarduploadedFile, $pancarddirPath. $pancardnewFileName. ".". $pancardext)){
+				$data['pancard_image'] = $otp2.'_pancard_main_images.'.$pancardext;
+			}
+		}
 		
 		
-		$data['status'] = 'Active';
-		$data['created_date'] = date('Y-m-d');
-		$this->db->insert('event', $data);
+		$data['status'] = 'active';
+		$data['created_date'] = date('Y-m-d H:i:s');
+		$this->db->insert('user', $data);
 		
 		$this->db->trans_complete();
 		if ($this->db->trans_status() === FALSE) {
@@ -207,12 +227,13 @@ class User extends CI_Controller
 		}
 	}
 	
-	function product_edit(){
-		$product_id = @$_GET['p_i'];
-		$product_token = @$_GET['p_t'];
+	function user_edit(){
+		
+		$user_id = @$_GET['p_i'];
+		$user_token = @$_GET['p_t'];
 		$page_id = @$_GET['page'];
 		if ($this->session->userdata('admin_login') == 'yes') {
-			if (!$this->crud_model->admin_permission('product')) {
+			if (!$this->crud_model->admin_permission('user')) {
 				redirect(base_url() . 'admin');
 			}
 			$category = @$_GET['c_i'];
@@ -229,19 +250,20 @@ class User extends CI_Controller
 			$page_data["category_data"] = get_category();
 			$page_data["brand_data"] = get_brand();
 			$page_data["our_range_data"] = get_our_range();
-			$page_data['product_data'] = $this->product_model->get_produtc_edit_details($product_id,$product_token);
-			$page_data['product_id'] = $product_id;
+			$page_data["member_type_data"] = get_member_type();
+			$page_data['user_data'] = $this->user_model->get_user_edit_details($user_id,$user_token);
+			$page_data['user_id'] = $user_id;
 			$page_data['page_id'] = $page_id;
-            $page_data['page_name'] = "product_master/product/product_edit";
-            $page_data['page_name_link'] = "product";
-            $this->load->view('back/admin/index', $page_data);
+            $page_data['page_name'] = "user/user/user_edit";
+            $page_data['page_name_link'] = "user";
+            $this->load->view('back/index', $page_data);
         } else {
             $data['control'] = "admin";
             $this->load->view('back/admin/login',$page_data);
         }
 	}
 	
-	function product_update($para1 = '', $para2 = '', $para3 = ''){
+	function user_update($para1 = '', $para2 = '', $para3 = ''){
 		$length = 6;
 		$characters = '01234567899876543210';
 		$charactersLength = strlen($characters);
@@ -251,119 +273,72 @@ class User extends CI_Controller
 		}
 		$otp2 = $randomString;
 		
-		$data['product_name'] = $this->input->post('product_name');
+		$data['user_token'] = $token;
+		$data['member_type_id'] = $this->input->post('member_type_id');
+		$data['member_type_name'] = get_field_id_name('member_type','member_type_id','member_type_name',$this->input->post('member_type_id'));		
+		$data['name'] = $this->input->post('name');
+		$data['email'] = $this->input->post('email');
+		$data['mobile'] = $this->input->post('mobile');
+		$data['password'] = $this->input->post('password');
+		$data['address'] = $this->input->post('address');
+		$data['adharcard'] = $this->input->post('adharcard');
+		$data['pancard'] = $this->input->post('pancard');
 		
-		$main_title = $data['product_name'];
-		$final_main_title = str_replace(' ', '-', strtolower($main_title));
-		
-		$final_main_title2 = str_replace('_', '-', strtolower($final_main_title));
-		
-		$data['product_slug'] = $final_main_title2;
-		
-		$data['category_id'] = $this->input->post('category_id');
-		$data['sub_category_id'] = $this->input->post('sub_category_id');
-		
-		$product_main_images = $_FILES['product_main_images']['name'];
-		if($product_main_images != ''){
+		$profile_main_images = $_FILES['profile_main_images']['name'];
+		if($profile_main_images != ''){
+			$profileext = pathinfo($profile_main_images, PATHINFO_EXTENSION);
 			
-			$main_product_image = @$this->db->get_where('product',array('product_id'=>$para1))->row()->main_product_image;
-			if($main_product_image != ''){
-				$rpersonal = "uploads/product_image/".$main_product_image;
-				if (file_exists($rpersonal)) {
-					unlink($rpersonal);
-				} else {
-					
-				}
+			$profileuploadedFile = $_FILES['profile_main_images']['tmp_name']; 
+			$profiledirPath = "uploads/abdaily_profile_images/";
+			$profilenewFileName = $otp2."_profile_main_images";
+			
+			if (!file_exists($profiledirPath)) {
+			mkdir($profiledirPath, 0777, true); // Create the directory with 0777 permissions
+			}
+			chmod($profiledirPath, 0777);
+			
+			if(move_uploaded_file($profileuploadedFile, $profiledirPath. $profilenewFileName. ".". $profileext)){
+				$data['profile_image'] = $otp2.'_profile_main_images.'.$profileext;
 			}
 			
-			$ext = pathinfo($product_main_images, PATHINFO_EXTENSION);
+		}
 			
-			$uploadedFile = $_FILES['product_main_images']['tmp_name']; 
-			$dirPath = "uploads/product_image/";
-			$newFileName = $otp2."_p_main_image";
+		$adharcard_main_images = $_FILES['adharcard_main_images']['name'];
+		if($adharcard_main_images != ''){
+			$adharcardext = pathinfo($adharcard_main_images, PATHINFO_EXTENSION);
 			
-			if(move_uploaded_file($uploadedFile, $dirPath. $newFileName. ".". $ext)){
-				$data['main_product_image'] = $otp2.'_p_main_image.'.$ext;
-			}else{
-				$op_name = "";
+			$adharuploadedFile = $_FILES['adharcard_main_images']['tmp_name']; 
+			$adhardirPath = "uploads/abdaily_adharcard_images/";
+			$adharnewFileName = $otp2."_adharcard_main_images";
+			if (!file_exists($adhardirPath)) {
+			mkdir($adhardirPath, 0777, true); // Create the directory with 0777 permissions
+			}
+			chmod($adhardirPath, 0777);
+			
+			if(move_uploaded_file($adharuploadedFile, $adhardirPath. $adharnewFileName. ".". $adharcardext)){
+				$data['adharcard_image'] = $otp2.'_adharcard_main_images.'.$adharcardext;
 			}
 		}
-		
-		$product_second_images = $_FILES['product_second_images']['name'];
-		if($product_second_images != ''){
+		$pancard_main_images = $_FILES['pancard_main_images']['name'];
+		if($pancard_main_images != ''){
+			$pancardext = pathinfo($pancard_main_images, PATHINFO_EXTENSION);
 			
-			$second_product_image = @$this->db->get_where('product',array('product_id'=>$para1))->row()->second_product_image;
-			if($second_product_image != ''){
-				if($second_product_image == '3d_common_image.jpg'){
-					
-				}else{
-					$rpersonal = "uploads/product_image/".$second_product_image;
-					if (file_exists($rpersonal)) {
-						unlink($rpersonal);
-					} else {
-						
-					}
-				}
+			$pancarduploadedFile = $_FILES['pancard_main_images']['tmp_name']; 
+			$pancarddirPath = "uploads/abdaily_pancard_images/";
+			$pancardnewFileName = $otp2."_pancard_main_images";
+			if (!file_exists($pancarddirPath)) {
+			mkdir($pancarddirPath, 0777, true); // Create the directory with 0777 permissions
 			}
+			chmod($pancarddirPath, 0777);
 			
-			$ext = pathinfo($product_second_images, PATHINFO_EXTENSION);
 			
-			$uploadedFile = $_FILES['product_second_images']['tmp_name']; 
-			$dirPath = "uploads/product_image/";
-			$newFileName = $otp2."_p_second_image";
-			
-			if(move_uploaded_file($uploadedFile, $dirPath. $newFileName. ".". $ext)){
-				$data['second_product_image'] = $otp2.'_p_second_image.'.$ext;
-			}else{
-				$op_name = "";
+			if(move_uploaded_file($pancarduploadedFile, $pancarddirPath. $pancardnewFileName. ".". $pancardext)){
+				$data['pancard_image'] = $otp2.'_pancard_main_images.'.$pancardext;
 			}
 		}
-		
-		$data['brand_logo'] = $this->input->post('brand');
-		$data['our_range'] = $this->input->post('our_range');
-		
-		$added_new_option_id = explode(",",$this->input->post('added_new_option_id'));
-		$contents_details = array();
-		foreach($added_new_option_id as $row){
-			$contents_details[] = array(
-				'option_name' => $this->input->post('option_name_'.$row),
-				'option_value' => $this->input->post('option_value_'.$row),
-			);
-		}
-		$data['product_details'] = json_encode($contents_details);
-		
-		$added_new_option_ids = explode(",",$this->input->post('added_new_option_ids'));
-		$contents_detailss = array();
-		foreach($added_new_option_ids as $rows){
 			
-			$image = $_FILES['images'.$rows]['name'];
-			if($image != ''){
-				$ext = pathinfo($image, PATHINFO_EXTENSION);
-				
-				$uploadedFile = $_FILES['images'.$rows]['tmp_name']; 
-				$dirPath = "uploads/product_op_image/";
-				$newFileName = $otp2."_".$rows."_p_op";
-				
-				if(move_uploaded_file($uploadedFile, $dirPath. $newFileName. ".". $ext)){
-					$op_name = $otp2.'_'.$rows.'_p_op.'.$ext;
-				}
-			}else{
-				$op_name = $this->input->post('m_images'.$rows);
-			}
-			
-			if($this->input->post('title_'.$rows) == ''){
-				$contents_detailss = array();
-			}else{
-				$contents_detailss[] = array(
-					'title' => $this->input->post('title_'.$rows),
-					'image' => $op_name,
-				);
-			}
-		}
-		$data['product_options'] = json_encode($contents_detailss);
-			
-		$this->db->where('product_id', $para1);
-		$this->db->update('product', $data);
+		$this->db->where('id', $para1);
+		$this->db->update('user', $data);
 		
 		$this->db->trans_complete();
 
@@ -375,52 +350,40 @@ class User extends CI_Controller
 		}
 	}
 	
-	function products($para1 = '', $para2 = '', $para3 = '')
+	function users($para1 = '', $para2 = '', $para3 = '')
     {
         if (!$this->crud_model->admin_permission('product')) {
             redirect(base_url() . 'admin');
         }
         if ($para1 == 'delete') {
 			$id = $this->input->post('id');
-            $this->crud_model->file_dlt('product', $id, '.jpg', 'multi');
+            $this->crud_model->file_dlt('user', $id, '.jpg', 'multi');
             $data['status'] = 'delete';
-            $this->db->where('product_id', $id);
-            $this->db->update('product',$data);
+            $this->db->where('id', $id);
+            $this->db->update('user',$data);
         } else if ($para1 == 'dlt_img') {
             $a = explode('_', $para2);
-            $this->crud_model->file_dlt('product', $a[0], '.jpg', 'multi', $a[1]);
+            $this->crud_model->file_dlt('user', $a[0], '.jpg', 'multi', $a[1]);
         } else if ($para1 == 'status_set') {
-            $product = $para2;
+            $user_id = $para2;
             if ($para3 == 'true') {
-                $data['status'] = 'Active';
+                $data['status'] = 'active';
             } else {
-                $data['status'] = 'De-active';
+                $data['status'] = 'deactive';
             }
-            $this->db->where('product_id', $product);
-            $this->db->update('product', $data);
+            $this->db->where('id', $user_id);
+            $this->db->update('user', $data);
 		}
     }
 	
-	public function get_sub_category(){
-		$category = $this->input->post('category_id');
-		$sub_category_data = get_sub_category($category);
-		$html = "<select id='sub_category' name='sub_category_id' placeholder='Select a Sub Category ' class='demo-chosen-select'><option value=''>Select Sub Category</option>";
-		foreach($sub_category_data as $sc_data){
-			$sub_category_id = $sc_data['sub_category_id'];
-			$sub_category_name = $sc_data['sub_category_name'];
-			$html .= "<option value='$sub_category_id' >$sub_category_name</option>";
-		}
-		$html .= "</select>
-			<script> $('.demo-chosen-select').chosen();</script>";
-		echo $html;
-	}
 	
-	function product_view(){
-		$product_id = @$_GET['p_i'];
-		$product_token = @$_GET['p_t'];
+	
+	function user_view(){
+		$user_id = @$_GET['p_i'];
+		$user_token = @$_GET['p_t'];
 		$page_id = @$_GET['page'];
 		if ($this->session->userdata('admin_login') == 'yes') {
-			if (!$this->crud_model->admin_permission('product')) {
+			if (!$this->crud_model->admin_permission('user')) {
 				redirect(base_url() . 'admin');
 			}
 			$category = @$_GET['c_i'];
@@ -435,12 +398,12 @@ class User extends CI_Controller
 			$page_data['brand'] = $brand;
 			$page_data['our_range'] = $our_range;
 			
-			$page_data['product_data'] = $this->product_model->get_produtc_details($product_id,$product_token);
-			$page_data['product_id'] = $product_id;
+			$page_data['user_data'] = $this->user_model->get_user_details($user_id,$user_token);
+			$page_data['user_id'] = $user_id;
 			$page_data['page_id'] = $page_id;
-            $page_data['page_name'] = "product_master/product/product_view";
-            $page_data['page_name_link'] = "product";
-            $this->load->view('back/admin/index', $page_data);
+            $page_data['page_name'] = "user/user/user_view";
+            $page_data['page_name_link'] = "user";
+            $this->load->view('back/index', $page_data);
         } else {
             $data['control'] = "admin";
             $this->load->view('back/admin/login',$page_data);
@@ -464,7 +427,7 @@ class User extends CI_Controller
 			$column++;
 		}
 
-		$product_data = $this->product_model->get_exal_product();
+		$product_data = $this->user_model->get_exal_product();
 
 		$excel_row = 2;
 		$r = 1;
@@ -494,91 +457,90 @@ class User extends CI_Controller
 		$object_writer->save('php://output');
 	}
 	
-	public function get_search_sub_category_data(){
-		$category = $this->input->post('category');
-		$sub_category_data = get_search_sub_category($category);
-		$html = "<select id='sub_category' name='s_c_i' placeholder='Select a Sub Category ' class='demo-chosen-select'><option value=''>Select Sub Category</option>";
-		foreach($sub_category_data as $sc_data){
-			$sub_category_id = $sc_data['sub_category_id'];
-			$sub_category_name = $sc_data['sub_category_name'];
-			$html .= "<option value='$sub_category_id' >$sub_category_name</option>";
-		}
-		$html .= "</select>
-			<script> $('.demo-chosen-select').chosen();</script>";
-		echo $html;
-	}
-	
-    /*Product coupon add, edit, view, delete */
-    function coupon($para1 = '', $para2 = '', $para3 = '')
-    {
-        if (!$this->crud_model->admin_permission('discount_coupon')) {
-            redirect(base_url() . 'admin');
-        }
-        if ($para1 == 'do_add') {
-            $data['coupon_title'] = $this->input->post('coupon_title');
-            $data['coupon_information'] = $this->input->post('coupon_information');
-            $data['coupon_set_type'] = $this->input->post('coupon_set_type');
-			if($data['coupon_set_type'] == 'city'){
-				$data['discount_set_type_value'] = @implode(',',$this->input->post('city'));
-			}else{
-				$data['discount_set_type_value'] = '';
-			}
-            $data['coupon_type'] = $this->input->post('discount_type');
-            $data['coupon_value'] = $this->input->post('discount_value');
-            $data['coupon_code'] = $this->input->post('coupon_code');
-            $data['coupon_valid_date'] = $this->input->post('coupon_valid_date');
-            $data['discount_min_order_value'] = $this->input->post('discount_min_order_value');
-            $data['coupon_use_time'] = $this->input->post('coupon_use_time');
-            $data['discount_max_value'] = $this->input->post('discount_max_value');
-            $data['coupon_created_date'] = date('Y-m-d');
-            $data['coupon_status'] = 'ok';
+		
+		public function letter()
+		{	
+			$user_id = @$_GET['p_i'];
+			$login_data = $this->db->get_where('user', array('id' => $user_id));
+			$data['user_detail'] =  $login_data->result_array();
+			$data['user_detail'] = $data['user_detail'][0];		
+			$html = $this->load->view('back/user/letter_pdf', $data, TRUE);		
+			$filename = $user_id;
+			$name = $data['user_detail']['name'];
+			$mpdf = new \Mpdf\Mpdf([
+			'default_font' => 'shruti'
+			]);
+			// Define the font data
+			$mpdf->fontdata['shruti'] = [
+			'R' => 'shruti.ttf',     // Regular
+			'B' => __DIR__ . '/fonts/shrutib.ttf',    // Bold
+			// Add other styles if needed
+			];
+			// Ensure paths to font files are correct
+			$mpdf->autoScriptToLang = true;
+			$mpdf->autoLangToFont = true;
+			$mpdf->WriteHTML($html);		
+			$mpdf->Output($name.'_'.$filename."_letter.pdf",'D');
+			exit;
+		} 
+
+
+		public function idcard()
+		{	
+			$user_id = @$_GET['p_i'];
+			$login_data = $this->db->get_where('user', array('id' => $user_id));
+			$data['user_detail'] =  $login_data->result_array();
+			$data['user_detail'] = $data['user_detail'][0];
+			$html = $this->load->view('back/user/idcard_pdf', $data, TRUE);
+			$filename = $data['user_detail']['id'];
+			$name = $data['user_detail']['name'];
+			$mpdf = new \Mpdf\Mpdf([
+			'default_font' => 'shruti'
+			]);
+			// Define the font data
+			$mpdf->fontdata['shruti'] = [
+			'R' => 'shruti.ttf',     // Regular
+			'B' => __DIR__ . '/fonts/shrutib.ttf',    // Bold
+			// Add other styles if needed
+			];
+			// Ensure paths to font files are correct
 			
-            $this->db->insert('coupon', $data);
-        } else if ($para1 == 'edit') {
-            $page_data['coupon_data'] = $this->db->get_where('coupon', array('coupon_id' => $para2))->result_array();
-            $this->load->view('back/admin/coupon/coupon_edit', $page_data);
-        } elseif ($para1 == "update") {
-            $data['coupon_title'] = $this->input->post('coupon_title');
-            $data['coupon_information'] = $this->input->post('coupon_information');
-            $data['coupon_set_type'] = $this->input->post('coupon_set_type');
-			if($data['coupon_set_type'] == 'city'){
-				$data['discount_set_type_value'] = @implode(',',$this->input->post('city'));
-			}else{
-				$data['discount_set_type_value'] = '';
-			}
-            $data['coupon_type'] = $this->input->post('discount_type');
-            $data['coupon_value'] = $this->input->post('discount_value');
-            $data['coupon_code'] = $this->input->post('coupon_code');
-            $data['coupon_valid_date'] = $this->input->post('coupon_valid_date');
-            $data['discount_min_order_value'] = $this->input->post('discount_min_order_value');
-            $data['discount_max_value'] = $this->input->post('discount_max_value');
-            $data['coupon_use_time'] = $this->input->post('coupon_use_time');
-            $data['coupon_created_date'] = date('Y-m-d');
-            $this->db->where('coupon_id', $para2);
-            $this->db->update('coupon', $data);
-        } elseif ($para1 == 'delete') {
-            $this->db->where('coupon_id', $para2);
-            $this->db->delete('coupon');
-        } elseif ($para1 == 'list') {
-            $this->db->order_by('coupon_id', 'desc');
-            $page_data['all_coupons'] = $this->db->get('coupon')->result_array();
-            $this->load->view('back/admin/coupon/coupon_list', $page_data);
-        } elseif ($para1 == 'add') {
-            $this->load->view('back/admin/coupon/coupon_add');
-        } elseif ($para1 == 'publish_set') {
-            $product = $para2;
-            if ($para3 == 'true') {
-                $data['coupon_status'] = 'yes';
-            } else {
-                $data['coupon_status'] = 'no';
-            }
-            $this->db->where('coupon_id', $product);
-            $this->db->update('coupon', $data);
-        } else {
-            $page_data['page_name'] = "coupon/coupon";
-            $page_data['page_name_link'] = "coupon";
-            $page_data['all_coupons'] = $this->db->get('coupon')->result_array();
-            $this->load->view('back/admin/index', $page_data);
-        }
-    }
+			$mpdf->autoScriptToLang = true;
+			$mpdf->autoLangToFont = true;
+			$mpdf->WriteHTML($html);
+			$mpdf->Output($name.'_'.$filename."_idcard.pdf",'D');
+			exit;
+		} 
+	public function visitingcard()
+		{	
+			$user_id = $this->input->get('p_i');
+			$login_data = $this->db->get_where('user', array('id' => $user_id));
+			$data['user_detail'] = $login_data->row_array(); 		
+			$this->load->view('back/user/visitingcard_pdf', $data);			
+		} 
+		public function congratulations()
+		{
+
+			$user_id = $this->input->get('p_i');
+			$login_data = $this->db->get_where('user', array('id' => $user_id));
+			$data['user_detail'] = $login_data->row_array();   
+			$this->load->view('back/user/congratulations_pdf', $data);
+		}
+	public function payment_receipt()
+		{
+			$user_id = $this->input->get('p_i');
+			$login_data = $this->db->get_where('user', array('id' => $user_id));
+			$data['user_detail'] = $login_data->row_array(); 
+			$member_fees = $this->db->get_where('member_type', array('member_type_id' => $data['user_detail']['member_type_id']))->row_array(); 	
+			$data['user_detail']['fees'] = $member_fees['fees'];
+			$data['user_detail']['fees_word'] = number_to_words($member_fees['fees']);
+			$data['user_detail']['name'] =$this->session->userdata('admin_name');
+			
+			$payment_receipt_data = $this->db->get_where('payment_receipt', array('payment_receipt_id' => '1'));
+			$data['payment_receipt_details'] = $payment_receipt_data->row_array(); 
+			
+			$this->load->view('back/user/payment_receipt_pdf', $data);
+		}
+
+	
 }

@@ -1,8 +1,8 @@
 <div id="content-container">
 	<div id="page-title">
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('privacy_policy');?></h1>
-		<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/manage_website/cms_pages"><?php echo translate('back');?> </a>
-		<input type="hidden" value="<?php echo base_url(); ?>admin/manage_website/cms_pages" id="return_url">
+		<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//manage_website/cms_pages"><?php echo translate('back');?> </a>
+		<input type="hidden" value="<?php echo base_url(); ?>admin//manage_website/cms_pages" id="return_url">
 	</div>
 	<div class="tab-base">
 		<div class="panel">
@@ -14,7 +14,7 @@
 								foreach($privacypolicy_data as $row){
 							?>
 								<?php
-									echo form_open(base_url() . 'admin/manage_website/update_privacy_policy/' . $row['privacypolicy_id'], array(
+									echo form_open(base_url() . 'admin//manage_website/update_privacy_policy/' . $row['privacypolicy_id'], array(
 										'class' => 'form-horizontal',
 										'method' => 'post',
 										'id' => 'form_edits',

@@ -1,12 +1,12 @@
 <div id="content-container">
 	<div id="page-title">
-		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('edit_category');?></h1>
-		<?php if(@$category != ''){ ?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/category?c_n=<?php echo @$category; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
-			<input type="hidden" value="<?php echo base_url(); ?>admin/category?c_n=<?php echo @$category; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" id="return_url">
+		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('edit_team');?></h1>
+		<?php if(@$team != ''){ ?>
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//team?c_n=<?php echo @$team; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<input type="hidden" value="<?php echo base_url(); ?>admin//team?c_n=<?php echo @$team; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" id="return_url">
 		<?php }else{ ?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/category<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
-			<input type="hidden" value="<?php echo base_url(); ?>admin/category<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="return_url">
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//team<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<input type="hidden" value="<?php echo base_url(); ?>admin//team<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="return_url">
 		<?php } ?>
 	</div>
 	<div class="tab-base">
@@ -16,10 +16,10 @@
 					<div class="tab-pane fade active in" id="list">
 						<div class="viewpages panel-body">
 							<?php
-								foreach($category_data as $row){
+								foreach($team_data as $row){
 							?>
 								<?php
-									echo form_open(base_url() . 'admin/category/category_update/' . $row['category_id'], array(
+									echo form_open(base_url() . 'admin//team/team_update/' . $row['team_id'], array(
 										'class' => 'form-horizontal',
 										'method' => 'post',
 										'id' => 'form_edits',
@@ -35,7 +35,13 @@
 															<div class="form-group ">
 																<label class="col-sm-2 control-label" for="demo-hor-1"><?php echo translate('name');?></label>
 																<div class="col-sm-10">
-																	<input type="text" name="category_name" id="demo-hor-1" placeholder="<?php echo translate('name');?>" class="form-control" value="<?php echo $row['category_name']; ?>">
+																	<input type="text" name="team_name" id="demo-hor-1" placeholder="<?php echo translate('name');?>" class="form-control" value="<?php echo $row['team_name']; ?>">
+																</div>
+															</div>
+															<div class="form-group ">
+																<label class="col-sm-2 control-label" for="demo-hor-1"><?php echo translate('position');?></label>
+																<div class="col-sm-10">
+																	<input type="text" name="position" id="demo-hor-1" placeholder="<?php echo translate('position');?>" class="form-control" value="<?php echo $row['position']; ?>">
 																</div>
 															</div>
 															<div class="form-group">
@@ -45,22 +51,22 @@
 																<div class="col-sm-10">
 																	<span class="pull-left btn btn-default btn-file">
 																		<?php echo translate('select_image');?>
-																		<input type="file" name="category_image" id='category_image' accept="image">
+																		<input type="file" name="team_image" id='team_image' accept="image">
 																	</span>
-																	<span id='category_image_wrap' class=" show_iin_image" style="width: 200px;float:right; border:1px solid #ddd;border-radius:5px;padding:5px">
+																	<span id='team_image_wrap' class=" show_iin_image" style="width: 200px;float:right; border:1px solid #ddd;border-radius:5px;padding:5px">
 																		<?php
-																		if($row['category_image'] != ''){
-																			if(file_exists('uploads/category_image/'.$row['category_image'])){
+																		if($row['team_image'] != ''){
+																			if(file_exists('uploads/abdaily_team_image/'.$row['team_image'])){
 																		?>
-																			<img src="<?php echo base_url(); ?>uploads/category_image/<?php echo $row['category_image']; ?>" width="100%" id='category_image_blah' />  
+																			<img src="<?php echo base_url(); ?>uploads/abdaily_team_image/<?php echo $row['team_image']; ?>" width="100%" id='team_image_blah' />  
 																		<?php
 																			} else {
 																		?>
-																			<img src="<?php echo base_url(); ?>uploads/category_image/default.jpg" width="100%" id='category_image_blah' />
+																			<img src="<?php echo base_url(); ?>uploads/abdaily_team_image/default.jpg" width="100%" id='team_image_blah' />
 																		<?php
 																			}
 																		}else{?>
-																			<img src="<?php echo base_url(); ?>uploads/category_image/default.jpg" width="100%" id='category_image_blah' />
+																			<img src="<?php echo base_url(); ?>uploads/abdaily_team_image/default.jpg" width="100%" id='team_image_blah' />
 																		<?php }
 																		?> 
 																	</span>
@@ -108,18 +114,18 @@
         $(this).parent().parent().remove();
     });
 	
-	function category_image(input) {
+	function team_image(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 	
 			reader.onload = function(e) {
-				$('#category_image_blah').attr('src', e.target.result);
+				$('#team_image_blah').attr('src', e.target.result);
 			}
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-	$("#category_image").change(function() {
-		category_image(this);
+	$("#team_image").change(function() {
+		team_image(this);
 	});
 	$(document).ready(function() {
 		$("form").submit(function(e){

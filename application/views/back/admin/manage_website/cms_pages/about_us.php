@@ -1,8 +1,8 @@
 <div id="content-container">
 	<div id="page-title">
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('about_us');?></h1>
-		<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/manage_website/cms_pages"><?php echo translate('back');?> </a>
-		<input type="hidden" value="<?php echo base_url(); ?>admin/manage_website/cms_pages" id="return_url">
+		<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//manage_website/cms_pages"><?php echo translate('back');?> </a>
+		<input type="hidden" value="<?php echo base_url(); ?>admin//manage_website/cms_pages" id="return_url">
 	</div>
 	<div class="tab-base">
 		<div class="panel">
@@ -14,7 +14,7 @@
 								foreach($about_us_data as $row){
 							?>
 								<?php
-									echo form_open(base_url() . 'admin/manage_website/update_about_us/' . $row['aboutus_id'], array(
+									echo form_open(base_url() . 'admin//manage_website/update_about_us/' . $row['aboutus_id'], array(
 										'class' => 'form-horizontal',
 										'method' => 'post',
 										'id' => 'form_edits',
@@ -72,7 +72,7 @@
 																</div>
 															</div>
 														</div>
-														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingallzero">
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingallzero" style="display:none;">
 															<div class="form-group ">
 																<label class="col-sm-2 control-label" for="demo-hor-1"><?php echo translate('achivement_show_/_hide');?></label>
 																<div class="col-sm-12">
@@ -84,16 +84,17 @@
 																</div>
 															</div>
 														</div>
-														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingallzero">
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingallzero" >
 															<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 paddingleftzero">
 																<div class="form-group mainpagetext1">
-																	<label class="col-sm-12 control-label" for="demo-hor-1"><?php echo translate('content');?></label>
+																	<label class="col-sm-12 control-label" for="demo-hor-1"><?php echo translate('team_title');?></label>
 																	<div class="col-sm-12">
-																		<textarea rows="9"  class="textarea" style="height:0%" name="content" placeholder="content"><?php echo $row['content']; ?></textarea>
+																	<input type="text" name="content" id="content" placeholder="<?php echo translate('team_title');?>" class="form-control " value="<?php echo $row['content']; ?>">
+																		
 																	</div>
 																</div>
 															</div>
-															<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 paddingrightzero">
+															<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 paddingrightzero" style="display:none;">
 																<div class="form-group">
 																	<label class="col-sm-2 control-label" for="demo-hor-2">
 																		<?php echo translate('image');?>

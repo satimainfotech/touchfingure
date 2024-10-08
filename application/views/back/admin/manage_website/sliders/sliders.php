@@ -2,7 +2,7 @@
 	<div id="page-title">
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('manage_sliders');?></h1>
 		<?php if($this->crud_model->admin_permission('sliders_add')){?>
-			<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin/manage_website/sliders_add"><?php echo translate('create_sliders');?> </a>
+			<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin//manage_website/sliders_add"><?php echo translate('create_sliders');?> </a>
 		<?php } ?>
 	</div>
 	<div class="tab-base">
@@ -43,10 +43,10 @@
 									<?php if($this->crud_model->admin_permission('sliders_view') || $this->crud_model->admin_permission('sliders_status')|| $this->crud_model->admin_permission('sliders_delete')|| $this->crud_model->admin_permission('sliders_edit')){?>
 										<td class="text-right">
 											<?php if($this->crud_model->admin_permission('sliders_view')){ ?>
-												<a href="<?php echo base_url(); ?>admin/manage_website/sliders_view?s_t=<?php echo $row['slider_token']; ?>&s_i=<?php echo $row['slider_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="proof" data-container="body"><?php echo translate('view');?></a>
+												<a href="<?php echo base_url(); ?>admin//manage_website/sliders_view?s_t=<?php echo $row['slider_token']; ?>&s_i=<?php echo $row['slider_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="proof" data-container="body"><?php echo translate('view');?></a>
 											<?php } ?>
 											<?php if($this->crud_model->admin_permission('sliders_edit')){ ?>
-												<a href="<?php echo base_url(); ?>admin/manage_website/sliders_edit?s_t=<?php echo $row['slider_token']; ?>&s_i=<?php echo $row['slider_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="Edit" data-container="body"><?php echo translate('edit');?></a>
+												<a href="<?php echo base_url(); ?>admin//manage_website/sliders_edit?s_t=<?php echo $row['slider_token']; ?>&s_i=<?php echo $row['slider_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="Edit" data-container="body"><?php echo translate('edit');?></a>
 											<?php } ?>
 											<?php if($this->crud_model->admin_permission('sliders_edit')){ ?>
 												<a onclick="delete_popup('<?php echo $row['slider_id']; ?>','<?php echo translate('really_wanf_to_delete_this_sliders ?'); ?>')" class="btn btn-xs btn-danger btn-labeled fa fa-trash" data-toggle="tooltip" data-original-title="Delete" data-container="body"><?php echo translate('delete');?></a>
@@ -75,7 +75,7 @@
 <div id="vendr"></div>
 <script>
 var base_url = '<?php echo base_url(); ?>'
-var user_type = 'admin';
+var user_type = 'admin/abdaily';
 var module = 'manage_website/sliderss';
 var delete_function = 'delete';
 $(document).ready(function(){

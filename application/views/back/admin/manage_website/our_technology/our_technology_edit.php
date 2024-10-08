@@ -1,8 +1,8 @@
 <div id="content-container">
 	<div id="page-title">
-		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('edit_why_convart');?></h1>
-		<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/manage_website/our_technology<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
-		<input type="hidden" value="<?php echo base_url(); ?>admin/manage_website/our_technology<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="return_url">
+		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('edit_statics');?></h1>
+		<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//manage_website/our_technology<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+		<input type="hidden" value="<?php echo base_url(); ?>admin//manage_website/our_technology<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="return_url">
 	</div>
 	<div class="tab-base">
 		<div class="panel">
@@ -14,7 +14,7 @@
 								foreach($our_technology_data as $row){
 							?>
 								<?php
-									echo form_open(base_url() . 'admin/manage_website/our_technology_update/' . $row['our_technology_id'], array(
+									echo form_open(base_url() . 'admin//manage_website/our_technology_update/' . $row['our_technology_id'], array(
 										'class' => 'form-horizontal',
 										'method' => 'post',
 										'id' => 'form_edits',

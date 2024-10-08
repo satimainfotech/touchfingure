@@ -3,9 +3,9 @@
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('manage_our_network');?></h1>
 		<?php if($this->crud_model->admin_permission('our_net_add')){?>
 			<?php if(@$category != ''){?>
-				<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin/manage_website/our_network_add?c_i=<?php echo @$category; ?>"><?php echo translate('create_our_network');?> </a>
+				<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin//manage_website/our_network_add?c_i=<?php echo @$category; ?>"><?php echo translate('create_our_network');?> </a>
 			<?php }else{ ?>
-				<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin/manage_website/our_network_add"><?php echo translate('create_our_network');?> </a>
+				<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin//manage_website/our_network_add"><?php echo translate('create_our_network');?> </a>
 			<?php } ?>
 			
 		<?php } ?>
@@ -48,10 +48,10 @@
 									<?php if($this->crud_model->admin_permission('our_network_view') || $this->crud_model->admin_permission('our_network_status')|| $this->crud_model->admin_permission('our_network_delete')|| $this->crud_model->admin_permission('our_network_edit')){?>
 										<td class="text-right">
 											<?php if($this->crud_model->admin_permission('our_net_view')){ ?>
-												<a href="<?php echo base_url(); ?>admin/manage_website/our_network_view?on_t=<?php echo $row['our_net_token']; ?>&on_i=<?php echo $row['our_net_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="proof" data-container="body"><?php echo translate('view');?></a>
+												<a href="<?php echo base_url(); ?>admin//manage_website/our_network_view?on_t=<?php echo $row['our_net_token']; ?>&on_i=<?php echo $row['our_net_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="proof" data-container="body"><?php echo translate('view');?></a>
 											<?php } ?>
 											<?php if($this->crud_model->admin_permission('our_net_edit')){ ?>
-												<a href="<?php echo base_url(); ?>admin/manage_website/our_network_edit?on_t=<?php echo $row['our_net_token']; ?>&on_i=<?php echo $row['our_net_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="Edit" data-container="body"><?php echo translate('edit');?></a>
+												<a href="<?php echo base_url(); ?>admin//manage_website/our_network_edit?on_t=<?php echo $row['our_net_token']; ?>&on_i=<?php echo $row['our_net_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled fa fa-pencil" data-toggle="tooltip" data-original-title="Edit" data-container="body"><?php echo translate('edit');?></a>
 											<?php } ?>
 											<?php if($this->crud_model->admin_permission('our_net_delete')){ ?>
 												<a onclick="delete_popup('<?php echo $row['our_net_id']; ?>','<?php echo translate('really_wanf_to_delete_this_our_net ?'); ?>')" class="btn btn-xs btn-danger btn-labeled fa fa-trash" data-toggle="tooltip" data-original-title="Delete" data-container="body"><?php echo translate('delete');?></a>
@@ -79,7 +79,7 @@
 <div id="vendr"></div>
 <script>
 var base_url = '<?php echo base_url(); ?>'
-var user_type = 'admin';
+var user_type = 'admin/abdaily';
 var module = 'manage_website/our_networks';
 var delete_function = 'delete';
 
