@@ -35,7 +35,7 @@
 										<thead>
 											<tr>
 												<th><?php echo translate('Sr No.');?></th>
-												<th><?php echo translate('material');?></th>
+												<th><?php echo translate('Process');?></th>
 												<th><?php echo translate('status');?></th>
 												<th ><?php echo translate('options');?></th>
 											</tr>
@@ -54,9 +54,9 @@
 												<td>
 													<?php 
 														if($row['pm_status'] == 'active'){
-															echo  '<input id="mas_'.$row['pm_id'].'" class="sw1" type="checkbox" data-id="'.$row['pm_id'].'" checked />';
+															echo  '<input id="mas_'.$row['process_master_id'].'" class="sw1" type="checkbox" data-id="'.$row['process_master_id'].'" checked />';
 														} else {
-															echo '<input id="mas_'.$row['pm_id'].'" class="sw1" type="checkbox" data-id="'.$row['pm_id'].'" />';
+															echo '<input id="mas_'.$row['process_master_id'].'" class="sw1" type="checkbox" data-id="'.$row['process_master_id'].'" />';
 														}
 													?>
 												</td>
@@ -64,13 +64,13 @@
 													<td class="text-center">
 														<?php if($this->crud_model->admin_permission('pm_edit')){ ?> 
 															<?php if(@$country != ''){?>
-																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/pm_edit?c_n=<?php echo @$country; ?>&c_i=<?php echo $row['pm_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
+																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/pm_edit?c_n=<?php echo @$country; ?>&c_i=<?php echo $row['process_master_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
 															<?php }else{ ?>
-																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/pm_edit?c_i=<?php echo $row['pm_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
+																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/pm_edit?c_i=<?php echo $row['process_master_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
 															<?php } ?>
 														<?php } ?>
 														<?php if($this->crud_model->admin_permission('pm_delete')){ ?> 
-															<a onclick="delete_confirm('<?php echo $row['pm_id']; ?>','<?php echo translate('really_want_to_delete_this_country?'); ?>')" class="btn btn-xs btn-danger btn-labeled fa fa-trash" data-toggle="tooltip" 
+															<a onclick="delete_confirm('<?php echo $row['process_master_id']; ?>','<?php echo translate('really_want_to_delete_this_country?'); ?>')" class="btn btn-xs btn-danger btn-labeled fa fa-trash" data-toggle="tooltip" 
 																data-original-title="Delete" data-container="body"><?php echo translate('delete');?>
 															</a>
 														<?php } ?>

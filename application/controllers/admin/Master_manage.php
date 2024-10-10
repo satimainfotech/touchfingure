@@ -344,7 +344,7 @@ class Master_manage extends CI_Controller
 	
 	function pm_update($para1 = '', $para2 = '', $para3 = ''){
 		$data['pm_name'] = $this->input->post('country_name');
-		$this->db->where('pm_id', $para1);
+		$this->db->where('process_master_id', $para1);
 		$this->db->update('process_master', $data);
 		$this->db->trans_complete();
 
@@ -362,7 +362,7 @@ class Master_manage extends CI_Controller
         }
         elseif ($para1 == 'delete') {
 			$data['pm_status'] = 'delete';
-            $this->db->where('pm_id', $para2);
+            $this->db->where('process_master_id', $para2);
 			$this->db->update('process_master', $data);
         }else if ($para1 == 'approval_set') {
             $country = $para2;
@@ -371,7 +371,7 @@ class Master_manage extends CI_Controller
             } else {
                 $data['pm_status'] = 'de-active';
             }
-            $this->db->where('pm_id', $country);
+            $this->db->where('process_master_id', $country);
             $this->db->update('process_master', $data);
         }
     }

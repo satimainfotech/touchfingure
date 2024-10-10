@@ -18,7 +18,7 @@ class Display_settings extends CI_Controller
 			}
 			$page_data['page_name'] = "settings/display_settings";
 			$page_data['page_name_link'] = "display_settings";
-			$this->load->view('back/abdaily/index', $page_data);
+			$this->load->view('back/admin/index', $page_data);
         } else {
             $data['control'] = "admin";
             $this->load->view('back/admin/login',$page_data);
@@ -32,7 +32,7 @@ class Display_settings extends CI_Controller
 			$page_data['page_name'] = "settings/display_settings";
 			$page_data['page_name_link'] = "display_settings";
 			$page_data['tab_name']  = 'logo';
-			$this->load->view('back/abdaily/index', $page_data);
+			$this->load->view('back/admin/index', $page_data);
     }
 	public function favicon()
     {
@@ -42,7 +42,7 @@ class Display_settings extends CI_Controller
 			$page_data['page_name'] = "settings/display_settings";
 			$page_data['page_name_link'] = "display_settings";
 			$page_data['tab_name']  = 'favicon';
-			$this->load->view('back/abdaily/index', $page_data);
+			$this->load->view('back/admin/index', $page_data);
     }
 	
     /* Checking Login Stat */
@@ -102,7 +102,7 @@ class Display_settings extends CI_Controller
                 move_uploaded_file($_FILES["logo"]['tmp_name'], 'uploads/logo_image/logo_' . $id . '.png');
 				
         }else {
-            $this->load->view('back/abdaily/index', $page_data);
+            $this->load->view('back/admin/index', $page_data);
         }
     }
     

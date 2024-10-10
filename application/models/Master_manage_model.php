@@ -40,7 +40,7 @@ class Master_manage_model extends CI_Model
 		}
 		
 		$this->db->where_not_in('pm_status','delete');
-		$this->db->order_by('pm_id','desc');
+		$this->db->order_by('process_master_id','desc');
 		return $this->db->get()->result_array();
 	}
 	
@@ -63,7 +63,7 @@ class Master_manage_model extends CI_Model
 		}
 		$this->db->limit($limit,$start);
 		$this->db->where_not_in('pm_status','delete');
-		$this->db->order_by('pm_id','desc');
+		$this->db->order_by('process_master_id','desc');
 		return $this->db->get()->result_array();
 	}
 	
@@ -77,7 +77,7 @@ class Master_manage_model extends CI_Model
 	public function get_pm_details($country){
 		$this->db->select('*');
 		$this->db->from($this->pm_table_name);
-		$this->db->where('pm_id',$country);
+		$this->db->where('process_master_id',$country);
 		return $this->db->get()->result_array();
 	}
 	

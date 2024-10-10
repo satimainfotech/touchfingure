@@ -53,9 +53,10 @@ class Staff extends CI_Controller
             $data['phone'] = $this->input->post('phone');
             $data['address'] = $this->input->post('address');
             $data['role'] = $this->input->post('role');
+            $data['pm_id'] = $this->input->post('pm_id');
             $data['timestamp'] = time();
             $this->db->insert('admin', $data);
-            $this->email_model->account_opening('admin', $data['email'], $password);
+            //$this->email_model->account_opening('admin', $data['email'], $password);
         } else if ($para1 == 'edit') {
 			$page_data['admin_data'] = $this->db->get_where('admin', array('admin_id' => $para2))->result_array();
             $this->load->view('back/admin/admins/admin_edit', $page_data);
@@ -67,9 +68,9 @@ class Staff extends CI_Controller
             $data['phone'] = $this->input->post('phone');
             $data['address'] = $this->input->post('address');
             $data['role'] = $this->input->post('role');
+            $data['pm_id'] = $this->input->post('pm_id');
 			$this->db->where('admin_id', $para2);
             $this->db->update('admin', $data);
-            $this->email_model->account_opening('admin', $data['email'], $password);
         } elseif ($para1 == 'delete') {
             $this->db->where('admin_id', $para2);
             $this->db->delete('admin');

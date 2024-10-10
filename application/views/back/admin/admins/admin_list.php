@@ -6,6 +6,7 @@
                     <th><?php echo translate('name'); ?></th>
                     <th><?php echo translate('email'); ?></th>
                     <th><?php echo translate('role'); ?></th>
+                    <th><?php echo translate('Process'); ?></th>
 					<?php if($this->crud_model->admin_permission('staff_edit') || $this->crud_model->admin_permission('staff_delete')){?>
                     <th class="text-right"><?php echo translate('options'); ?></th>
 					<?php } ?>
@@ -22,6 +23,7 @@
                     <td><?php echo $row['name']; ?></td>
                     <td><?php echo $row['email']; ?></td>
                     <td><?php echo $this->crud_model->get_type_name_by_id('role',$row['role']); ?></td>
+                    <td><?php echo $this->crud_model->get_type_name_by_id('process_master',$row['pm_id'],'pm_name'); ?></td>
 					<?php if($this->crud_model->admin_permission('staff_edit') || $this->crud_model->admin_permission('staff_delete')){?>
 						<td class="text-right">
 							<?php if($this->crud_model->admin_permission('staff_edit')){?>

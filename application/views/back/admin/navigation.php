@@ -17,8 +17,9 @@
                                 </span>
                             </a>
                         </li>
-						<?php if($this->crud_model->admin_permission('master_management')){ ?>
-                        <li <?php if( $page_name_link=="member_type" || $page_name_link=="gram_panchayat" ||  $page_name_link=="area" || $page_name_link=="gram_panachayat" || $page_name_link=="taluka_m" || $page_name_link=="taluka" || $page_name_link=="division" || $page_name_link=="district_m" || $page_name_link=="country" || $page_name_link=="state" || $page_name_link=="city"  || $page_name_link=="district" || $page_name_link=="area"){?> class="active-sub" 
+						<?php if($this->crud_model->admin_permission('master_management')){
+                        ?>
+                        <li <?php if( $page_name_link=="member_type" || $page_name_link=="Process Master" ||  $page_name_link=="country"){?> class="active-sub" 
                         <?php } ?>>
                             <a href="#">
                                 <i class="fa fa-file-text"></i>
@@ -27,7 +28,7 @@
 								</span>
 								<i class="fa arrow"></i>
                             </a>
-                            <ul class="collapse <?php if( $page_name_link=="member_type" ||  $page_name_link=="process_master" || $page_name_link=="area"){?>in<?php } ?> ">
+                            <ul class="collapse <?php if( $page_name_link=="country" ||  $page_name_link=="Process Master" || $page_name_link=="member_type"){?>in<?php } ?> ">
 								<?php if($this->crud_model->admin_permission('country')){ ?>
 									<li <?php if($page_name_link=="country"){?> class="active-link" <?php } ?> >
 										<a href="<?php echo base_url(); ?>admin/master_manage/country/">
@@ -112,35 +113,7 @@
 										</ul>
 									</li>
                                 <?php } ?>
-								<?php
-                                    if($this->crud_model->admin_permission('setting')){
-                                ?>
-                                <li <?php if($page_name_link=="site_settings"){?> class="active-sub"<?php } ?> >
-                                    <a href="#">
-                                        <i class="fa fa-wrench"></i>
-										<span class="menu-title">
-											<?php echo translate('settings');?>
-										</span>
-										<i class="fa arrow"></i>
-                                    </a>
-                                    <ul class="collapse <?php if($page_name_link=="site_settings"){?>in<?php } ?>" >
-                                        <?php
-                                            if($this->crud_model->admin_permission('site_setting')){
-                                        ?>                      
-                                            <li <?php if($page_name_link=="site_settings"){?> class="active-link" <?php } ?> >
-                                                <a href="<?php echo base_url();?>admin/site_settings/">
-                                                    <i class="fa fa-circle fs_i"></i>
-                                                    <?php echo translate('site_settings');?>
-                                                </a>
-                                            </li>
-                                        <?php
-                                            }
-                                        ?>
-                                    </ul>
-                                </li>
-                                <?php
-                                    }
-                                ?>
+								
                            	</ul>
                         </li>
 						<?php
@@ -180,6 +153,62 @@
                                     <a href="<?php echo base_url(); ?>admin/staff/role/">
                                         <i class="fa fa-circle fs_i"></i>
                                         <?php echo translate('staff_permissions');?>
+                                    </a>
+                                </li>
+                                <?php
+                                    }
+                                ?>
+                            </ul>
+                        </li>
+						<?php
+                            }
+                        ?>
+
+<?php
+							
+                        	if($this->crud_model->admin_permission('orders') || $this->crud_model->admin_permission('or_assign')){
+						?>
+                        <li <?php if($page_name_link=="orders" || $page_name_link=="orders" || $page_name_link=="or_assign"){?>class="active-sub"<?php } ?> >
+                            <a href="#">
+                                <i class="fa fa-user"></i>
+                                <span class="menu-title">
+                                	<?php echo translate('orders_management');?>
+                                </span>
+                                <i class="fa arrow"></i>
+                            </a>
+            
+                            <ul class="collapse <?php if($page_name_link=="orders" || $page_name_link=="main_order" || $page_name_link=="or_assign"){?>in<?php } ?>" >
+                                <?php
+                                if($this->crud_model->admin_permission('orders')){
+                                ?>
+                                <li <?php if($page_name_link=="orders"){?> class="active-link" <?php } ?> >
+                                    <a href="<?php echo base_url(); ?>admin/orders/">
+                                        <i class="fa fa-circle fs_i"></i>
+                                        <?php echo translate('orders');?>
+                                    </a>
+                                </li>
+                                <?php
+                                }
+                                ?>
+                                <?php
+                                if($this->crud_model->admin_permission('or_assign')){
+                                ?>
+                                <li <?php if($page_name_link=="or_assign"){?> class="active-link" <?php } ?> >
+                                    <a href="<?php echo base_url(); ?>admin/orders/assigned_orders">
+                                        <i class="fa fa-circle fs_i"></i>
+                                        <?php echo translate('employee_orders');?>
+                                    </a>
+                                </li>
+                                <?php
+                                }
+                                ?>
+                                <?php
+                                if($this->crud_model->admin_permission('main_order')){
+                                ?>
+                                <li <?php if($page_name_link=="main_order"){?> class="active-link" <?php } ?> >
+                                    <a href="<?php echo base_url(); ?>admin/orders/main/">
+                                        <i class="fa fa-circle fs_i"></i>
+                                        <?php echo translate('main_order');?>
                                     </a>
                                 </li>
                                 <?php

@@ -1,3 +1,7 @@
+date_date_setds
+state_datasdf
+desc
+state_datasdfsd
 <div id="content-container">
 	<div id="page-title">
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('edit_country');?></h1>
@@ -19,7 +23,7 @@
                     <div class="tab-pane fade active in">
 						<?php
 							foreach($country_data as $row){
-							echo form_open(base_url() . 'admin/master_manage/pm_update/'. $row['pm_id'], array(
+							echo form_open(base_url() . 'admin/master_manage/pm_update/'. $row['process_master_id'], array(
 								'class' => 'form-horizontal',
 								'method' => 'post',
 								'id' => 'country_edit',

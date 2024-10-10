@@ -6,13 +6,42 @@ class Order_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-		$this->table_name = 'order_master';
+		$this->table_name = 'order';
 		$this->order_item_table_name = 'order_items';
 		$this->order_status_table_name = 'order_status_manage';
 		$this->prodcut_table_name = 'product';
 		
     }
-	
+	public function get_total_order_data_count_assigned($status,$order_id){
+		$this->db->select('*');
+		$this->db->from($this->table_name);		
+		if($status != ""){
+			$this->db->where('order_status',$status);
+		}
+		if($order_id != ""){
+			$this->db->where('orderno',$order_id);
+		}
+		$this->db->where('parentid IS NOT NULL');
+		$this->db->order_by($this->table_name.'.orderno','desc');
+		return $this->db->get()->result_array();
+	}
+	public function get_total_order_data_assigned($status,$order_id,$limit,$start){
+		$this->db->select('*');
+		$this->db->from($this->table_name);
+		if($status != ""){
+			$this->db->where('order_status',$status);
+		}
+		if($order_id != ""){
+			$this->db->where('orderno',$order_id);
+		}
+		$this->db->where('parentid IS NOT NULL');
+		$this->db->limit($limit,$start);
+		//$this->db->where($this->table_name.'.order_delete_status',NULL);
+		$this->db->order_by($this->table_name.'.orderno','desc');
+		return $this->db->get()->result_array();
+	}
+
+
 	public function get_total_order_data_count($from_date,$to_date,$payment_status,$order_status,$order_id,$mobile_number,$customer_name){
 		$this->db->select('*');
 		$this->db->from($this->table_name);
@@ -39,7 +68,46 @@ class Order_model extends CI_Model
 			$this->db->where($this->table_name.'.order_id',$order_id);
 		}*/
 		//$this->db->where($this->table_name.'.order_delete_status',NULL);
-		$this->db->order_by($this->table_name.'.order_id','desc');
+		$this->db->where('parentid IS NOT NULL');
+		$this->db->order_by($this->table_name.'.orderno','desc');
+		return $this->db->get()->result_array();
+	}
+
+	public function get_total_ordermain_data_count($from_date,$to_date,$payment_status,$order_status,$order_id,$mobile_number,$customer_name){
+		$this->db->select('*');
+		$this->db->from($this->table_name);
+		if($from_date != ''){
+			$this->db->where($this->table_name.'.created_date >=',$from_date);
+		}
+		if($to_date != ''){
+			$this->db->where($this->table_name.'.created_date <=',$to_date);
+		}
+		$this->db->where('parentid', NULL);
+		$this->db->order_by($this->table_name.'.orderno','desc');
+		
+		return $this->db->get()->result_array();
+	}
+
+	public function get_total_ordermain_data($from_date,$to_date,$payment_status,$order_status,$order_id,$mobile_number,$customer_name,$limit,$start){
+		$this->db->select('*');
+		$this->db->from($this->table_name);
+		if($from_date != ''){
+			$this->db->where($this->table_name.'.order_date >=',$from_date);
+		}
+		if($to_date != ''){
+			$this->db->where($this->table_name.'.order_date <=',$to_date);
+		}
+		/*
+		if($order_status != ''){
+			$this->db->where($this->table_name.'.order_status',$order_status);
+		}
+		if($order_id != ''){
+			$this->db->where($this->table_name.'.order_id',$order_id);
+		}*/
+		$this->db->where('parentid', NULL);
+		$this->db->limit($limit,$start);
+		//$this->db->where($this->table_name.'.order_delete_status',NULL);
+		$this->db->order_by($this->table_name.'.orderno','desc');
 		return $this->db->get()->result_array();
 	}
 	
@@ -68,9 +136,10 @@ class Order_model extends CI_Model
 		if($order_id != ''){
 			$this->db->where($this->table_name.'.order_id',$order_id);
 		}*/
+		$this->db->where('parentid IS NOT NULL');
 		$this->db->limit($limit,$start);
 		//$this->db->where($this->table_name.'.order_delete_status',NULL);
-		$this->db->order_by($this->table_name.'.order_id','desc');
+		$this->db->order_by($this->table_name.'.orderno','desc');
 		return $this->db->get()->result_array();
 	}
 	

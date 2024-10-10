@@ -62,6 +62,17 @@
                     crud_model->select_html('role','role','name','add','demo-chosen-select required'); ?>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label" >
+                    <?php echo translate('Process_Master'); ?>
+                </label>
+                <div class="col-sm-6">
+                    <?php echo $this->
+                    crud_model->select_html('process_master','pm_id','pm_name','add','demo-chosen-select required'); ?>
+                </div>
+            </div>
+
         </div>
 	</form>
 </div>

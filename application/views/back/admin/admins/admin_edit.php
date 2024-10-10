@@ -61,6 +61,15 @@
 						?>
                     </div>
                 </div>
+                <div class="form-group">
+                <label class="col-sm-4 control-label" >
+                    <?php echo translate('Process_Master'); ?>
+                </label>
+                <div class="col-sm-6">
+                    <?php echo $this->
+                    crud_model->select_html('process_master','pm_id','pm_name','edit','demo-chosen-select required', $row['pm_id']); ?>
+                </div>
+            </div>
             </div>
     	</form>
     </div>

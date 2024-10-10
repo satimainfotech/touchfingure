@@ -1,6 +1,9 @@
 <div id="content-container">
 	<div id="page-title">
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('manage_order');?></h1>
+		<?php //if($this->crud_model->admin_permission('orders')){?>
+         <a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin/orders/import"><?php echo translate('create_order');?> </a>
+		<?php //} ?>
 	</div>
 	<div class="tab-base">
 		<div class="panel">
@@ -11,13 +14,10 @@
 						<div class="reportfilterdiv">
 							<form action="<?php echo base_url(); ?>admin/orders" method="get">
 								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
-									<label>From Date</label>
+									<label>Date</label>
 									<input type="date" name="from_date" id="from_datepicker" value="<?php echo @$from_date; ?>" placeholder="From date">
 								</div>
-								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
-									<label>To date</label>
-									<input type="date" name="to_date" value="<?php echo @$to_date; ?>" id="to_datepicker"  placeholder="To date">
-								</div>
+								<!--
 								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
 									<label>Order Status</label>
 									<select class="normal_select_option" name="order_status">
@@ -27,17 +27,10 @@
 										<?php } ?>
 									</select>
 								</div>
+								-->
 								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
 									<label>Order ID</label>
 									<input type="text" name="order_id" value="<?php echo @$order_id; ?>" placeholder="Order ID">
-								</div>
-								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
-									<label>Customer Name</label>
-									<input type="text" name="customer_name" value="<?php echo @$customer_name; ?>" placeholder="Customer Name">
-								</div>
-								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
-									<label>Mobile Number</label>
-									<input type="text" name="mobile_number" value="<?php echo @$mobile_number; ?>" placeholder="Mobile Number">
 								</div>
 								<div class="col-sm-3 col-xs-6 paddingonlyfive m-b-5px">
 									<button class="reportbutton">Search</button>
@@ -53,23 +46,19 @@
 									<thead>
 										<tr>
 											<th style="width:4ex"><?php echo translate('ID');?></th>
-											<th><?php echo translate('order_id');?></th>
-											<th ><?php echo translate('first name');?> </th>
-											<th ><?php echo translate('last name');?> </th>
-											<th ><?php echo translate('wall name');?> </th>
-											<th ><?php echo translate('Phone number');?> </th>
-											<th ><?php echo translate('Category');?> </th>
-											<th ><?php echo translate('theme');?> </th>
-											<th ><?php echo translate('Image');?> </th>
-											<th ><?php echo translate('Height Feet');?> </th>
-											<th ><?php echo translate('Height Inch');?> </th>
-											<th ><?php echo translate('Width Feet');?> </th>
-											<th ><?php echo translate('Width Inch');?> </th>
-											<th ><?php echo translate('Total');?> </th>
-											<th ><?php echo translate('Gst');?> </th>
-											<th ><?php echo translate('Grand Total');?> </th>
-											<th><?php echo translate('date');?></th>											
-											<?php if($this->crud_model->admin_permission('order_view') || $this->crud_model->admin_permission('order_status_update') || $this->crud_model->admin_permission('order_delete')){?>
+											<th><?php echo translate('sr_no');?></th>
+											<th ><?php echo translate('job_description');?> </th>
+											<th ><?php echo translate('drawing_no');?> </th>
+											<th ><?php echo translate('qty');?> </th>
+											<th ><?php echo translate('material');?> </th>
+											<th ><?php echo translate('proposed_raw_material_size');?> </th>
+											<th ><?php echo translate('approx_fim_cost');?> </th>
+											<th ><?php echo translate('id_no_from');?> </th>
+											<th ><?php echo translate('project');?> </th>
+											<th ><?php echo translate('model');?> </th>
+											<th ><?php echo translate('gst_rate');?> </th>
+											<th><?php echo translate('created_date');?></th>											
+											<?php if($this->crud_model->admin_permission('or_view') || $this->crud_model->admin_permission('order_status_update') || $this->crud_model->admin_permission('or_delete')){?>
 												<th class=""><?php echo translate('options');?></th>
 											<?php } ?>
 										</tr>
@@ -83,32 +72,38 @@
 											$i++; 
 										?>
 										<tr>
-											<td><?php echo $i; ?></td>
-											<td><?php echo $row['order_id']; ?></td>
-											<td><?php echo $row['first_name']; ?></td>
-											<td><?php echo $row['last_name']; ?></td>
-											<td><?php echo $row['wall_name']; ?></td>
-											<td><?php echo $row['phone_number']; ?></td>
-											<td><?php echo $row['category']; ?></td>
-											<td><?php echo $row['theme']; ?></td>
-											<td><a href="<?php echo base_url(); ?>/uploads/convart_image/<?php echo $row['convart_image']; ?>" download><img style="50px;width:50px;" src="<?php echo base_url(); ?>/uploads/convart_image/<?php echo $row['convart_image']; ?>"></a></td>
-											<td><?php echo $row['height_foot']; ?></td>
-											<td><?php echo $row['height_inch']; ?></td>
-											<td><?php echo $row['width_feet']; ?></td>
-											<td><?php echo $row['width_inch']; ?></td>
-											<td><?php echo $row['total']; ?></td>
-											<td><?php echo $row['gst']; ?></td>
-											<td><?php echo $row['grand_total']; ?></td>
+											<td><?php echo $row['sr_no']; ?></td>
+											<td><?php echo $row['orderno']; ?></td>
+											<td><?php echo $row['job_description']; ?></td>
+											<td><?php echo $row['drawing_no']; ?></td>
+											<td><?php echo $row['qty']; ?></td>
+											<td><?php echo $row['material']; ?></td>
+											<td><?php echo $row['proposed_raw_material_size']; ?></td>
+											<td><?php echo $row['approx_fim_cost']; ?></td>
+											<td><?php echo $row['id_no_from']; ?></td>
+											<td><?php echo $row['project']; ?></td>
+											<td><?php echo $row['model']; ?></td>
+											<td><?php echo $row['gst_rate']; ?></td>
 											<td><?php echo date("d-m-Y",strtotime($row['created_date'])); ?></td>
-											
-											<?php if($this->crud_model->admin_permission('order_view') || $this->crud_model->admin_permission('order_status') || $this->crud_model->admin_permission('order_delete')){?>
+											<?php if($this->crud_model->admin_permission('or_view') || $this->crud_model->admin_permission('order_status') || $this->crud_model->admin_permission('or_delete')){?>
 												<td class="text-right">
-													<?php if($this->crud_model->admin_permission('order_view')){ ?>
+													<?php /* if($this->crud_model->admin_permission('or_view')){ ?>
 														<?php if(@$from_date != '' || @$to_date != '' || @$order_status != '' || @$order_id != '' || @$customer_name != '' || @$mobile_number != ''){?>
-															<a class="btn btn-success btn-xs btn-labeled margintb5px" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/orders/order_invoice?o_t=<?php echo $row['order_token']; ?>&o_i=<?php echo $row['order_id']; ?>&from_date=<?php echo @$from_date; ?>&to_date=<?php echo $to_date; ?>&order_status=<?php echo $order_status; ?>&order_id=<?php echo @$order_id; ?>&customer_name=<?php echo @$customer_name; ?>&mobile_number=<?php echo @$mobile_number; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
+															<a class="btn btn-success btn-xs btn-labeled margintb5px" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/orders/order_invoice?o_t=<?php echo $row['orderno']; ?>&o_i=<?php echo $row['order_id']; ?>&from_date=<?php echo @$from_date; ?>&to_date=<?php echo $to_date; ?>&order_status=<?php echo $order_status; ?>&order_id=<?php echo @$order_id; ?>&customer_name=<?php echo @$customer_name; ?>&mobile_number=<?php echo @$mobile_number; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
 														<?php }else{ ?>
-															<a class="btn btn-success btn-xs btn-labeled margintb5px" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/orders/order_invoice?o_t=<?php echo $row['order_token']; ?>&o_i=<?php echo $row['order_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
+															<a class="btn btn-success btn-xs btn-labeled margintb5px" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/orders/order_invoice?o_t=<?php echo $row['orderno']; ?>&o_i=<?php echo $row['order_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
 														<?php } ?> 
+													<?php } 
+													*/
+													?>
+
+													<?php if($this->crud_model->admin_permission('or_delete')){?>
+														<?php if($row['orderno'] !== '1'){ ?>
+															<a onclick="delete_confirm_order('<?php echo $row['orderno']; ?>','<?php echo translate('really_want_to_delete_this?'); ?>')" class="btn btn-danger btn-xs btn-labeled fa fa-trash" data-toggle="tooltip"data-original-title="Delete" data-container="body"> <?php echo translate('delete');?> </a>
+														<?php } ?>
+													<?php } ?>
+													<?php if($this->crud_model->admin_permission('orma_add')){?>
+													<a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" onclick="ajax_modal_order('edit','<?php echo translate('Assign'); ?> order no <?php echo $row['orderno']; ?> to employee','<?php echo translate('successfully_assign!'); ?>','order_assign','<?php echo $row['orderno']; ?>')" data-original-title="Edit" data-container="body"> <?php echo translate('assign');?> </a>
 													<?php } ?>
 												</td>
 											<?php } ?>
@@ -131,3 +126,38 @@
         </div>
 	</div>
 </div>
+<script>
+	function ajax_modal_order(type,title,noty,form_id,id){
+		modal_form(title,noty,form_id);
+		ajax_load(base_url+'admin/orders/assign/'+id,'form','form');
+	}
+	function delete_confirm_order(id,msg){
+		msg = '<div class="modal-title">'+msg+'</div>';
+		bootbox.confirm(msg, function(result) {
+			if (result) {
+				ajax_load(base_url+'admin/orders/deleteorder/'+id,'list','delete');
+				$.activeitNoty({
+					type: 'danger',
+					icon : 'fa fa-check',
+					message : dss,
+					container : 'floating',
+					timer : 3000
+				});
+				setTimeout(function () {
+					location.reload('true');
+				}, 1000);
+			}else{
+				$.activeitNoty({
+					type: 'danger',
+					icon : 'fa fa-minus',
+					message : cncle,
+					container : 'floating',
+					timer : 3000
+				});
+				setTimeout(function () {
+					location.reload('true');
+				}, 1000);
+			};
+		});
+	}
+	</script>
