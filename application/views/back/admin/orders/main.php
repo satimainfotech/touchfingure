@@ -12,12 +12,12 @@
                 <div class="tab-pane fade active in" id="list">
 					<div class="orderstable panel-body">
 						<div class="reportfilterdiv">
-							<form action="<?php echo base_url(); ?>admin/orders/main" method="get">
+							<!--<form action="<?php echo base_url(); ?>admin/orders/main" method="get">
 								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
 									<label>Date</label>
 									<input type="date" name="from_date" id="from_datepicker" value="<?php echo @$from_date; ?>" placeholder="From date">
 								</div>
-								<!--
+								
 								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
 									<label>Order Status</label>
 									<select class="normal_select_option" name="order_status">
@@ -27,14 +27,14 @@
 										<?php } ?>
 									</select>
 								</div>
-								-->
+								
 								<div class="col-sm-3 col-xs-6 paddingonlyfive m-b-5px">
 									<button class="reportbutton">Search</button>
 									<?php if(@$from_date != '' || @$to_date != '' || @$order_status != '' || @$order_id != '' || @$customer_name != '' || @$mobile_number != ''){ ?>
 										<a class="creportbutton" href="<?php echo base_url(); ?>admin/orders/main">Reset</a>
 									<?php } ?>
 								</div>
-							</form>
+							</form>-->
 						</div>
 						<div class="fixed-table-container">
 							<div class="fixed-table-body">
@@ -66,11 +66,7 @@
 											<?php if($this->crud_model->admin_permission('order_view') || $this->crud_model->admin_permission('order_status') || $this->crud_model->admin_permission('order_delete')){?>
 												<td class="text-right">
 													<?php if($this->crud_model->admin_permission('order_view')){ ?>
-														<?php if(@$from_date != '' || @$to_date != '' || @$order_status != '' || @$order_id != '' || @$customer_name != '' || @$mobile_number != ''){?>
-															<a class="btn btn-success btn-xs btn-labeled margintb5px" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/orders/order_invoice?o_t=<?php echo $row['order_token']; ?>&o_i=<?php echo $row['order_id']; ?>&from_date=<?php echo @$from_date; ?>&to_date=<?php echo $to_date; ?>&order_status=<?php echo $order_status; ?>&order_id=<?php echo @$order_id; ?>&customer_name=<?php echo @$customer_name; ?>&mobile_number=<?php echo @$mobile_number; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
-														<?php }else{ ?>
-															<a class="btn btn-success btn-xs btn-labeled margintb5px" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/orders/order_invoice?o_t=<?php echo $row['order_token']; ?>&o_i=<?php echo $row['order_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
-														<?php } ?> 
+														<a class="btn btn-success btn-xs btn-labeled margintb5px" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/orders/order_invoice?o_t=<?php echo $row['orderno']; ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
 													<?php } ?>
 												</td>
 											<?php } ?>

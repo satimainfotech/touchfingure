@@ -931,7 +931,7 @@ mark,.mark {
 #mainnav-menu>.active-link>a,#mainnav-menu>.active-link>a:hover {
 	color:#fff;
 	font-weight:550;
-	background-color#25A07A;
+	background-color:#25A07A;
 	padding-left:10px;
 }
 #mainnav-menu>.active-sub>a,#mainnav-menu>.active-sub>a:hover {
@@ -3464,7 +3464,10 @@ hr {
 	text-align: center;
 	color: #fff;
 	border-right: 0px solid #fff;
-	min-width: 250px;
+}
+.btn-labeled, .btn-labeled.fa{
+	display: inline flow-root list-item;
+    margin: 5px;
 }
 #container .table.table-vcenter th,#container .table.table-vcenter td {
 	vertical-align:middle

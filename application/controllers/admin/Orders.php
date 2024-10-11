@@ -146,7 +146,7 @@ class Orders extends CI_Controller {
 			$count_data = $this->order_model->get_total_order_data_count_assigned($order_status,$order_id);
 			
 			$config = array();		
-			$config['total_rows'] = count($count_data);
+			$config['total_rows'] = $count_data;
 			$config['base_url'] = base_url() . "admin/orders?".$searchurl;
 			$config['per_page'] = 20;
 			$config['uri_segment'] = '3';
@@ -202,6 +202,30 @@ class Orders extends CI_Controller {
             $this->load->view('back/admin/login',$data);
         }
     }
+
+	public function order_invoice()
+    {
+		if ($this->session->userdata('admin_login') == 'yes') {
+	
+			if (!$this->crud_model->admin_permission('orma')) {
+				redirect(base_url() . 'admin');
+			}
+			$order_id = $_GET['o_t'];
+			$data['all_sales'] = $this->get_ordermain_details($order_id);
+			$data['page_name'] = "orders/mainorder";
+            $data['page_name_link'] = "orders";
+			$this->load->view('back/admin/index', $data);
+        } else {
+            $data['control'] = "admin";
+            $this->load->view('back/admin/login',$data);
+        }
+    }
+	public function get_ordermain_details($order_id){
+		$this->db->select('*');
+		$this->db->from('order');		
+		$this->db->where('parentid', $order_id);
+		return $this->db->get()->result_array();
+	}
 	public function main()
     {
 		if ($this->session->userdata('admin_login') == 'yes') {
@@ -515,6 +539,17 @@ class Orders extends CI_Controller {
 			$this->db->insert('order_assign', $datap);
 			$data['error'] = 'Data insertion successfully.';
 
+
+			$datanui['notification_user_id']= $_POST['assignto'];
+			$datanui['notification_content']= "you have been assigned a new order with number ".$para1." by ".$_SESSION['name'];
+			$datanui['notification_read']= 0;
+			$datanui['created_by']= $_SESSION['admin_id'];
+			$datanui['created_date']= date('Y-m-d H:i:s'); 
+			$datanui['order_id']= $para1; 
+			$this->db->insert('notification',$datanui);
+			$this->db->insert('logs',$datanui);
+
+
 			$datapp['order_status']= "assigned";
 			$this->db->where('orderno', $para1);
 			$this->db->update('order', $datapp);
@@ -523,5 +558,71 @@ class Orders extends CI_Controller {
 		catch (Exception $e) {
 			$data['error'] = 'Error loading file: ' . $e->getMessage();
 		}  
+	}
+	function Startenddone(){
+
+		$flag = $_GET['flag'];
+		if($flag == "start"){
+			$datap['assignby']= $_GET['assign_by']; 
+			$datap['assignto']= $_GET['assign_to']; 
+			$datap['orderno']= $_GET['orderid']; 
+			$datap['as_id']= $_GET['as_id']; 
+			$datap['starttime']= date('Y-m-d H:i:s');
+			$this->db->insert('ordertimelog', $datap);
+			$data['error'] = 'Data insertion successfully.';
+
+			$datapp['status']= "inprogress";
+			$this->db->where('id',$_GET['as_id']);
+			$this->db->update('order_assign', $datapp);
+
+			$datappp['order_status']= "inprogress";
+			$this->db->where('orderno',$_GET['orderid']);
+			$this->db->update('order', $datappp);
+
+			$para1 = $_GET['orderid'];
+			$datanui['notification_user_id']= $_SESSION['admin_id'];
+			$datanui['notification_content']= $_SESSION['name']." has started working on order number ".$para1;
+			$datanui['notification_read']= 0;
+			$datanui['created_by']= $_POST['assignto'];
+			$datanui['created_date']= date('Y-m-d H:i:s'); 
+			$datanui['order_id']= $para1; 
+			$this->db->insert('logs',$datanui);
+
+
+			
+		}
+		if($flag == "end"){
+			$datap['endtime']= date('Y-m-d H:i:s');
+			$this->db->where('otid',$_GET['as_id']);
+			$this->db->update('ordertimelog', $datap);			
+		}
+		if($flag == "done"){
+
+			$datap['endtime']= date('Y-m-d H:i:s');
+			$this->db->where('otid',$_GET['orderid']);
+			$this->db->where('assignto',$_SESSION['admin_id']);
+			$this->db->update('ordertimelog', $datap);
+
+			$datapp['status']= "done";
+			$this->db->where('orderid',$_GET['orderid']);
+			$this->db->where('assign_to',$_SESSION['admin_id']);
+			$this->db->update('order_assign', $datapp);
+
+			$datappp['order_status']= "done";
+			$this->db->where('orderno',$_GET['orderid']);
+			$this->db->update('order', $datappp);
+
+
+			$para1 = $_GET['orderid'];
+			$datanui['notification_user_id']= $_SESSION['admin_id'];
+			$datanui['notification_content']= $_SESSION['name']." has completed order number ".$para1;
+			$datanui['notification_read']= 0;
+			$datanui['created_by']= $_POST['assignto'];
+			$datanui['created_date']= date('Y-m-d H:i:s'); 
+			$datanui['order_id']= $para1; 
+			$this->db->insert('logs',$datanui);
+
+		}
+		return true;
 	}
 }

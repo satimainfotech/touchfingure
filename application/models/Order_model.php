@@ -9,35 +9,46 @@ class Order_model extends CI_Model
 		$this->table_name = 'order';
 		$this->order_item_table_name = 'order_items';
 		$this->order_status_table_name = 'order_status_manage';
-		$this->prodcut_table_name = 'product';
+		$this->order_assign_tbl = 'order_assign';
 		
     }
 	public function get_total_order_data_count_assigned($status,$order_id){
-		$this->db->select('*');
-		$this->db->from($this->table_name);		
-		if($status != ""){
-			$this->db->where('order_status',$status);
+
+		//$this->db->select('*');
+		$this->db->from($this->order_assign_tbl . ' ors'); // Correcting the alias usage
+		$this->db->join($this->table_name . ' tn', 'tn.orderno = ors.orderid'); // Assuming there's a join condition
+		if (!empty($status)) {
+		$this->db->where('tn.order_status', $status);
 		}
-		if($order_id != ""){
-			$this->db->where('orderno',$order_id);
+		if (!empty($order_id)) {
+		$this->db->where('tn.orderno', $order_id);
 		}
-		$this->db->where('parentid IS NOT NULL');
-		$this->db->order_by($this->table_name.'.orderno','desc');
-		return $this->db->get()->result_array();
+		$this->db->where('tn.parentid IS NOT NULL');
+		if($_SESSION['role'] != 1)
+		{
+			$this->db->where('ors.assign_to', $_SESSION['admin_id']);
+		}
+		$this->db->order_by('tn.orderno', 'desc'); // Use the alias 'tn' for order by as well
+		return $this->db->get()->num_rows();
 	}
 	public function get_total_order_data_assigned($status,$order_id,$limit,$start){
 		$this->db->select('*');
-		$this->db->from($this->table_name);
-		if($status != ""){
-			$this->db->where('order_status',$status);
+		$this->db->from($this->order_assign_tbl . ' ors'); // Correcting the alias usage
+		$this->db->join($this->table_name . ' tn', 'tn.orderno = ors.orderid'); // Assuming there's a join condition
+		if (!empty($status)) {
+		$this->db->where('tn.order_status', $status);
 		}
-		if($order_id != ""){
-			$this->db->where('orderno',$order_id);
+		if (!empty($order_id)) {
+		$this->db->where('tn.orderno', $order_id);
 		}
-		$this->db->where('parentid IS NOT NULL');
+		$this->db->where('tn.parentid IS NOT NULL');
+		if($_SESSION['role'] != 1)
+		{
+			$this->db->where('ors.assign_to', $_SESSION['admin_id']);
+		}
 		$this->db->limit($limit,$start);
 		//$this->db->where($this->table_name.'.order_delete_status',NULL);
-		$this->db->order_by($this->table_name.'.orderno','desc');
+		$this->db->order_by('tn.orderno','desc');
 		return $this->db->get()->result_array();
 	}
 

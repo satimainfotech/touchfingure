@@ -21,11 +21,15 @@
 </style>
 	<div id="page-title">
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('manage_order');?></h1>
-		<?php if($this->crud_model->admin_permission('orders')){?>
-         <a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin/orders/import"><?php echo translate('create_order');?> </a>
-		<?php } ?>
+		 <a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/orders/main"><?php echo translate('Back');?> </a>
 	</div>
 	<?php 
+	$admin = $this->db->select('admin_id,name,pm_id')->get_where('admin')->result_array();
+	foreach($admin as $ap){
+		$process = $this->crud_model->get_type_name_by_id('process_master',$ap['pm_id'],'pm_name');
+		$process = " - ".$process;
+		$username[$ap['admin_id']] =$ap['name'].$process;
+	}
 	$order_status=$_GET['order_status'];
 	$order_id = $_GET['order_id'];
 	?>	
@@ -33,31 +37,8 @@
 		<div class="panel">
 			<div class="panel-body">
                 <!-- LIST -->
-                <div class="tab-pane fade active in" id="list">
+                <div class="tab-pane fade active in" id="list" style="margin-top:10px;">
 					<div class="orderstable panel-body">
-						<div class="reportfilterdiv">
-							<form action="<?php echo base_url(); ?>admin/orders/assigned_orders" method="get">
-								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
-									<label>Order Status</label>
-									<select class="normal_select_option" name="order_status">
-										<option value="">ALL</option>
-										<option value="assigned" <?php if(@$order_status == "assigned"){ echo 'selected'; }?>>Assigned</option>
-										<option value="inprogress" <?php if(@$order_status == "inprogress"){ echo 'selected'; }?>>Processing</option>
-										<option value="done" <?php if(@$order_status == "done"){ echo 'selected'; }?>>Completed</option>
-</select>
-								</div>
-								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
-									<label>Order ID</label>
-									<input type="text" name="order_id" value="<?php echo @$order_id; ?>" placeholder="Order ID">
-								</div>
-								<div class="col-sm-3 col-xs-6 paddingonlyfive m-b-5px">
-									<button class="reportbutton">Search</button>
-									<?php if(@$from_date != '' || @$to_date != '' || @$order_status != '' || @$order_id != '' || @$customer_name != '' || @$mobile_number != ''){ ?>
-										<a class="creportbutton" href="<?php echo base_url(); ?>admin/orders/assigned_orders">Reset</a>
-									<?php } ?>
-								</div>
-							</form>
-						</div>
 						<div class="fixed-table-container1">
 							<div class="fixed-table-body1">
 								<div id="example" style="width:100%;margin:0px 5px;">
@@ -71,12 +52,12 @@
 										?>
 										<div class="card">
 										<div class="card-header align-items-center d-flex">
-										<h5 class="card-title mb-0 flex-grow-1"><?php echo translate('ORDER_NO');?> :  <b> <?php echo $data['orderid']; ?></h5>
+										<h5 class="card-title mb-0 flex-grow-1"><?php echo translate('SR. NO.');?> :  <b> <?php echo $data['sr_no']; ?></h5>
 										<div class="flex-shrink-0">
-											<?php 
+											<?php
 											if($data['order_status'] == 'done' && $_SESSION['role'] != 1)
 											{
-												$orderid = $data['orderid'];
+												$orderid = $data['orderno'];
 												$assign_to = $data['assign_to'];
 											 	$sql = "SELECT orderno, SUM(TIMESTAMPDIFF(SECOND, starttime, endtime)) / 3600 AS total_time_spent_seconds FROM ordertimelog where orderno='$orderid' and assignto='$assign_to'";
 												$result =$this->db->query($sql)->row();
@@ -85,12 +66,12 @@
 												}
 
 											}else{
-												$orderid = $data['orderid'];
+												$orderid = $data['orderno'];
 												$assign_to = $data['assign_to'];
 											 	$sql = "SELECT orderno, SUM(TIMESTAMPDIFF(SECOND, starttime, endtime)) / 3600 AS total_time_spent_seconds FROM ordertimelog where orderno='$orderid'";
-												$resultt =$this->db->query($sql)->row();
-												if($resultt != ""){
-													echo "Working Hours: ". $resultt->total_time_spent_seconds;
+												$result =$this->db->query($sql)->row();
+												if($result != ""){
+													echo "Working Hours: ". $result->total_time_spent_seconds;
 												}
 											if($this->crud_model->admin_permission('orma_track') && $_SESSION['role'] != 1){
 											if($result != "") 
@@ -118,7 +99,45 @@
 									<div class="col-sm-3"><b>ID no to:</b><br/><?=$data['id_no_to'];?></div>
 									<div class="col-sm-3"><b>Project:</b><br/><?=$data['project'];?></div>
 									<div class="col-sm-3"><b>Model:</b><br/><?=$data['model'];?></div>
-									</div></div>
+									</div>
+								<?php
+								$sql = "SELECT *,orderno, (TIMESTAMPDIFF(SECOND, starttime, endtime)) / 3600 AS total_time_spent_seconds FROM ordertimelog where orderno='$orderid'";
+								$resulttime =$this->db->query($sql)->result_array();
+								if($resulttime != ""){
+									?>
+									<table class="table table-bordered">
+									<thead>
+									<tr>
+										<th>SR. NO</th>
+										<th>Assigned By</th>
+										<th>Work By</th>
+										<th>Start Time</th>
+										<th>End Time</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php 
+										$i=1;
+										foreach($resulttime as $r){
+											?>
+											<tr>
+										<td><?php echo $i;?></td>
+										<td><?php echo $username[$r['assignby']];?></td>
+										<td><?php echo $username[$r['assignto']];?></td>
+										<td><?php echo $r['starttime'];?></td>
+										<td><?php echo $r['endtime'];?></td>
+										</tr>
+											<?php 
+											$i++;
+										}
+										?>
+									</tbody>
+									</table>
+									<?php 
+								}
+								?>
+								
+								</div>
 									<?php } }else{ ?>
 										<div style="text-align:center;">
 											<td colspan="9">Data Not Found....</td>

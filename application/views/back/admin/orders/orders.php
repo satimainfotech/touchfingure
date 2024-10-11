@@ -102,7 +102,9 @@
 															<a onclick="delete_confirm_order('<?php echo $row['orderno']; ?>','<?php echo translate('really_want_to_delete_this?'); ?>')" class="btn btn-danger btn-xs btn-labeled fa fa-trash" data-toggle="tooltip"data-original-title="Delete" data-container="body"> <?php echo translate('delete');?> </a>
 														<?php } ?>
 													<?php } ?>
-													<?php if($this->crud_model->admin_permission('orma_add')){?>
+													<?php if($this->crud_model->admin_permission('orma_add')){
+													
+													?>
 													<a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" onclick="ajax_modal_order('edit','<?php echo translate('Assign'); ?> order no <?php echo $row['orderno']; ?> to employee','<?php echo translate('successfully_assign!'); ?>','order_assign','<?php echo $row['orderno']; ?>')" data-original-title="Edit" data-container="body"> <?php echo translate('assign');?> </a>
 													<?php } ?>
 												</td>
