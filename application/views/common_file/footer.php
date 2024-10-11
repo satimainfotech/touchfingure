@@ -185,6 +185,18 @@ $contact = htmlspecialchars($f_row['contact_two'], ENT_QUOTES, 'UTF-8');
                 }
             });
         });
+		
+		setTimeout(function() {
+    var anchor = $('#sfcwd3rkal96fq5hjckcdjpsk6k5a8m2rpm a');
+    if (anchor.length) {
+        anchor.removeAttr('href');
+        console.log('Href removed:', anchor.attr('href'));
+    } else {
+        console.log('Anchor not found');
+    }
+}, 1000); // Delay of 1 second
+		 
+        
     });
 </script>
 

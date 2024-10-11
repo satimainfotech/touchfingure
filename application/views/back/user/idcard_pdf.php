@@ -47,6 +47,16 @@
             top: 0;
             left: 0;
         }
+		 .ptns-bg::before{
+            content: "";
+            background: url('<?php echo base_url(); ?>uploads/other_images/bg-ptns.jpg') no-repeat center;
+            background-size: cover;
+            width: 420px;
+            height: 690px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
         /*.ptn-bg::after{
             content: "";
             background: url('<?php echo base_url(); ?>uploads/other_images/3.png') no-repeat center;
@@ -58,7 +68,7 @@
             right: 0;
         }*/
         .top-logo{
-            margin-top: 30px;
+            margin-top: 60px;
         }
         .top-logo img{
             width: 190px;
@@ -76,7 +86,7 @@
             overflow: hidden;
             margin: 0 auto;
             margin-top: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .avatar .img{
 			width: 207px;
@@ -97,7 +107,7 @@
         }
         .top-text{
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .top-text h3{
             font-size: 24px;
@@ -131,7 +141,8 @@
             margin-left: 5px;
         }
         .sign-cn-img{
-            margin-top: 10px;
+            margin-top: -8px;
+			margin-left:32px;
         }
         .sign-cn-img img{
             width: 180px;
@@ -139,7 +150,7 @@
         .center-int{
             width: 380px;
             margin: 0 auto;
-            margin-top: 110px;
+            margin-top: 30px;
 			position: relative;
         }
         .top-txt{
@@ -218,14 +229,12 @@
 
     <div class="business2" id="capture">
         <div class="front ptn-bg">
-		<div class="ptn-tx right prs-text">
-                    <h3>P<br />R<br />E<br />S<br />S</h3>
-                </div>
+		
             <div class="center-md">
                 
 
                 <div class="top-logo">
-                    <img src="<?php echo base_url(); ?>uploads/other_images/abdaily_logo.png" alt="logo" />
+                    <img src="<?php echo base_url(); ?>uploads/other_images/logo_front_rni.png" alt="logo" />
                 </div>
                 <div class="avatar">
                     <div class="img">
@@ -235,10 +244,10 @@
                 <div class="main-info">
                     <div class="top-text">
                         <h3><?php echo $user_detail['name']; ?></h3>
-                        <p><?php echo $user_detail['member_type_name']; ?> Reporter</p>
+                        <p><?php if($user_detail['member_type_id'] == '8') { echo "Area" ; }else { echo $user_detail['member_type_name']; }?> Reporter</p>
                     </div>
                     <ul>
-                        <li><span>ID No</span> : <span><?php echo $user_detail['id']; ?></span></li>
+                        <li><span>ID No</span> : <span>HO <?php echo date("Y");?>000<?php echo $user_detail['id']; ?></span></li>
                         <li><span>Phone</span> : <span><?php echo $user_detail['mobile']; ?>  </span></li>
                         <li><span>Blood Group</span> : <span>O+</span></li>
                         <li><span>D.O.I.</span> : <span><?php echo date("d-m-Y",strtotime($user_detail['created_date'])); ?></span></li>
@@ -251,9 +260,9 @@
 
                 
             </div>
-			<div class="ptn-tx left"></div>
+			
         </div>
-        <div class="back ptn-bg">
+        <div class="back ptns-bg">
             <div class="center-int">
                 <div class="top-txt">
                     <h2>Instructions</h2>
@@ -282,7 +291,7 @@
 					<p >Gandhinagar , Gujarat</p>
 					<p >Pincode :382007</p>
 					<p >Mobile No : (+91 990-9441-697)</p>
-					<p >Website : www.abdailynews.com</p>
+					<p >Website : www.akhandbharatdainik.com</p>
 					<p>Email : akhandbharatdainik@gmail.com</p>
                 </div>
             </div>
@@ -329,7 +338,7 @@
             }
 
             // Save the generated high-resolution PDF
-            pdf.save('visiting_card.pdf');
+            pdf.save('id_card.pdf');
         });
     });
 </script>

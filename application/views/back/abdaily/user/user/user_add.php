@@ -11,6 +11,7 @@
 			<input type="hidden" value="<?php echo base_url(); ?>admin/abdaily/user<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="return_url">
 		<?php } 
 		?>
+		 
 	</div>
         <div class="tab-base">
             <div class="panel">
@@ -29,39 +30,117 @@
 								<div class="panel-body">
 									<div class="tab-base">
 										<div class="tab-content">
-											<div id="product_details" class="tab-pane fade active in">
-											
-												<div class="col-sm-3 col-md-3 col-xs-12 paddingzeroall">
-																<label class="col-sm-12 control-label text-left" for="demo-hor-2"><?php echo translate('member_type');?></label>
+											<div id="product_details" class="tab-pane fade active in">											
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall">
+													<label class="col-sm-12 control-label text-left" for="demo-hor-2"><?php echo translate('gender');?></label>
+													<div class="col-sm-12">
+														<select id="gender" name="gender" placeholder="Select a Gender" class="demo-chosen-select required" >
+															<option value="">Select Gender</option>
+															<option value="male"><?php echo ucfirst('male'); ?></option>
+															<option value="female"><?php echo ucfirst('female'); ?></option>
+														</select>
+													</div>
+												</div>
+											<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall">
+												<label class="col-sm-12 control-label text-left" for="demo-hor-2"><?php echo translate('member_type');?></label>
+												<div class="col-sm-12">
+													<select id="member_type_id" onchange="display_member(this.value);" name="member_type_id" placeholder="Select a member type" class="form-control demo-chosen-select required" >
+													<option value="">Select a member type</option>
+													<?php foreach($member_type_data as $member_type_row) { ?>
+													<option value="<?php echo $member_type_row['member_type_id']; ?>"  data-fees="<?php echo $member_type_row['fees']; ?>"><?php echo $member_type_row['member_type_name']; ?></option>
+													<?php } ?>
+													</select>
+												</div>
+											</div>
+												
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall 1">
+																<label class="col-sm-12 control-label text-left" for="demo-hor-2"><?php echo translate('country');?></label>
 																<div class="col-sm-12">
-																	<select id="member_type_id" name="member_type_id" placeholder="Select a member type" class="demo-chosen-select required" >
-																		<option value="">Select a member type</option>
-																		<?php foreach($member_type_data as $member_type_row) { ?>
-																			<option value="<?php echo $member_type_row['member_type_id']; ?>"><?php echo $member_type_row['member_type_name']; ?></option>
+																	<select onchange="get_state(this.value);" id="country" name="country" placeholder="Select a country" class="form-control demo-chosen-select required" readonly >
+																		<option value="">Select a Country</option>
+																		<?php  foreach($country_data as $country_row) { ?>
+																		<option value="<?php echo $country_row['country_id']; ?>" selected><?php echo $country_row['country_name']; ?></option>
 																		<?php } ?>
 																	</select>
 																</div>
 												</div>
-												<div class="col-sm-3 col-md-3 col-xs-12 paddingleftzero">
-												
-													<div class="form-group">
-														<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('name');?></label>
-														<div class="col-sm-12">
-															<input type="text" name="name" id="demo-hor-1" placeholder="<?php echo translate('name');?>" class="form-control required">
-														</div>
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall 2" >
+													<label class="col-sm-12 control-label text-left" for="demo-hor-2"><?php echo translate('State');?></label>
+													<div class="col-sm-12">
+														<select id="state" onchange="get_division(this.value); " name="state" placeholder="Select a state" class="form-control demo-chosen-select required" readonly>
+														<option value="">Select State</option>
+														</select>
 													</div>
 												</div>
 												
-												<div class="col-sm-3 col-md-3 col-xs-12 paddingleftzero">
-													<div class="form-group">
-														<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('email');?></label>
-														<div class="col-sm-12">
-															<input type="text" name="email" id="email" placeholder="<?php echo translate('email');?>" class="form-control required">
-														</div>
+												
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall" style="display:none;">
+													<label class="col-sm-12 control-label text-left" for="demo-hor-2"><?php echo translate('Division');?></label>
+													<div class="col-sm-12">
+														<select id="division" name="division" onchange="get_district(this.value); get_district_m(this.value);" placeholder="Select a division" class="form-control demo-chosen-select " >
+														<option value="">Select Division</option>
+														</select>
 													</div>
 												</div>
 												
-												<div class="col-sm-3 col-md-3 col-xs-12 paddingleftzero">
+												
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall district 4" >
+													<label class="col-sm-12 control-label text-left" for="demo-hor-2"><?php echo translate('District');?></label>
+													<div class="col-sm-12">
+														<select id="district" name="district" onchange="get_taluka(this.value);" placeholder="Select a district" class="form-control demo-chosen-select " >
+															<option value="">Select District</option>
+														</select>
+													</div>
+												</div>
+												
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall district_m 5" >
+													<label class="col-sm-12 control-label text-left" for="demo-hor-2"><?php echo translate('District-M');?></label>
+													<div class="col-sm-12">
+														<select id="district_m" name="district_m" onchange="get_taluka_m(this.value);" placeholder="Select a district" class="form-control demo-chosen-select " >
+														<option value="">Select District-M</option>
+
+														</select>
+													</div>
+												</div>
+												 
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall taluka 6" >
+												<label class="col-sm-12 control-label text-left" for="demo-hor-2"><?php echo translate('Taluka');?></label>
+													<div class="col-sm-12">
+														<select id="taluka" name="taluka" onchange="get_gram_panchayat(this.value);" placeholder="Select a taluka" class="form-control demo-chosen-select " >
+														<option value="">Select Taluka</option>
+														</select>
+													</div>
+												</div>
+
+													<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall taluka_m 7" >
+														<label class="col-sm-12 control-label text-left" for="demo-hor-2"><?php echo translate('Taluka-M');?></label>
+														<div class="col-sm-12">
+														<select id="taluka_m" name="taluka_m" onchange="get_gram_panchayat(this.value);" placeholder="Select a taluka" class="form-control demo-chosen-select " >
+															<option value="">Select Taluka-M</option>
+														</select>
+													</div>
+												</div>
+												
+												
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall gram_panchayat 8" >
+													<label class="col-sm-12 control-label text-left" for="demo-hor-2"><?php echo translate('Gram Panchayat');?></label>
+													<div class="col-sm-12">
+													<select id="gram_panchayat" name="gram_panchayat" placeholder="Select a gram panchayat" class="form-control demo-chosen-select " >
+														<option value="">Select Gram Panchayat</option>
+													</select>
+												</div>
+												</div>
+												
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall area 9" >
+													<label class="col-sm-12 control-label text-left" for="demo-hor-2"><?php echo translate('Area');?></label>
+													<div class="col-sm-12">
+														<select id="area" name="area" placeholder="Select a area" class="form-control demo-chosen-select " >
+														<option value="">Select Area</option>
+														</select>
+													</div>
+												</div>
+												
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall">
 													<div class="form-group">
 														<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('mobile');?></label>
 														<div class="col-sm-12">
@@ -70,60 +149,72 @@
 													</div>
 												</div>
 												
-												
-												
-												<div class="col-sm-6 col-md-6 col-xs-12 paddingleftzero">
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall">
 													<div class="form-group">
-														<div class="col-sm-3 col-md-3 col-xs-12 paddingleftzero">
-														<div class="form-group">
-															<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('password');?></label>
-															<div class="col-sm-12">
-																<input type="password" name="password" id="password" placeholder="<?php echo translate('password');?>" class="form-control required">
-															</div>
-														</div>
-													</div>
-													<div class="col-sm-6 col-md-6 col-xs-12 paddingleftzero">
-													<div class="form-group">
-														<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('address');?></label>
+														<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('name');?></label>
 														<div class="col-sm-12">
-														<textarea rows="5" class=" form-control required" data-height="100" name="address" placeholder="address" ></textarea>
-															
+															<input type="text" name="name" id="demo-hor-1" placeholder="<?php echo translate('name');?>" class="form-control required">
 														</div>
 													</div>
 												</div>
-														
-														
-														
+												
+												
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall">
+													<div class="form-group">
+														<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('email');?></label>
+														<div class="col-sm-12">
+															<input type="text" name="email" id="email" placeholder="<?php echo translate('email');?>" class="form-control required">
+														</div>
+													</div>
+												</div>	
+
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall" >
+												<label class="col-sm-12 control-label text-left" for="demo-hor-2"><?php echo translate('Blood Group');?></label>
+													<div class="col-sm-12">
+														<select id="gender" name="blood_group" placeholder="Select a Blood Group" class="form-control demo-chosen-select required" required>
+															<option value="">Select Blood Group</option>
+															<?php foreach($blood_data as $blood_row) { ?>
+															<option value="<?php echo $blood_row['blood_id']; ?>" ><?php echo $blood_row['blood_name']; ?></option>
+															<?php } ?>
+														</select>
 													</div>
 												</div>
 												
-												<div class="col-sm-12 col-md-12 col-xs-12 paddingleftzero">
-												<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('Documents Details');?></label>
-												<hr>
-												</div>
-												
-												
-												<div class="col-sm-12 col-md-12 col-xs-12 paddingleftzero">
-												
-													<div class="form-group">
-														<div class="col-sm-6 col-md-6 col-xs-12 paddingleftzero">
-														<div class="form-group">
-															<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('adhar_card');?></label>
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall">													
+													<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('adhar_card');?></label>
 															<div class="col-sm-12">
 																<input type="text" name="adharcard" id="adharcard" placeholder="<?php echo translate('adhar_card');?>" class="form-control required">
 															</div>
-														</div>
 													</div>	
-													
-														<div class="col-sm-6 col-md-6 col-xs-12 paddingleftzero">
-														<div class="form-group">
-															<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('pan_card');?></label>
+
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall">													
+													<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('pan_card');?></label>
 															<div class="col-sm-12">
 																<input type="text" name="pancard" id="pancard" placeholder="<?php echo translate('pan_card');?>" class="form-control required">
 															</div>
+												</div>	
+
+												<div class="col-sm-6 col-md-6 col-xs-12 paddingzeroall">													
+													<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('police_station_name');?></label>
+															<div class="col-sm-12">
+																<input type="text" name="police_station_name" id="police_station_name" placeholder="<?php echo translate('police_station_name');?>" class="form-control required">
+															</div>
+												</div>													
+
+												
+													
+													<div class="col-sm-6 col-md-6 col-xs-12 paddingleftzero">
+													
+													<label class="col-sm-12 control-label text-left" for="demo-hor-1"><?php echo translate('address');?></label>
+														<div class="col-sm-12">
+														<textarea rows="5" class=" form-control required" data-height="100" name="address" placeholder="address" ></textarea>
+
 														</div>
-													</div>	
 													</div>
+													
+													</div>
+												</div>
+												
 												</div>
 												
 											
@@ -174,15 +265,13 @@
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-							</div>
+									
 							<div class="panel-footer">
 								<div class="row">
 									<div class="col-md-12 paddingzeroall">
 										<span class="btn btn-purple btn-labeled fa fa-refresh pro_list_btn pull-left " onclick="form_reset(); "><?php echo translate('reset');?>
 										</span>
-										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="product_submit('product_add','<?php echo translate('user_has_been_added!'); ?>');" ><?php echo translate('upload');?></span>
+										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="product_submit('product_add','<?php echo translate('user_has_been_added!'); ?>');" ><?php echo translate('Submit');?></span>
 									</div>
 								</div>
 							</div>
@@ -193,12 +282,18 @@
         </div>
     </div>
 </div>    
+<input type="text" id="base_url" value="<?php echo base_url(); ?>admin/abdaily">
 <script>
 	$(function () {
 		$('.textarea').wysihtml5();
 	})
 </script>
 <script>
+		get_state(1);
+	get_division(1);
+	get_district(1);
+	get_district_m(1);
+	
 	function profile_main_images(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -238,9 +333,7 @@
 	$("#pancard_main_images").change(function() {
 		pancard_main_images(this);
 	});
-	
-	
-	
+		
 	
     function set_select(){
         $('.demo-chosen-select').chosen();
@@ -250,6 +343,266 @@
     $(document).ready(function() {
         set_select();
 	});
+	
+	function display_member(id) {
+    // Loop through numbers 1 to 6
+    for (let i = 1; i <= 9; i++) {
+        // Check if the current number is less than the provided id
+        if (i <= id) {
+            // Show the element with the class of the current number
+            $("." + i).show();
+        } else {
+            // Hide the element with the class of the current number
+            $("." + i).hide();
+        }
+    }
+    
+      var selectedOption = $("#member_type_id option:selected");
+
+    // Retrieve the data-fees attribute from the selected option
+    var dataFees = selectedOption.data('fees');
+    
+    // Alert the data-fees value
+    
+	
+	$("#fees_label").html("Rs."+dataFees);
+	$("#fees").val(dataFees);
+    
+    if(id == 4)
+    { 
+		 $(".district").show();
+		  get_district(1);
+	}
+	else if(id == 5)
+	{
+		$(".district").hide();
+		$(".district_m").show();
+		 get_district_m(1);
+	}
+	
+	else if(id == 6)
+	{
+		$(".district").show();
+		$(".taluka").show();
+		$(".district_m").hide();
+	}
+	
+	else if(id == 7)
+	{		
+		$(".district").show();
+		$(".taluka_m").show();
+		$(".taluka").hide();
+		$(".district_m").hide();
+		get_district(1);
+	}
+	else if(id == 8)
+	{		
+		$(".district").show();
+		$(".taluka").show();
+		$(".gram_panchayat").show();
+		$(".taluka_m").hide();	
+		$(".district_m").hide();
+		$(".area").hide()
+	}
+	else if(id == 9)
+	{	
+		$(".district").show();
+		$(".taluka_m").show();	
+		$(".area").show();
+		$(".taluka").hide();		
+		$(".district_m").hide();
+		$(".taluka").hide();
+		$(".gram_panchayat").hide();
+	}	
+	
+	
+	
+}
+
+
+	
+	function get_state(country){
+		
+		var base_url = $('#base_url').val();
+	
+			$.ajax({
+				url : base_url+'abdaily/user/get_state',
+				type: 'POST',
+				dataType: 'html',
+				data: {country:country},
+				success: function(data){
+					
+					if(data != ''){
+						$('#state').html(data);
+					}
+				}
+			});
+		}
+		
+		function get_division(state){
+		var base_url = $('#base_url').val();		
+			$.ajax({
+				url : base_url+'abdaily/user/get_division',
+				type: 'POST',
+				dataType: 'html',
+				data: {state:state},
+				success: function(data){
+					
+					if(data != ''){
+						$('#division').html(data);
+					}
+				}
+			});
+		}
+		
+		function get_district(division){
+		var base_url = $('#base_url').val();		
+			$.ajax({
+				url : base_url+'abdaily/user/get_district',
+				type: 'POST',
+				dataType: 'html',
+				data: {division:division},
+				success: function(data){
+					
+					if(data != ''){
+						$('#district').html(data);
+						//get_taluka(district);
+						
+						
+					}
+				}
+			});
+		}
+		
+		function get_district_m(division){
+		var base_url = $('#base_url').val();		
+			$.ajax({
+				url : base_url+'abdaily/user/get_district_m',
+				type: 'POST',
+				dataType: 'html',
+				data: {division:division},
+				success: function(data){
+					
+					if(data != ''){
+						
+						$('#district_m').html(data);
+					}
+				}
+			});
+		}
+		function get_taluka(district){
+			var base_url = $('#base_url').val();	
+			var member_type_id =  $("#member_type_id").val();
+			alert(member_type_id);
+			if(member_type_id == 7 || member_type_id == 9 )
+			{
+				var url = base_url+'abdaily/user/get_taluka_m';
+			}
+			else
+			{
+				var url = base_url+'abdaily/user/get_taluka';
+			}
+			
+			
+		var base_url = $('#base_url').val();	
+$.ajax({
+    url : url,
+    type: 'POST',
+    dataType: 'html',
+    data: {district:district},
+    success: function(data){
+        console.log(data);
+        if(data != ''){
+            if(member_type_id == 7 || member_type_id == 9){
+                $('#taluka_m').html(data);
+            } else {
+                $('#taluka').html(data);
+            }						
+        }
+    },
+    error: function(xhr, status, error) {
+        console.error("AJAX Error: " + status + " - " + error);
+    }
+});		
+			/*$.ajax({
+				url : url,
+				type: 'POST',
+				dataType: 'html',
+				data: {district:district},
+				success: function(data){
+					
+						if(data != ''){
+						if(member_type_id == 7 || member_type_id == 9)
+						{
+						
+							$('#taluka_m').html(data);
+							
+						}
+						else
+						{
+							
+							$('#taluka').html(data);
+						}						
+					}
+				}
+			});*/
+		}
+		
+		
+		
+		
+		function get_taluka_m(district_m){
+			
+		var base_url = $('#base_url').val();		
+			$.ajax({
+				url : base_url+'abdaily/user/get_taluka_m',
+				type: 'POST',
+				dataType: 'html',
+				data: {district_m:district_m},
+				success: function(data){
+					
+					if(data != ''){
+						$('#taluka_m').html(data);
+					}
+				}
+			});
+		}
+		
+		
+		function get_gram_panchayat(taluka){
+			var base_url = $('#base_url').val();	
+			var member_type_id =  $("#member_type_id").val();
+			if(member_type_id == 9 )
+			{
+				var url = base_url+'abdaily/user/get_area';
+			}
+			else
+			{
+				var url = base_url+'abdaily/user/get_gram_panchayat';
+			}
+			
+		var base_url = $('#base_url').val();		
+			$.ajax({
+				url :url,
+				type: 'POST',
+				dataType: 'html',
+				data: {taluka:taluka},
+				success: function(data){
+					
+					if(data != ''){
+						if(member_type_id == 9 )
+						{
+							$('#area').html(data);
+						}
+						else
+						{
+							$('#gram_panchayat').html(data);
+						}
+					}
+				}
+			});
+		}
+	
 
 </script>
 

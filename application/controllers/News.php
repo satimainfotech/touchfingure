@@ -11,10 +11,23 @@ class News extends CI_Controller
 
    public function index()
     {
+		if($this->input->post('dates') != '')
+		{
+			 $news_date = $this->input->post('dates'); 
+			 $data['news_master'] = $this->db->order_by('news_id','desc')->get_where('news_master',array('news_status'=>'Active','news_name'=>$news_date))->result_array();
+		}
+		else
+		{
+			$data['news_master'] = $this->db->order_by('news_id', 'desc')
+                                ->get_where('news_master', array('news_status' => 'Active'), 3)
+                                ->result_array();
+			
+		}
+		
     	$data['home_page_data'] = $this->db->get_where('home_page',array('home_page_id'=>'1'))->result_array();
 		$data['content_data'] = $this->db->get_where('aboutus',array('aboutus_id'=>'1'))->result_array();
 		$data['user'] = $this->db->order_by('id','desc')->get_where('user',array('status'=>'active'))->result_array();
-		$data['news_master'] = $this->db->order_by('news_id','desc')->get_where('news_master',array('news_status'=>'Active'))->result_array();
+		
 		$data["member_type_data"] = get_member_type();
 		$content_data = $this->db->get_where('aboutus',array('aboutus_id'=>'1'))->result_array();
 		$data["page_names"] = @$content_data[0]['page_title'];
