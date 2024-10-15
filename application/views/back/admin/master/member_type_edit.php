@@ -1,14 +1,14 @@
 <div id="content-container">
 	<div id="page-title">
-		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('edit_member_type');?></h1>
+		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('edit_model');?></h1>
 		<?php
 			if(@$member_type != ''){
 		?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//master_manage/member_type?c_n=<?php echo @$member_type; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
-			<input type="hidden" value="<?php echo base_url(); ?>admin//master_manage/member_type?c_n=<?php echo @$member_type; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" id="page_return_url">
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/master_manage/member_type?c_n=<?php echo @$member_type; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<input type="hidden" value="<?php echo base_url(); ?>admin/master_manage/member_type?c_n=<?php echo @$member_type; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" id="page_return_url">
 		<?php }else{ ?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//master_manage/member_type<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
-			<input type="hidden" value="<?php echo base_url(); ?>admin//master_manage/member_type<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="page_return_url">
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/master_manage/member_type<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<input type="hidden" value="<?php echo base_url(); ?>admin/master_manage/member_type<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="page_return_url">
 		<?php } 
 		?>
 	</div>
@@ -19,7 +19,7 @@
                     <div class="tab-pane fade active in">
 						<?php
 							foreach($member_type_data as $row){
-							echo form_open(base_url() . 'admin//master_manage/member_type_update/'. $row['member_type_id'], array(
+							echo form_open(base_url() . 'admin/master_manage/member_type_update/'. $row['member_type_id'], array(
 								'class' => 'form-horizontal',
 								'method' => 'post',
 								'id' => 'member_type_edit',
@@ -51,7 +51,7 @@
 										</span>
 									</div>
 									<div class="col-md-10">
-										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="master_manage_submit('member_type_edit','<?php echo translate('member_type_successfully_updated!'); ?>');" ><?php echo translate('submit');?></span>
+										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="master_manage_submit('member_type_edit','<?php echo translate('model_successfully_updated!'); ?>');" ><?php echo translate('submit');?></span>
 									</div>
 								</div>
 							</div>

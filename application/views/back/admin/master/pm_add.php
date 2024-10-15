@@ -50,7 +50,7 @@
 										</span>
 									</div>
 									<div class="col-md-10">
-										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="master_manage_submit('country_add','<?php echo translate('country_successfully_created!'); ?>');" ><?php echo translate('submit');?></span>
+										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="master_manage_submit('country_add','<?php echo translate('process_successfully_created!'); ?>');" ><?php echo translate('submit');?></span>
 									</div>
 								</div>
 							</div>

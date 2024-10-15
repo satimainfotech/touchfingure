@@ -38,7 +38,7 @@
 						<div class="reportfilterdiv">
 							<form action="<?php echo base_url(); ?>admin/orders/assigned_orders" method="get">
 								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
-									<label>Order Status</label>
+									<label>Select Employee</label>
 									<select class="normal_select_option" name="order_status">
 										<option value="">ALL</option>
 										<option value="assigned" <?php if(@$order_status == "assigned"){ echo 'selected'; }?>>Assigned</option>
@@ -104,6 +104,7 @@
 											<?php
 											} 
 											?>
+											<button class="btn btn-danger" data-toggle="tooltip" onclick="ajax_modal_order('edit','<?php echo translate('Assign'); ?> order no <?php echo $data['orderno']; ?> to employee','<?php echo translate('successfully_assign!'); ?>','order_assign','<?php echo $data['orderno']; ?>')" data-original-title="Edit" data-container="body"> <i class="fa fa-soccer-ball-o me-1 align-bottom"></i> <?php echo translate('Emergency');?> </button>
 											<button class="btn btn-success addMembers-modal" onclick="Start_end_order('<?php echo $data['id']; ?>','<?php echo $data['assign_by']; ?>','<?php echo $data['assign_to']; ?>','<?php echo $data['orderid']; ?>','<?php echo translate('really_want_to_start_time?'); ?>','done')"><i class="fa fa-check me-1 align-bottom"></i> Job Done</button>
 										<?php }  } ?>
 										</div>
@@ -112,12 +113,12 @@
 									<div class="col-sm-12"><b>Description:</b> <?=$data['job_description'];?></div>
 									<div class="col-sm-3"><b>Drawing:</b><br/><?=$data['drawing_no'];?></div>
 									<div class="col-sm-3"><b>Qty:</b><br/><?=$data['qty'];?></div>
-									<div class="col-sm-3"><b>Material:</b><br/><?=$data['material'];?></div>
+									<div class="col-sm-3"><b>Material:</b><br/><?=$data['materialname'];?></div>
 									<div class="col-sm-3"><b>Size:</b><br/><?=$data['proposed_raw_material_size'];?></div>
 									<div class="col-sm-3"><b>ID no from:</b><br/><?=$data['id_no_from'];?></div>
 									<div class="col-sm-3"><b>ID no to:</b><br/><?=$data['id_no_to'];?></div>
 									<div class="col-sm-3"><b>Project:</b><br/><?=$data['project'];?></div>
-									<div class="col-sm-3"><b>Model:</b><br/><?=$data['model'];?></div>
+									<div class="col-sm-3"><b>Model:</b><br/><?=$data['modelname'];?></div>
 									</div></div>
 									<?php } }else{ ?>
 										<div style="text-align:center;">
@@ -137,6 +138,10 @@
 	</div>
 </div>
 <script>
+	function ajax_modal_order(type,title,noty,form_id,id){
+		modal_form(title,noty,form_id);
+		ajax_load(base_url+'admin/orders/assign/'+id,'form','form');
+	}
 function Start_end_order(as_id, assign_by, assign_to, orderid, msg, flag) {
     msg = '<div class="modal-title">' + msg + '</div>';
     

@@ -1,14 +1,14 @@
 <div id="content-container">
 	<div id="page-title">
-		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('create_new_member_type');?></h1>
+		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('create_new_model');?></h1>
 		<?php
 			if(@$member_type != ''){
 		?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//master_manage/member_type?c_n=<?php echo @$member_type; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
-			<input type="hidden" value="<?php echo base_url(); ?>admin//master_manage/member_type?c_n=<?php echo @$member_type; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" id="page_return_url">
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/master_manage/member_type?c_n=<?php echo @$member_type; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<input type="hidden" value="<?php echo base_url(); ?>admin/master_manage/member_type?c_n=<?php echo @$member_type; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" id="page_return_url">
 		<?php }else{ ?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//master_manage/member_type<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
-			<input type="hidden" value="<?php echo base_url(); ?>admin//master_manage/member_type<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="page_return_url">
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/master_manage/member_type<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<input type="hidden" value="<?php echo base_url(); ?>admin/master_manage/member_type<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="page_return_url">
 		<?php } 
 		?>
 	</div>
@@ -18,7 +18,7 @@
                     <div class="tab-content">
                     <div class="tab-pane fade active in">
 						<?php
-							echo form_open(base_url() . 'admin//master_manage/member_type_added/', array(
+							echo form_open(base_url() . 'admin/master_manage/member_type_added/', array(
 								'class' => 'form-horizontal',
 								'method' => 'post',
 								'id' => 'member_type_add',

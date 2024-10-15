@@ -45,8 +45,9 @@
 										</a>
 									</li>
 								<?php } ?>
-								<?php if($this->crud_model->admin_permission('process_master')){ ?>
-									<li <?php if($page_name_link=="process_master"){?> class="active-link" <?php } ?> >
+								<?php if($this->crud_model->admin_permission('process_master')){ 
+                                    ?>
+									<li <?php if($page_name_link=="Process Master"){?> class="active-link" <?php } ?> >
 										<a href="<?php echo base_url(); ?>admin/master_manage/process_master/">
 											<i class="fa fa-circle fs_i"></i>
 											<?php echo translate('process_master');?>
@@ -193,7 +194,7 @@
                                 <?php
                                 if($this->crud_model->admin_permission('or_assign')){
                                 ?>
-                                <li <?php if($page_name_link=="or_assign"){?> class="active-link" <?php } ?> >
+                                <li <?php if($page_name_link=="assigned_orders"){?> class="active-link" <?php } ?> >
                                     <a href="<?php echo base_url(); ?>admin/orders/assigned_orders">
                                         <i class="fa fa-circle fs_i"></i>
                                         <?php echo translate('employee_orders');?>
@@ -205,22 +206,40 @@
                                 <?php
                                 if($this->crud_model->admin_permission('main_order')){
                                 ?>
-                                <li <?php if($page_name_link=="main_order"){?> class="active-link" <?php } ?> >
+                                <li <?php if($page_name_link=="main"){?> class="active-link" <?php } ?> >
                                     <a href="<?php echo base_url(); ?>admin/orders/main/">
                                         <i class="fa fa-circle fs_i"></i>
                                         <?php echo translate('main_order');?>
                                     </a>
                                 </li>
                                 <?php
-                                    }
+                                }
+                                if($this->crud_model->admin_permission('report')){
+                                ?>
+                                <li <?php if($page_name_link=="report"){?> class="active-link" <?php } ?> >
+                                    <a href="<?php echo base_url(); ?>admin/orders/report/">
+                                        <i class="fa fa-circle fs_i"></i>
+                                        <?php echo translate('report');?>
+                                    </a>
+                                </li>
+                                <?php
+                                }
                                 ?>
                             </ul>
                         </li>
 						<?php
                             }
                         ?>
-
-						
+<?php if($this->crud_model->admin_permission('logs')){ ?>
+                        <li>
+                            <a href="<?php echo base_url(); ?>admin/logs/">
+                                <i class="fa fa-history"></i>
+                                <span class="menu-title">
+                                    <?php echo translate('logs');?>
+                                </span>
+                            </a>
+                        </li>
+                        <?php } ?>
 						
 						<li>
 							<a href="<?php echo base_url(); ?>admin/login/logout/">

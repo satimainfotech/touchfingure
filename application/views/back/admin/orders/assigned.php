@@ -7,7 +7,7 @@
 </style>
 <div id="form">  
 <div class="tab-pane fade active in" id="edit">
-<?php 
+<?php
 foreach($admin_data as $data){
 ?>	
 <div class="orderDetails conatiner">
@@ -15,12 +15,12 @@ foreach($admin_data as $data){
 	<div class="col-sm-12">Description:<br/><?=$data['job_description'];?></div>
 	<div class="col-sm-6">Drawing:<br/><?=$data['drawing_no'];?></div>
 	<div class="col-sm-6">Qty:<br/><?=$data['qty'];?></div>
-	<div class="col-sm-6">Material:<br/><?=$data['material'];?></div>
+	<div class="col-sm-6">Material:<br/><?=$data['materialname'];?></div>
 	<div class="col-sm-6">Size:<br/><?=$data['proposed_raw_material_size'];?></div>
 	<div class="col-sm-6">ID no from:<br/><?=$data['id_no_from'];?></div>
 	<div class="col-sm-6">ID no to:<br/><?=$data['id_no_to'];?></div>
 	<div class="col-sm-6">Project:<br/><?=$data['project'];?></div>
-	<div class="col-sm-6">Model:<br/><?=$data['model'];?></div>
+	<div class="col-sm-6">Model:<br/><?=$data['modelname'];?></div>
 </div>
 <br/>
 <?php
@@ -33,6 +33,16 @@ echo form_open(base_url() . 'admin/orders/assignto/' . $data['orderno'], array(
 <div class="form-group col-sm-12">
 <h4>Assing to:</h4>
 <?php
+$this->db->select('assign_to');
+$this->db->where('orderid',$data['orderno']);
+$this->db->where('status !=', 'done');
+$assigned = $this->db->get('order_assign')->result_array();
+$checkassigned = array();
+if($assigned != ""){
+	foreach($assigned as $as){
+		$checkassigned[]= $as['assign_to'];
+	}
+}
 $this->db->select('admin_id,name,pm_id');
 $this->db->where('pm_id IS NOT NULL');
 $this->db->where('role !=', 1);
@@ -43,10 +53,16 @@ $admin = $this->db->get('admin')->result_array();
 	<?php 
 	foreach($admin as $a)
 	{
+	if(in_array($a['admin_id'],$checkassigned)){
+		?>
+		<option disabled value="<?php echo $a['admin_id'];?>"><?php echo $a['name'];?>- <?php echo $this->crud_model->get_type_name_by_id('process_master',$a['pm_id'],'pm_name'); ?> (Assigned)</option>
+		<?php 
+	}else{
 	?>
 	<option value="<?php echo $a['admin_id'];?>"><?php echo $a['name'];?>- <?php echo $this->crud_model->get_type_name_by_id('process_master',$a['pm_id'],'pm_name'); ?></option>
 	<?php
 	}
+}
 	?>
 </select>
 <?php

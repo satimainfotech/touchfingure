@@ -70,7 +70,7 @@
 															<?php } ?>
 														<?php } ?>
 														<?php if($this->crud_model->admin_permission('pm_delete')){ ?> 
-															<a onclick="delete_confirm('<?php echo $row['process_master_id']; ?>','<?php echo translate('really_want_to_delete_this_country?'); ?>')" class="btn btn-xs btn-danger btn-labeled fa fa-trash" data-toggle="tooltip" 
+															<a onclick="delete_confirm('<?php echo $row['process_master_id']; ?>','<?php echo translate('really_want_to_delete_this_process?'); ?>')" class="btn btn-xs btn-danger btn-labeled fa fa-trash" data-toggle="tooltip" 
 																data-original-title="Delete" data-container="body"><?php echo translate('delete');?>
 															</a>
 														<?php } ?>

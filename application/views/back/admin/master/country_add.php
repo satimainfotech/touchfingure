@@ -1,14 +1,14 @@
 <div id="content-container">
 	<div id="page-title">
-		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('create_new_country');?></h1>
+		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('create_new_Material');?></h1>
 		<?php
 			if(@$country != ''){
 		?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//master_manage/country?c_n=<?php echo @$country; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
-			<input type="hidden" value="<?php echo base_url(); ?>admin//master_manage/country?c_n=<?php echo @$country; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" id="page_return_url">
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/master_manage/country?c_n=<?php echo @$country; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<input type="hidden" value="<?php echo base_url(); ?>admin/master_manage/country?c_n=<?php echo @$country; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" id="page_return_url">
 		<?php }else{ ?>
-			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin//master_manage/country<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
-			<input type="hidden" value="<?php echo base_url(); ?>admin//master_manage/country<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="page_return_url">
+			<a class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn custombutton" href="<?php echo base_url(); ?>admin/master_manage/country<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>"><?php echo translate('back');?> </a>
+			<input type="hidden" value="<?php echo base_url(); ?>admin/master_manage/country<?php if(@$page_id == ''){ }else{ echo "?page=$page_id"; } ?>" id="page_return_url">
 		<?php } 
 		?>
 	</div>
@@ -18,7 +18,7 @@
                     <div class="tab-content">
                     <div class="tab-pane fade active in">
 						<?php
-							echo form_open(base_url() . 'admin//master_manage/country_added/', array(
+							echo form_open(base_url() . 'admin/master_manage/country_added/', array(
 								'class' => 'form-horizontal',
 								'method' => 'post',
 								'id' => 'country_add',
@@ -50,7 +50,7 @@
 										</span>
 									</div>
 									<div class="col-md-10">
-										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="master_manage_submit('country_add','<?php echo translate('country_successfully_created!'); ?>');" ><?php echo translate('submit');?></span>
+										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="master_manage_submit('country_add','<?php echo translate('material_successfully_created!'); ?>');" ><?php echo translate('submit');?></span>
 									</div>
 								</div>
 							</div>

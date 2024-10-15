@@ -26,15 +26,15 @@
             <ul class="nav navbar-top-links pull-right">
 				<li id="dropdown-user" class="dropdown notificationss">
 					<a href="<?php echo base_url(); ?>template/back/#" data-toggle="dropdown" class="dropdown-toggle text-right">
-						<i class="fa fa-bell"></i><span class="notificationcount"><?php echo $this->db->get_where('notification',array('notification_user_id'=>'1','user_type'=>'admin','notification_read'=>'0'))->num_rows(); ?></span>
+						<i class="fa fa-bell"></i><span class="notificationcount"><?php echo $this->db->get_where('notification',array('notification_user_id'=>$_SESSION['admin_id'],'notification_read'=>0))->num_rows(); ?></span>
 					</a>
                     <div class="dropdown-menu dropdown-menu-md dropdown-menu-right with-arrow panel-default notificationshow">
 						<h3>Notifications</h3>
-                        <?php $noti = $this->db->limit('5')->order_by('notification_id','desc')->get_where('notification',array('notification_user_id'=>'1','user_type'=>'admin'))->result_array();  ?>
+                        <?php $noti = $this->db->limit('5')->order_by('notification_id','desc')->get_where('notification',array('notification_user_id'=>$_SESSION['admin_id']))->result_array();  ?>
 						<ul>
 						<?php if(!empty($noti)){ foreach($noti as $noi){ 
 							?>
-							<li class="<?php if($noi['notification_read'] == '0'){ echo 'notread'; }?>"><a href="<?php echo base_url();?>admin/notification"><?php echo $noi['notification_msg']; ?></a><?php if($noi['notification_order_id'] != ''){ ?><a class="notificationlink" href="<?php echo base_url(); ?>admin/order/order_view/<?php echo $noi['notification_order_id']; ?>"><span>View Order</span></a><?php } ?></li>
+							<li class="<?php if($noi['notification_read'] == '0'){ echo 'notread'; }?>"><?php echo $noi['notification_content'];?></a></li>
 						<?php } }else{ echo "<li>Notifications not found...</li>"; } ?>
 						</ul>
 						<h4><a href="<?php echo base_url();?>admin/notification">View All</a></h4>

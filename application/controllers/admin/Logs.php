@@ -1,7 +1,7 @@
 <?php
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
-class Notification extends CI_Controller
+class Logs extends CI_Controller
 {
     function __construct()
     {
@@ -14,26 +14,21 @@ class Notification extends CI_Controller
     {
 		//print_r($_SESSION);
 		if ($this->session->userdata('admin_login') == 'yes') {
-
-        $updateseen['notification_read'] = 1;  
-        $this->db->where('notification_user_id', $_SESSION['admin_id']);
-        $this->db->update('notification',$updateseen);
-
 		// Get the total count of notifications for the admin user
-        $this->db->where('notification_user_id', $_SESSION['admin_id']);
+        //$this->db->where('notification_user_id', $_SESSION['admin_id']);
 		$this->db->order_by('notification_user_id','DESC');
-       	$count_data = $this->db->get('notification')->num_rows();
+       	$count_data = $this->db->get('logs')->num_rows();
 
         // Set up pagination config
-         // Set up pagination config
-         $config = array();
-         $config['base_url'] = base_url() . 'admin/logs/' . $searchurl;
-         $config['total_rows'] = $count_data;
-         $config['per_page'] = 20;
-         $config['uri_segment'] = '3';
-         $config['page_query_string'] = TRUE; // Enable query string pagination
-         $config['query_string_segment'] = 'page'; // Set the query string key
-         $choice = $config["total_rows"] / $config["per_page"];
+        $config = array();
+        $config['base_url'] = base_url() . 'admin/logs/' . $searchurl;
+        $config['total_rows'] = $count_data;
+        $config['per_page'] = 20;
+        $config['uri_segment'] = '3';
+        $config['page_query_string'] = TRUE; // Enable query string pagination
+        $config['query_string_segment'] = 'page'; // Set the query string key
+        $choice = $config["total_rows"] / $config["per_page"];
+
         // Customizing pagination links
         $config['full_tag_open'] = '<div class="pagination"><ul>';
         $config['full_tag_close'] = '</ul></div>';
@@ -61,10 +56,10 @@ class Notification extends CI_Controller
         $page = ($this->input->get('page')) ? $this->input->get('page') : 0;
 
         // Fetch paginated results based on per_page and current page
-        $this->db->where('notification_user_id', $_SESSION['admin_id']);
+        //$this->db->where('notification_user_id', $_SESSION['admin_id']);
         $this->db->limit($config['per_page'], $page);
 		$this->db->order_by('notification_id','DESC');
-        $data['all_country'] = $this->db->get('notification')->result_array();
+        $data['all_country'] = $this->db->get('logs')->result_array();
 
         // Generate pagination links
         $data['links'] = $this->pagination->create_links();

@@ -28,7 +28,8 @@ class Order_model extends CI_Model
 		{
 			$this->db->where('ors.assign_to', $_SESSION['admin_id']);
 		}
-		$this->db->order_by('tn.orderno', 'desc'); // Use the alias 'tn' for order by as well
+		$this->db->order_by('ors.assign_date', 'desc'); // Use the alias 'tn' for order by as well
+		$this->db->group_by('ors.orderid'); // Use the alias 'tn' for order by as well
 		return $this->db->get()->num_rows();
 	}
 	public function get_total_order_data_assigned($status,$order_id,$limit,$start){
@@ -47,39 +48,77 @@ class Order_model extends CI_Model
 			$this->db->where('ors.assign_to', $_SESSION['admin_id']);
 		}
 		$this->db->limit($limit,$start);
-		//$this->db->where($this->table_name.'.order_delete_status',NULL);
-		$this->db->order_by('tn.orderno','desc');
+		$this->db->order_by('ors.assign_date', 'desc'); // Use the alias 'tn' for order by as well
+		$this->db->group_by('ors.orderid'); // Use the alias 'tn' for order by as well
 		return $this->db->get()->result_array();
 	}
 
 
-	public function get_total_order_data_count($from_date,$to_date,$payment_status,$order_status,$order_id,$mobile_number,$customer_name){
+	public function get_total_order_data_count_assignedemployee($status,$order_id){
+
+		$this->db->from('ordertimelog as ot'); // Correcting the alias usage
+		$this->db->join('order or', 'or.orderno = ot.orderno'); // Assuming there's a join condition
+		if (!empty($order_id)) {
+			$this->db->where('ot.orderno', $order_id);
+		}
+		if(!empty($status))
+		{
+			$this->db->where('ot.assignto', $status);
+		}
+		if(empty($status) && $_SESSION['role'] != 1)
+		{
+			$this->db->where('ot.assignto', $_SESSION['admin_id']);
+		}
+		$this->db->order_by('ot.starttime', 'desc'); // Use the alias 'tn' for order by as well
+		return $this->db->get()->num_rows();
+	}
+	public function get_total_order_data_assignedemployee($status,$order_id,$limit,$start){	
+		$this->db->select('*, (TIMESTAMPDIFF(SECOND, starttime, endtime)) / 3600 AS total_time_spent_seconds'); // Correcting the alias usage
+		$this->db->from('ordertimelog as ot'); // Correcting the alias usage
+		$this->db->join('order or', 'or.orderno = ot.orderno'); // Assuming there's a join condition
+		if (!empty($order_id)) {
+			$this->db->where('ot.orderno', $order_id);
+		}
+		if(!empty($status))
+		{
+			$this->db->where('ot.assignto', $status);
+		}
+		if(empty($status) && $_SESSION['role'] != 1)
+		{
+			$this->db->where('ot.assignto', $_SESSION['admin_id']);
+		}
+		$this->db->order_by('ot.starttime', 'desc'); // Use the alias 'tn' for order by as well
+		$this->db->limit($limit,$start);
+		return $this->db->get()->result_array();
+	}
+
+	public function get_total_order_data_count($order_status,$order_id){
 		$this->db->select('*');
 		$this->db->from($this->table_name);
-		/*$this->db->join($this->order_status_table_name,$this->order_status_table_name.'.order_status_id = '.$this->table_name.'.order_status','left');
-		if($from_date != ''){
-			$this->db->where($this->table_name.'.order_date >=',$from_date);
+		if (!empty($order_status)) {
+			$this->db->where('order_status', $order_status);
 		}
-		if($to_date != ''){
-			$this->db->where($this->table_name.'.order_date <=',$to_date);
+		if (!empty($order_id)) {
+			$this->db->where('orderno', $order_id);
 		}
-		if($payment_status != ''){
-			$this->db->where($this->table_name.'.order_paymnet_status',$payment_status);
-		}
-		if($order_status != ''){
-			$this->db->where($this->table_name.'.order_status',$order_status);
-		}
-		if($customer_name != ''){
-			$this->db->where($this->table_name.'.order_user_name',$customer_name);
-		}
-		if($mobile_number != ''){
-			$this->db->where($this->table_name.'.order_mobile_number',$mobile_number);
-		}
-		if($order_id != ''){
-			$this->db->where($this->table_name.'.order_id',$order_id);
-		}*/
-		//$this->db->where($this->table_name.'.order_delete_status',NULL);
+		$this->db->where('status !=', 0);
 		$this->db->where('parentid IS NOT NULL');
+		$this->db->order_by($this->table_name.'.orderno','desc');
+		return $this->db->get()->result_array();
+	}
+
+	public function get_total_order_data($order_status,$order_id,$limit,$start){
+		$this->db->select('*');
+		$this->db->from($this->table_name);
+		if (!empty($order_status)) {
+			$this->db->where('order_status', $order_status);
+		}
+		if (!empty($order_id)) {
+			$this->db->where('orderno', $order_id);
+		}
+		$this->db->where('status !=', 0);
+		$this->db->where('parentid IS NOT NULL');
+		$this->db->limit($limit,$start);
 		$this->db->order_by($this->table_name.'.orderno','desc');
 		return $this->db->get()->result_array();
 	}
@@ -122,37 +161,7 @@ class Order_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 	
-	public function get_total_order_data($from_date,$to_date,$payment_status,$order_status,$order_id,$mobile_number,$customer_name,$limit,$start){
-		$this->db->select('*');
-		$this->db->from($this->table_name);
-		/*$this->db->join($this->order_status_table_name,$this->order_status_table_name.'.order_status_id = '.$this->table_name.'.order_status');
-		if($from_date != ''){
-			$this->db->where($this->table_name.'.order_date >=',$from_date);
-		}
-		if($to_date != ''){
-			$this->db->where($this->table_name.'.order_date <=',$to_date);
-		}
-		if($payment_status != ''){
-			$this->db->where($this->table_name.'.order_paymnet_status',$payment_status);
-		}
-		if($order_status != ''){
-			$this->db->where($this->table_name.'.order_status',$order_status);
-		}
-		if($customer_name != ''){
-			$this->db->where($this->table_name.'.order_user_name',$customer_name);
-		}
-		if($mobile_number != ''){
-			$this->db->where($this->table_name.'.order_mobile_number',$mobile_number);
-		}
-		if($order_id != ''){
-			$this->db->where($this->table_name.'.order_id',$order_id);
-		}*/
-		$this->db->where('parentid IS NOT NULL');
-		$this->db->limit($limit,$start);
-		//$this->db->where($this->table_name.'.order_delete_status',NULL);
-		$this->db->order_by($this->table_name.'.orderno','desc');
-		return $this->db->get()->result_array();
-	}
+	
 	
 	public function get_single_order_details($order_id,$order_token){
 		$this->db->select('*');

@@ -17,62 +17,10 @@ class Orders extends CI_Controller {
 			if (!$this->crud_model->admin_permission('Orders')) {
 				redirect(base_url() . 'admin');
 			}
-			$sfrom_date = @$_GET['from_date'];
-			$sto_date = @$_GET['to_date'];
-			
-			if($sfrom_date != ''){
-				$d = DateTime::createFromFormat(
-					"Y-m-d H:i:s",
-					"$sfrom_date 00:00:00",
-					new DateTimeZone('UTC')
-				);
-
-				if ($d === false) {
-					$from_timestamp = '';
-				} else {
-					$from_timestamp = $d->getTimestamp();
-				}
-				$date_of_use_from = $from_timestamp; 
-			}else{
-				$date_of_rfrom =  '';
-				$date_of_use_from =  '';
-			}
-			
-			if($sto_date != ''){
-				$d = DateTime::createFromFormat(
-					"Y-m-d H:i:s",
-					"$sto_date 23:59:59",
-					new DateTimeZone('UTC')
-				);
-
-				if ($d === false) {
-					$to_timestamp = '';
-				} else {
-					$to_timestamp = $d->getTimestamp();
-				}
-				$date_of_use_to = $to_timestamp; 
-			}else{
-				$date_of_rto =  '';
-				$date_of_use_to =  '';
-			}
-			$data['from_date'] = $sfrom_date;
-			$data['to_date'] = $sto_date;
-			$data['payment_status'] = @$_GET['payment_status'];
-			$data['order_status'] = @$_GET['order_status'];
-			$data['order_id'] = @$_GET['order_id'];
-			$data['mobile_number'] = @$_GET['mobile_number'];
-			$data['customer_name'] = @$_GET['customer_name'];
-			$gfrom_date = "$date_of_use_from";
-			$gto_date = "$date_of_use_to";
-			$payment_status = $data['payment_status'];
-			$order_status = $data['order_status'];
-			$order_id = $data['order_id'];
-			$mobile_number = $data['mobile_number'];
-			$customer_name = $data['customer_name'];
-			
-			$searchurl='from_date='.$sfrom_date.'&to_date='.$sto_date.'&payment_status='.$payment_status.'&order_status='.$order_status.'&order_id='.$order_id.'&mobile_number='.$mobile_number.'&customer_name='.$customer_name;
-			
-			$count_data = $this->order_model->get_total_order_data_count($gfrom_date,$gto_date,$payment_status,$order_status,$order_id,$mobile_number,$customer_name);
+			$order_status = $_GET['order_status'];
+			$order_id = $_GET['order_id'];
+			$searchurl='order_status='.$order_status.'&order_id='.$order_id;
+			$count_data = $this->order_model->get_total_order_data_count($order_status,$order_id);
 			
 			$config = array();		
 			$config['total_rows'] = count($count_data);
@@ -117,9 +65,8 @@ class Orders extends CI_Controller {
 			else
 			{
 				$page = 0;
-			}
-			
-			$data['all_sales'] = $this->order_model->get_total_order_data($gfrom_date,$gto_date,$payment_status,$order_status,$order_id,$mobile_number,$customer_name,$config["per_page"],$page);
+			}			
+			$data['all_sales'] = $this->order_model->get_total_order_data($order_status,$order_id,$config["per_page"],$page);
 			$data["links"] = $this->pagination->create_links();
 			$data['msg'] = "";		
 			$data['total_rows'] = $config["total_rows"];
@@ -203,6 +150,76 @@ class Orders extends CI_Controller {
         }
     }
 
+	public function report()
+    {
+		if ($this->session->userdata('admin_login') == 'yes') {
+	
+			if (!$this->crud_model->admin_permission('or_assign')) {
+				redirect(base_url() . 'admin');
+			}
+			$order_status = $_GET['employee'];
+			$order_id = $_GET['order_id'];
+			$searchurl='employee='.$order_status.'&order_id='.$order_id;
+			$count_data = $this->order_model->get_total_order_data_count_assignedemployee($order_status,$order_id);
+			
+			$config = array();		
+			$config['total_rows'] = $count_data;
+			$config['base_url'] = base_url() . "admin/orders?".$searchurl;
+			$config['per_page'] = 20;
+			$config['uri_segment'] = '3';
+			$config['page_query_string']= TRUE;
+			$config['query_string_segment'] = "page";
+			$choice = $config["total_rows"] / $config["per_page"];
+			
+			$config['full_tag_open'] = '<div class="pagination"><ul>';
+			$config['full_tag_close'] = '</ul></div>';
+		 
+			$config['first_link'] = 'First';
+			$config['first_tag_open'] = '<li class="firstpage page">';
+			$config['first_tag_close'] = '</li>';
+		 
+			$config['last_link'] = 'Last';
+			$config['last_tag_open'] = '<li class="lastpage page">';
+			$config['last_tag_close'] = '</li>';
+		 
+			$config['next_link'] = '»';
+			$config['next_tag_open'] = '<li class="next page">';
+			$config['next_tag_close'] = '</li>';
+		 
+			$config['prev_link'] = '«';
+			$config['prev_tag_open'] = '<li class="prev page">';
+			$config['prev_tag_close'] = '</li>';
+		 
+			$config['cur_tag_open'] = '<li class="active"><a href="">';
+			$config['cur_tag_close'] = '</a></li>';
+		 
+			$config['num_tag_open'] = '<li class="page">';
+			$config['num_tag_close'] = '</li>';
+			
+			$this->pagination->initialize($config);
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			if($this->input->get('page') != '')
+			{
+				$page = ($this->input->get('page'));
+			}
+			else
+			{
+				$page = 0;
+			}			
+			$data['all_sales'] = $this->order_model->get_total_order_data_assignedemployee($order_status,$order_id,$config["per_page"],$page);
+			$data["links"] = $this->pagination->create_links();
+			$data['msg'] = "";		
+			$data['total_rows'] = $config["total_rows"];
+			$data['page_id'] = $page;
+			$data['page_name'] = "orders/assignedorderreport";
+            $data['page_name_link'] = "orders";
+			$this->load->view('back/admin/index', $data);
+        } else {
+            $data['control'] = "admin";
+            $this->load->view('back/admin/login',$data);
+        }
+    }
+
 	public function order_invoice()
     {
 		if ($this->session->userdata('admin_login') == 'yes') {
@@ -236,43 +253,6 @@ class Orders extends CI_Controller {
 			$sfrom_date = @$_GET['from_date'];
 			$sto_date = @$_GET['to_date'];
 			
-			/*
-			if($sfrom_date != ''){
-				$d = DateTime::createFromFormat(
-					"Y-m-d H:i:s",
-					"$sfrom_date 00:00:00",
-					new DateTimeZone('UTC')
-				);
-
-				if ($d === false) {
-					$from_timestamp = '';
-				} else {
-					$from_timestamp = $d->getTimestamp();
-				}
-				$date_of_use_from = $from_timestamp; 
-			}else{
-				$date_of_rfrom =  '';
-				$date_of_use_from =  '';
-			}
-			
-			if($sto_date != ''){
-				$d = DateTime::createFromFormat(
-					"Y-m-d H:i:s",
-					"$sto_date 23:59:59",
-					new DateTimeZone('UTC')
-				);
-
-				if ($d === false) {
-					$to_timestamp = '';
-				} else {
-					$to_timestamp = $d->getTimestamp();
-				}
-				$date_of_use_to = $to_timestamp; 
-			}else{
-				$date_of_rto =  '';
-				$date_of_use_to =  '';
-			}
-				*/
 			$data['from_date'] = $sfrom_date;
 			$data['to_date'] = $sto_date;
 			$data['payment_status'] = @$_GET['payment_status'];
@@ -351,6 +331,12 @@ class Orders extends CI_Controller {
     }
 
     public function import() {
+      
+		if ($this->session->userdata('admin_login') == ''){
+			if (!$this->crud_model->admin_permission('order')) {
+				redirect(base_url() . 'admin');
+			}
+		}
         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'xlsx|xls';
         $config['max_size'] = 2048;
@@ -378,9 +364,6 @@ class Orders extends CI_Controller {
                 ];
                 $this->db->insert('Order', $dataOrder);
                 $masterOrderId = $this->db->insert_id(); // Get the generated master order ID
-
-
-
 
 				foreach ($sheet->getRowIterator() as $rowIndex => $row) {
 					if ($rowIndex == 1) continue; // Skip header row
@@ -423,7 +406,7 @@ class Orders extends CI_Controller {
 					$material_name = $rowData[4]; // Assuming this is the material name
 					$material_id = $this->get_or_create_country_id($material_name); // Custom method to check and create country
 
-					$model_name = $rowData[9]; // Assuming this is the model name
+					$model_name = $rowData[10]; // Assuming this is the model name
 					$model_id = $this->get_or_create_member_type_id($model_name); // Custom method to check and create member type
 			
 						$data = [
@@ -440,25 +423,37 @@ class Orders extends CI_Controller {
 						'project' => $rowData[9],
 						'model' => $model_id,
 						'gst_rate' => $rowData[11],
+						'materialname' => $rowData[4],
+						'modelname' => $rowData[10],
 						'status' => 1,
 						'order_status' => 'new',
 						'created_date' => date('Y-m-d H:i:s'),
 						'updated_date' => date('Y-m-d H:i:s')
 					];
 					$this->db->insert('Order', $data);
+					$id = $this->db->insert_id();
+
+					$datanui['notification_user_id']= $_SESSION['admin_id'];
+					$datanui['notification_content']= $_SESSION['admin_name']." has created new order - ".@$id;
+					$datanui['notification_read']= 1;
+					$datanui['created_by']= $_SESSION['admin_id'];
+					$datanui['created_date']= date('Y-m-d H:i:s'); 
+					$datanui['order_id']=  $id; 
+					$this->db->insert('logs',$datanui);
+
 				}
 				}
                 $this->db->trans_complete(); // Complete transaction
 
                 if ($this->db->trans_status() === FALSE) {
-                    $data['error'] = 'Data insertion failed.';
+                    $page_data['error'] = 'Data insertion failed.';
                 } else {
-                    $data['error'] = 'File uploaded and data inserted successfully.';
+                    $page_data['error'] = 'File uploaded and data inserted successfully.';
                 }
                 // Load the view with the result
                // $this->load->view('upload_view', $data);
             } catch (Exception $e) {
-                $data['error'] = 'Error loading file: ' . $e->getMessage();
+                $page_data['error'] = 'Error loading file: ' . $e->getMessage();
                 //$this->load->view('upload_view', $data);
             }
         }
@@ -517,6 +512,17 @@ class Orders extends CI_Controller {
         $data['status'] = '0';
 		$this->db->where('orderno', $para1);
         $this->db->update('order',$data);
+
+		$datanui['notification_user_id']= $_SESSION['admin_id'];
+		$datanui['notification_content']= $_SESSION['admin_name']." has deleted order - ".@$para1;
+		$datanui['notification_read']= 1;
+		$datanui['created_by']= $_SESSION['admin_id'];
+		$datanui['created_date']= date('Y-m-d H:i:s'); 
+		$datanui['order_id']=  $para1; 
+		$this->db->insert('logs',$datanui);
+
+
+
     }
 	function Assign($para1 = '', $para2 = '')
     {
@@ -541,7 +547,7 @@ class Orders extends CI_Controller {
 
 
 			$datanui['notification_user_id']= $_POST['assignto'];
-			$datanui['notification_content']= "you have been assigned a new order with number ".$para1." by ".$_SESSION['name'];
+			$datanui['notification_content']= "you have been assigned a new order number ".$para1." by ".$_SESSION['admin_name'];
 			$datanui['notification_read']= 0;
 			$datanui['created_by']= $_SESSION['admin_id'];
 			$datanui['created_date']= date('Y-m-d H:i:s'); 
@@ -580,14 +586,14 @@ class Orders extends CI_Controller {
 			$this->db->update('order', $datappp);
 
 			$para1 = $_GET['orderid'];
-			$datanui['notification_user_id']= $_SESSION['admin_id'];
-			$datanui['notification_content']= $_SESSION['name']." has started working on order number ".$para1;
+			$datanui['notification_user_id']= $_GET['assign_by'];
+			$datanui['notification_content']= $_SESSION['admin_name']." has started working on order number ".$para1;
 			$datanui['notification_read']= 0;
-			$datanui['created_by']= $_POST['assignto'];
+			$datanui['created_by']= $_SESSION['admin_id'];
 			$datanui['created_date']= date('Y-m-d H:i:s'); 
 			$datanui['order_id']= $para1; 
 			$this->db->insert('logs',$datanui);
-
+			$this->db->insert('notification',$datanui);
 
 			
 		}
@@ -614,15 +620,62 @@ class Orders extends CI_Controller {
 
 
 			$para1 = $_GET['orderid'];
-			$datanui['notification_user_id']= $_SESSION['admin_id'];
-			$datanui['notification_content']= $_SESSION['name']." has completed order number ".$para1;
+			$datanui['notification_user_id']= $_GET['assign_by'];
+			$datanui['notification_content']= $_SESSION['admin_name']." has completed order number ".$para1;
 			$datanui['notification_read']= 0;
-			$datanui['created_by']= $_POST['assignto'];
+			$datanui['created_by']= $_SESSION['admin_id'];
 			$datanui['created_date']= date('Y-m-d H:i:s'); 
 			$datanui['order_id']= $para1; 
 			$this->db->insert('logs',$datanui);
+			$this->db->insert('notification',$datanui);
 
 		}
 		return true;
+	}
+	function get_notification_count(){
+		$query = $this->db->get_where('notification', array(
+			'notification_read' => 0,
+			'notification_user_id' => $_SESSION['admin_id']
+		));		
+		//echo $this->db->last_query();
+		$notification = $query->row();		
+		if($notification != "" &&  $_SESSION['role'] != '') {
+			$id = $notification->{'notification_id'};
+			$content = $notification->{'notification_content'};
+			$html = $content.'<br/><br/><button type="button" class="btn btn-warning mark-as-read" onclick="markNotificationsAsRead('.$id.')">OK GOT IT</button>';
+			$res = array('count'=>1,'notification_content'=>$html);
+			echo json_encode($res);
+		}
+	}
+	function mark_notifications_read(){
+		$p = $_GET['p'];
+		$data['notification_read'] = 1;
+		$this->db->where('notification_id',$p);
+		$this->db->update('notification',$data);
+		//echo $this->db->last_query();
+		$res = array('status'=>'success','notification_content'=>"Thank You!");
+		echo json_encode($res);
+	}
+	function Stopyesterday(){
+		
+	// Retrieve all records where endtime is NULL
+	$this->db->where('endtime', NULL);
+	$this->db->where('starttime <', date('Y-m-d'));
+	$query = $this->db->get('ordertimelog');
+	// Loop through each record and update the endtime dynamically based on starttime
+	foreach ($query->result() as $record) {
+	// Get the starttime date part
+	$start_date = date('Y-m-d', strtotime($record->starttime));
+
+	// Set the endtime to 9 PM on the same day as the starttime
+	$end_time = $start_date . ' 21:00:00';
+
+	// Update the record with the calculated endtime
+	$this->db->set('endtime', $end_time);
+	$this->db->where('otid', $record->otid); // Update by record ID or primary key
+	$this->db->update('ordertimelog');
+
+	echo "Order ID: " . $record->id . " - Start Time: " . $record->starttime . " - End Time updated to: " . $end_time . "<br>";
+	}
 	}
 }

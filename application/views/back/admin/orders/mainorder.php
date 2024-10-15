@@ -93,12 +93,12 @@
 									<div class="col-sm-12"><b>Description:</b> <?=$data['job_description'];?></div>
 									<div class="col-sm-3"><b>Drawing:</b><br/><?=$data['drawing_no'];?></div>
 									<div class="col-sm-3"><b>Qty:</b><br/><?=$data['qty'];?></div>
-									<div class="col-sm-3"><b>Material:</b><br/><?=$data['material'];?></div>
+									<div class="col-sm-3"><b>Material:</b><br/><?=$data['materialname'];?></div>
 									<div class="col-sm-3"><b>Size:</b><br/><?=$data['proposed_raw_material_size'];?></div>
 									<div class="col-sm-3"><b>ID no from:</b><br/><?=$data['id_no_from'];?></div>
 									<div class="col-sm-3"><b>ID no to:</b><br/><?=$data['id_no_to'];?></div>
 									<div class="col-sm-3"><b>Project:</b><br/><?=$data['project'];?></div>
-									<div class="col-sm-3"><b>Model:</b><br/><?=$data['model'];?></div>
+									<div class="col-sm-3"><b>Model:</b><br/><?=$data['modelname'];?></div>
 									</div>
 								<?php
 								$sql = "SELECT *,orderno, (TIMESTAMPDIFF(SECOND, starttime, endtime)) / 3600 AS total_time_spent_seconds FROM ordertimelog where orderno='$orderid'";

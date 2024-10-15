@@ -72,6 +72,19 @@ class Staff extends CI_Controller
 			$this->db->where('admin_id', $para2);
             $this->db->update('admin', $data);
         } elseif ($para1 == 'delete') {
+			
+			
+				
+			$resultdata = $this->db->get_where('admin', array('admin_id' => $para2))->result_array();			
+			$name = $resultdata[0]['name'];
+			$datanui['notification_user_id']= $_SESSION['admin_id'];
+			$datanui['notification_content']= $_SESSION['admin_name']." has ".$para1." user - ".$name;
+			$datanui['notification_read']= 1;
+			$datanui['created_by']= $_SESSION['admin_id'];
+			$datanui['created_date']= date('Y-m-d H:i:s'); 
+			$datanui['order_id']= $id; 
+			$this->db->insert('logs',$datanui);
+			
             $this->db->where('admin_id', $para2);
             $this->db->delete('admin');
         } elseif ($para1 == 'list') {
@@ -84,6 +97,23 @@ class Staff extends CI_Controller
         } elseif ($para1 == 'add') {
 			$this->load->view('back/admin/admins/admin_add');
         }
+		
+		$name = $data['name'];
+		if($name == ""){
+			$resultdata = $this->db->select('name')->get_where('admin',array('admin_id'=>$para2))->result_array();
+			$name = $resultdata[0]['name'];
+		}
+		if($name != ""){
+			if($para1=="do_add"){ $para1 = "added";}
+			$datanui['notification_user_id']= $_SESSION['admin_id'];
+			$datanui['notification_content']= $_SESSION['admin_name']." has ".$para1." user Profile ".$name;
+			$datanui['notification_read']= 1;
+			$datanui['created_by']= $_SESSION['admin_id'];
+			$datanui['created_date']= date('Y-m-d H:i:s'); 
+			$datanui['order_id']= $id; 
+			$this->db->insert('logs',$datanui);
+		}	
+		
     }
     
     /* Account Role Management */
@@ -104,6 +134,18 @@ class Staff extends CI_Controller
             $this->db->where('role_id', $para2);
             $this->db->update('role', $data);
         } elseif ($para1 == 'delete') {
+			
+				
+			$resultdata = $this->db->get_where('role', array('role_id' => $para2))->result_array();			
+			$name = $resultdata[0]['name'];
+			$datanui['notification_user_id']= $_SESSION['admin_id'];
+			$datanui['notification_content']= $_SESSION['admin_name']." has ".$para1." permission for ".$name;
+			$datanui['notification_read']= 1;
+			$datanui['created_by']= $_SESSION['admin_id'];
+			$datanui['created_date']= date('Y-m-d H:i:s'); 
+			$datanui['order_id']= $id; 
+			$this->db->insert('logs',$datanui);
+			
             $this->db->where('role_id', $para2);
             $this->db->delete('role');
         } elseif ($para1 == 'list') {
@@ -126,5 +168,22 @@ class Staff extends CI_Controller
             $page_data['all_roles'] = $this->db->get('role')->result_array();
             $this->load->view('back/admin/index', $page_data);
         }
+		
+		$name = $data['name'];
+		if($name == ""){
+			$resultdata = $this->db->get_where('role', array('role_id' => $para2))->result_array();			
+			$name = $resultdata[0]['name'];
+		}
+		if($name != ""){
+			if($para1=="do_add"){ $para1 = "added";}
+			$datanui['notification_user_id']= $_SESSION['admin_id'];
+			$datanui['notification_content']= $_SESSION['admin_name']." has ".$para1." permission for ".$name;
+			$datanui['notification_read']= 1;
+			$datanui['created_by']= $_SESSION['admin_id'];
+			$datanui['created_date']= date('Y-m-d H:i:s'); 
+			$datanui['order_id']= $id; 
+			$this->db->insert('logs',$datanui);
+		}	
+		
     }
 }

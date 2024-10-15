@@ -7,8 +7,8 @@
 	var mbn = "<?php echo translate("must_be_a_number"); ?>";
 	var mbe = "<?php echo translate("must_be_a_valid_email_address"); ?>";
 	var sv = "<?php echo translate("save"); ?>";
-	var ppus = "<?php echo translate("product_published!"); ?>";
-	var pups = "<?php echo translate("product_unpublished!"); ?>";
+	var ppus = "<?php echo translate("published!"); ?>";
+	var pups = "<?php echo translate("unpublished!"); ?>";
 	var pfe = "<?php echo translate("product_featured!"); ?>";
 	var pufe = "<?php echo translate("product_unfeatured!"); ?>";
 	var ptd = "<?php echo translate("product_in_todays_deal!"); ?>";

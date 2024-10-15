@@ -1,10 +1,6 @@
-date_date_setds
-state_datasdf
-desc
-state_datasdfsd
 <div id="content-container">
 	<div id="page-title">
-		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('edit_country');?></h1>
+		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('edit_Process');?></h1>
 		<?php
 			if(@$country != ''){
 		?>
@@ -55,7 +51,7 @@ state_datasdfsd
 										</span>
 									</div>
 									<div class="col-md-10">
-										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="master_manage_submit('country_edit','<?php echo translate('country_successfully_updated!'); ?>');" ><?php echo translate('submit');?></span>
+										<span class="btn btn-success btn-md btn-labeled fa fa-upload pull-left enterer" onclick="master_manage_submit('country_edit','<?php echo translate('process_successfully_updated!'); ?>');" ><?php echo translate('submit');?></span>
 									</div>
 								</div>
 							</div>

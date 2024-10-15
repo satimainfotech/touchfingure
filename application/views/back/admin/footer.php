@@ -23,3 +23,72 @@ $(document).ready(function () {
    });
 });
 </script>
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="notificationModalball" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notificationModalLabel">New Order Assigned</h5>
+      </div>
+      <div class="modal-body text-center">
+        <h2 class="textnotifyp">You have new notifications. Do you want to mark them as read?</h2>
+	</div>
+    </div>
+  </div>
+</div>
+<script>
+
+function StopYesterday() {
+          $.ajax({
+              url: '<?php echo site_url();?>/admin/orders/stopyesterday',  // Update this URL
+              method: 'POST',
+              dataType: 'json',
+              success: function(response) {
+                  if (response.status === 'success') {
+                      alert(response.notification_content);
+            location.reload(true);
+                  }
+              }
+          });
+      }
+      StopYesterday();
+</script>
+<?php 
+if($_SESSION['role'] !=1){?>
+<script>
+ 
+	 $(document).ready(function(){
+        function checkNotifications() {
+			$('#notificationModalball').modal('hide');
+            $.ajax({
+                url: base_url+'/admin/orders/get_notification_count',  // Update this URL
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.count > 0) {
+							// Play sound alert
+							$('#notificationModalball').modal('show');
+							$('.textnotifyp').html(response.notification_content);
+							var audio = new Audio(base_url+'uploads/bell.mp3');
+							audio.play();
+					}
+                }
+            });
+        }
+        setInterval(checkNotifications, 50000);
+    });
+	function markNotificationsAsRead(p) {
+            $.ajax({
+                url: base_url+'/admin/orders/mark_notifications_read?p='+p,  // Update this URL
+                method: 'POST',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                       alert(response.notification_content);
+					   location.reload(true);
+                    }
+                }
+            });
+        }
+	</script>
+  <?php } ?>

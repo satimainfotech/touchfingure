@@ -2,7 +2,7 @@
 	<div id="page-title">
 		<h1 class="page-header text-overflow custompagetitle"><?php echo translate('users');?></h1>
 		<?php if($this->crud_model->admin_permission('users_add')){?>
-			<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin//users/regular_add"><?php echo translate('add_a_new_users');?> </a>
+			<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin/users/regular_add"><?php echo translate('add_a_new_users');?> </a>
 		<?php } ?>
 	</div>
 	<div class="tab-base">
@@ -12,7 +12,7 @@
 					<div class="tab-pane fade active in" id="list">
 						<div class="orderstable panel-body">
 							<div class="reportfilterdiv">
-								<form action="<?php echo base_url(); ?>admin//users/regular_users" method="get">
+								<form action="<?php echo base_url(); ?>admin/users/regular_users" method="get">
 									<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
 										<label>Name</label>
 										<input type="text" name="n_n" value="<?php echo @$name; ?>" placeholder="Name">
@@ -92,22 +92,22 @@
 												<td class="text-center">
 													<?php if($this->crud_model->admin_permission('users_view')){ 
 														if(@$name != '' || @$user_name != '' || @$mobile_number != '' || @$refrence_code != '' || @$account_status != ''){ ?>
-															<a href="<?php echo base_url(); ?>admin//users/view?u_t=<?php echo $row['user_token']; ?>&u_i=<?php echo $row['user_id']; ?>&n_n=<?php echo @$name; ?>&u_n=<?php echo @$user_name; ?>&m_n=<?php echo @$mobile_number; ?>&r_c=<?php echo @$refrence_code; ?>&a_s=<?php echo @$account_status; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-kesari btn-labeled margintb5px" data-toggle="tooltip" 
+															<a href="<?php echo base_url(); ?>admin/users/view?u_t=<?php echo $row['user_token']; ?>&u_i=<?php echo $row['user_id']; ?>&n_n=<?php echo @$name; ?>&u_n=<?php echo @$user_name; ?>&m_n=<?php echo @$mobile_number; ?>&r_c=<?php echo @$refrence_code; ?>&a_s=<?php echo @$account_status; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-kesari btn-labeled margintb5px" data-toggle="tooltip" 
 															data-original-title="proof" data-container="body"><?php echo translate('view');?>
 															</a>
 														<?php }else{ ?>
-															<a href="<?php echo base_url(); ?>admin//users/view?u_t=<?php echo $row['user_token']; ?>&u_i=<?php echo $row['user_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-kesari btn-labeled margintb5px" data-toggle="tooltip" 
+															<a href="<?php echo base_url(); ?>admin/users/view?u_t=<?php echo $row['user_token']; ?>&u_i=<?php echo $row['user_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-kesari btn-labeled margintb5px" data-toggle="tooltip" 
 															data-original-title="proof" data-container="body"><?php echo translate('view');?>
 															</a>
 														<?php }
 													} ?>
 													<?php if($this->crud_model->admin_permission('users_edit')){ 
 														if(@$name != '' || @$user_name != '' || @$mobile_number != '' || @$refrence_code != '' || @$account_status != ''){?>
-															<a href="<?php echo base_url(); ?>admin//users/edit?u_t=<?php echo $row['user_token']; ?>&u_i=<?php echo $row['user_id']; ?>&n_n=<?php echo @$name; ?>&u_n=<?php echo @$user_name; ?>&m_n=<?php echo @$mobile_number; ?>&r_c=<?php echo @$refrence_code; ?>&a_s=<?php echo @$account_status; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled margintb5px" data-toggle="tooltip" 
+															<a href="<?php echo base_url(); ?>admin/users/edit?u_t=<?php echo $row['user_token']; ?>&u_i=<?php echo $row['user_id']; ?>&n_n=<?php echo @$name; ?>&u_n=<?php echo @$user_name; ?>&m_n=<?php echo @$mobile_number; ?>&r_c=<?php echo @$refrence_code; ?>&a_s=<?php echo @$account_status; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled margintb5px" data-toggle="tooltip" 
 															data-original-title="proof" data-container="body"><?php echo translate('edit');?>
 															</a>
 														<?php }else{ ?>
-															<a href="<?php echo base_url(); ?>admin//users/edit?u_t=<?php echo $row['user_token']; ?>&u_i=<?php echo $row['user_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled margintb5px" data-toggle="tooltip" 
+															<a href="<?php echo base_url(); ?>admin/users/edit?u_t=<?php echo $row['user_token']; ?>&u_i=<?php echo $row['user_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" class="btn btn-xs btn-success btn-labeled margintb5px" data-toggle="tooltip" 
 															data-original-title="proof" data-container="body"><?php echo translate('edit');?>
 															</a>
 														<?php } ?> 

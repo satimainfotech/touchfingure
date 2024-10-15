@@ -6,7 +6,7 @@
 			<button class="btn btn-primary btn-labeled fa fa-file-pdf-o add_pro_btn pull-right custombutton">Excel</button>
 		</form> -->
 		<?php if($this->crud_model->admin_permission('country_add')){?>
-			<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin//master_manage/country_add"><?php echo translate('create_country');?> </a>
+			<a class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right custombutton" href="<?php echo base_url(); ?>admin/master_manage/country_add"><?php echo translate('create_Material');?> </a>
 		<?php } ?>
 	</div>
 	<div class="tab-base">
@@ -16,7 +16,7 @@
 					<div class="tab-pane fade active in">
 						<div class="orderstable panel-body">
 							<div class="reportfilterdiv">
-								<form action="<?php echo base_url(); ?>admin//master_manage/country" method="get">
+								<form action="<?php echo base_url(); ?>admin/master_manage/country" method="get">
 									<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
 										<label>Material name</label>
 										<input type="text" name="c_n" value="<?php echo @$country; ?>" placeholder="Material Name">
@@ -24,7 +24,7 @@
 									<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
 										<button class="reportbutton">Search</button>
 										<?php if(@$country != ''){ ?>
-											<a class="creportbutton" href="<?php echo base_url(); ?>admin//master_manage/country">Reset</a>
+											<a class="creportbutton" href="<?php echo base_url(); ?>admin/master_manage/country">Reset</a>
 										<?php } ?>
 									</div>
 								</form>
@@ -64,20 +64,20 @@
 													<td class="text-center">
 														<?php if($this->crud_model->admin_permission('country_view')){ ?> 
 															<?php if(@$country != ''){?>
-																<a class="btn btn-success btn-xs btn-labeled fa fa-eye" data-toggle="tooltip" href="<?php echo base_url(); ?>admin//master_manage/country_view?c_n=<?php echo @$country; ?>&c_i=<?php echo $row['country_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
+																<a class="btn btn-success btn-xs btn-labeled fa fa-eye" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/country_view?c_n=<?php echo @$country; ?>&c_i=<?php echo $row['country_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
 															<?php }else{ ?>
-																<a class="btn btn-success btn-xs btn-labeled fa fa-eye" data-toggle="tooltip" href="<?php echo base_url(); ?>admin//master_manage/country_view?c_i=<?php echo $row['country_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
+																<a class="btn btn-success btn-xs btn-labeled fa fa-eye" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/country_view?c_i=<?php echo $row['country_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('view'); ?></a>
 															<?php } ?> 
 														<?php } ?> 
 														<?php if($this->crud_model->admin_permission('country_edit')){ ?> 
 															<?php if(@$country != ''){?>
-																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin//master_manage/country_edit?c_n=<?php echo @$country; ?>&c_i=<?php echo $row['country_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
+																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/country_edit?c_n=<?php echo @$country; ?>&c_i=<?php echo $row['country_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
 															<?php }else{ ?>
-																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin//master_manage/country_edit?c_i=<?php echo $row['country_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
+																<a class="btn btn-success btn-xs btn-labeled fa fa-pencil" data-toggle="tooltip" href="<?php echo base_url(); ?>admin/master_manage/country_edit?c_i=<?php echo $row['country_id']; ?><?php if(@$page_id == ''){ }else{ echo "&page=$page_id"; } ?>" data-original-title="View" data-container="body"><?php echo translate('edit'); ?></a>
 															<?php } ?>
 														<?php } ?>
 														<?php if($this->crud_model->admin_permission('country_delete')){ ?> 
-															<a onclick="delete_confirm('<?php echo $row['country_id']; ?>','<?php echo translate('really_want_to_delete_this_country?'); ?>')" class="btn btn-xs btn-danger btn-labeled fa fa-trash" data-toggle="tooltip" 
+															<a onclick="delete_confirm('<?php echo $row['country_id']; ?>','<?php echo translate('really_want_to_delete_this_material?'); ?>')" class="btn btn-xs btn-danger btn-labeled fa fa-trash" data-toggle="tooltip" 
 																data-original-title="Delete" data-container="body"><?php echo translate('delete');?>
 															</a>
 														<?php } ?>

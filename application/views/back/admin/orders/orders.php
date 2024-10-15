@@ -12,29 +12,26 @@
                 <div class="tab-pane fade active in" id="list">
 					<div class="orderstable panel-body">
 						<div class="reportfilterdiv">
+							<?php 
+								$order_status=$_GET['order_status'];
+								$order_id = $_GET['order_id'];
+								?>
 							<form action="<?php echo base_url(); ?>admin/orders" method="get">
 								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
-									<label>Date</label>
-									<input type="date" name="from_date" id="from_datepicker" value="<?php echo @$from_date; ?>" placeholder="From date">
-								</div>
-								<!--
-								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
-									<label>Order Status</label>
+								<label>Order Status</label>
 									<select class="normal_select_option" name="order_status">
-										<option value="">Select Option</option>
-										<?php foreach($order_status_data as $ors){ ?>
-											<option value="<?php echo $ors['order_status_id']; ?>" <?php if(@$order_status == $ors['order_status_id']){ echo 'selected'; }?>><?php echo $ors['order_status_name']; ?></option>
-										<?php } ?>
-									</select>
-								</div>
-								-->
+										<option value="">ALL</option>
+										<option value="assigned" <?php if(@$order_status == "assigned"){ echo 'selected'; }?>>Assigned</option>
+										<option value="inprogress" <?php if(@$order_status == "inprogress"){ echo 'selected'; }?>>Processing</option>
+										<option value="done" <?php if(@$order_status == "done"){ echo 'selected'; }?>>Completed</option>
+</select></div>
 								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
 									<label>Order ID</label>
 									<input type="text" name="order_id" value="<?php echo @$order_id; ?>" placeholder="Order ID">
 								</div>
 								<div class="col-sm-3 col-xs-6 paddingonlyfive m-b-5px">
 									<button class="reportbutton">Search</button>
-									<?php if(@$from_date != '' || @$to_date != '' || @$order_status != '' || @$order_id != '' || @$customer_name != '' || @$mobile_number != ''){ ?>
+									<?php if( @$order_status != '' || @$order_id != ''){ ?>
 										<a class="creportbutton" href="<?php echo base_url(); ?>admin/orders">Reset</a>
 									<?php } ?>
 								</div>
@@ -72,17 +69,17 @@
 											$i++; 
 										?>
 										<tr>
-											<td><?php echo $row['sr_no']; ?></td>
 											<td><?php echo $row['orderno']; ?></td>
+											<td><?php echo $row['sr_no']; ?></td>											
 											<td><?php echo $row['job_description']; ?></td>
 											<td><?php echo $row['drawing_no']; ?></td>
 											<td><?php echo $row['qty']; ?></td>
-											<td><?php echo $row['material']; ?></td>
+											<td><?php echo $row['materialname']; ?></td>
 											<td><?php echo $row['proposed_raw_material_size']; ?></td>
 											<td><?php echo $row['approx_fim_cost']; ?></td>
 											<td><?php echo $row['id_no_from']; ?></td>
 											<td><?php echo $row['project']; ?></td>
-											<td><?php echo $row['model']; ?></td>
+											<td><?php echo $row['modelname']; ?></td>
 											<td><?php echo $row['gst_rate']; ?></td>
 											<td><?php echo date("d-m-Y",strtotime($row['created_date'])); ?></td>
 											<?php if($this->crud_model->admin_permission('or_view') || $this->crud_model->admin_permission('order_status') || $this->crud_model->admin_permission('or_delete')){?>
