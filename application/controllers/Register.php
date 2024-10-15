@@ -241,6 +241,8 @@ class Register extends CI_Controller
 	
 	public function get_state(){
 		$country = $this->input->post('country');
+		$gender = $this->input->post('gender');
+		$user_data = $this->db->get_where('user',array('gender'=>$gender,'status'=>'active'))->result_array();
 		$state_data = $this->db->get_where('state',array('country_id'=>$country,'state_status'=>'active'))->result_array();
 		$html = '<option value="0" >Select State</option>';
 		foreach($state_data as $state_row){

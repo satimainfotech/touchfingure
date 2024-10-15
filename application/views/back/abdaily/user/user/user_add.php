@@ -371,13 +371,15 @@
     if(id == 4)
     { 
 		 $(".district").show();
+			get_state(1);
 		  get_district(1);
 	}
 	else if(id == 5)
 	{
 		$(".district").hide();
 		$(".district_m").show();
-		 get_district_m(1);
+		get_state(1);
+		get_district_m(1);
 	}
 	
 	else if(id == 6)
@@ -385,6 +387,8 @@
 		$(".district").show();
 		$(".taluka").show();
 		$(".district_m").hide();
+		get_state(1);	
+		get_district(1);
 	}
 	
 	else if(id == 7)
@@ -393,6 +397,7 @@
 		$(".taluka_m").show();
 		$(".taluka").hide();
 		$(".district_m").hide();
+		get_state(1);
 		get_district(1);
 	}
 	else if(id == 8)
@@ -402,7 +407,8 @@
 		$(".gram_panchayat").show();
 		$(".taluka_m").hide();	
 		$(".district_m").hide();
-		$(".area").hide()
+		$(".area").hide();
+		get_state(1);
 	}
 	else if(id == 9)
 	{	
@@ -413,13 +419,10 @@
 		$(".district_m").hide();
 		$(".taluka").hide();
 		$(".gram_panchayat").hide();
+		get_state(1);
 	}	
 	
-	
-	
 }
-
-
 	
 	function get_state(country){
 		
@@ -434,6 +437,7 @@
 					
 					if(data != ''){
 						$('#state').html(data);
+						$('#state').trigger("chosen:updated");
 					}
 				}
 			});
@@ -450,6 +454,7 @@
 					
 					if(data != ''){
 						$('#division').html(data);
+						$('#division').trigger("chosen:updated");
 					}
 				}
 			});
@@ -466,6 +471,7 @@
 					
 					if(data != ''){
 						$('#district').html(data);
+						$('#district').trigger("chosen:updated");
 						//get_taluka(district);
 						
 						
@@ -486,66 +492,47 @@
 					if(data != ''){
 						
 						$('#district_m').html(data);
+						$('#district_m').trigger("chosen:updated");
 					}
 				}
 			});
 		}
 		function get_taluka(district){
-			var base_url = $('#base_url').val();	
-			var member_type_id =  $("#member_type_id").val();
-			alert(member_type_id);
-			if(member_type_id == 7 || member_type_id == 9 )
-			{
-				var url = base_url+'abdaily/user/get_taluka_m';
-			}
-			else
-			{
-				var url = base_url+'abdaily/user/get_taluka';
-			}
-			
-			
-		var base_url = $('#base_url').val();	
-$.ajax({
-    url : url,
-    type: 'POST',
-    dataType: 'html',
-    data: {district:district},
-    success: function(data){
-        console.log(data);
-        if(data != ''){
-            if(member_type_id == 7 || member_type_id == 9){
-                $('#taluka_m').html(data);
-            } else {
-                $('#taluka').html(data);
-            }						
-        }
-    },
-    error: function(xhr, status, error) {
-        console.error("AJAX Error: " + status + " - " + error);
-    }
-});		
-			/*$.ajax({
-				url : url,
-				type: 'POST',
-				dataType: 'html',
-				data: {district:district},
-				success: function(data){
-					
-						if(data != ''){
-						if(member_type_id == 7 || member_type_id == 9)
-						{
-						
-							$('#taluka_m').html(data);
-							
-						}
-						else
-						{
-							
-							$('#taluka').html(data);
-						}						
-					}
+				var base_url = $('#base_url').val();	
+				var member_type_id =  $("#member_type_id").val();
+
+				if(member_type_id == 7 || member_type_id == 9 )
+				{
+					var url = base_url+'abdaily/user/get_taluka_m';
 				}
-			});*/
+				else
+				{
+					var url = base_url+'abdaily/user/get_taluka';
+				}
+
+
+				var base_url = $('#base_url').val();	
+				$.ajax({
+					url : url,
+					type: 'POST',
+					dataType: 'html',
+					data: {district:district},
+					success: function(data){					
+						if(data != ''){
+						if(member_type_id == 7 || member_type_id == 9){
+							$('#taluka_m').html(data);
+							$('#taluka_m').trigger("chosen:updated");
+						} else {
+							$('#taluka').html(data);
+							$('#taluka').trigger("chosen:updated");
+						}						
+						}
+					},
+					error: function(xhr, status, error) {
+					console.error("AJAX Error: " + status + " - " + error);
+					}
+				});		
+			
 		}
 		
 		
@@ -563,6 +550,8 @@ $.ajax({
 					
 					if(data != ''){
 						$('#taluka_m').html(data);
+						$('#taluka_m').trigger("chosen:updated");	
+
 					}
 				}
 			});
@@ -593,10 +582,12 @@ $.ajax({
 						if(member_type_id == 9 )
 						{
 							$('#area').html(data);
+							$('#area').trigger("chosen:updated");	
 						}
 						else
 						{
 							$('#gram_panchayat').html(data);
+							$('#gram_panchayat').trigger("chosen:updated");	
 						}
 					}
 				}

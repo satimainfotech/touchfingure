@@ -355,6 +355,14 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 	}
 	
 	function display_member(id) {
+		var gender = $('#gender').val();
+		if (gender === "") {  // Assuming the default value of unselected option is an empty string
+		alert('Please select a gender.');
+		$('#gender').focus();
+		$('#member_type_id').val('');
+		return false; // Prevent form submission if gender is not selected
+		}
+		
     // Loop through numbers 1 to 6
     for (let i = 1; i <= 8; i++) {
         // Check if the current number is less than the provided id
@@ -426,12 +434,13 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 
 	
 	function get_state(country){
-		var base_url = $('#base_url').val();		
+		var base_url = $('#base_url').val();	
+		var gender = $('#gender').val();			
 			$.ajax({
 				url : base_url+'register/get_state',
 				type: 'POST',
 				dataType: 'html',
-				data: {country:country},
+				data: {country:country,gender:gender},
 				success: function(data){
 					
 					if(data != ''){
@@ -442,12 +451,13 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 		}
 		
 		function get_division(state){
-		var base_url = $('#base_url').val();		
+		var base_url = $('#base_url').val();	
+		var gender = $('#gender').val();					
 			$.ajax({
 				url : base_url+'register/get_division',
 				type: 'POST',
 				dataType: 'html',
-				data: {state:state},
+				data: {state:state,gender:gender},
 				success: function(data){
 					
 					if(data != ''){
@@ -458,12 +468,13 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 		}
 		
 		function get_district(division){
-		var base_url = $('#base_url').val();		
+		var base_url = $('#base_url').val();	
+		var gender = $('#gender').val();				
 			$.ajax({
 				url : base_url+'register/get_district',
 				type: 'POST',
 				dataType: 'html',
-				data: {division:division},
+				data: {division:division,gender:gender},
 				success: function(data){
 					
 					if(data != ''){
@@ -475,12 +486,13 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 		}
 		
 		function get_district_m(division){
-		var base_url = $('#base_url').val();		
+		var base_url = $('#base_url').val();
+		var gender = $('#gender').val();					
 			$.ajax({
 				url : base_url+'register/get_district_m',
 				type: 'POST',
 				dataType: 'html',
-				data: {division:division},
+				data: {division:division,gender:gender},
 				success: function(data){
 					
 					if(data != ''){
@@ -492,6 +504,7 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 		}
 		function get_taluka(district){
 			var base_url = $('#base_url').val();	
+			var gender = $('#gender').val();			
 			var member_type_id =  $("#member_type_id").val();
 			if(member_type_id == 7 || member_type_id == 9 )
 			{
@@ -507,7 +520,7 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 				url : url,
 				type: 'POST',
 				dataType: 'html',
-				data: {district:district},
+				data: {district:district,gender:gender},
 				success: function(data){
 					
 					if(data != ''){
@@ -526,12 +539,13 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 		
 		function get_taluka_m(district_m){
 			
-		var base_url = $('#base_url').val();		
+		var base_url = $('#base_url').val();
+		var gender = $('#gender').val();					
 			$.ajax({
 				url : base_url+'register/get_taluka_m',
 				type: 'POST',
 				dataType: 'html',
-				data: {district_m:district_m},
+				data: {district_m:district_m,gender:gender},
 				success: function(data){
 					
 					if(data != ''){
@@ -541,9 +555,9 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 			});
 		}
 		
-		
 		function get_gram_panchayat(taluka){
 			var base_url = $('#base_url').val();	
+			var gender = $('#gender').val();			
 			var member_type_id =  $("#member_type_id").val();
 			if(member_type_id == 9 )
 			{
@@ -559,7 +573,7 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 				url :url,
 				type: 'POST',
 				dataType: 'html',
-				data: {taluka:taluka},
+				data: {taluka:taluka,gender:gender},
 				success: function(data){
 					
 					if(data != ''){
@@ -576,10 +590,6 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 			});
 		}
 	
-	
-
-	
-
 </script>
 
 
