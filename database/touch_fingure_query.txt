@@ -1,0 +1,29 @@
+UPDATE user u JOIN gram_panchayat gp ON u.gram_panchayat = gp.gram_panchayat_name SET u.gram_panchayat = gp.gram_panchayat_id WHERE u.gram_panchayat = gp.gram_panchayat_name AND u.taluka = gp.taluka_id  ;
+
+
+UPDATE user u JOIN area a ON u.area = a.area_name SET u.area = a.area_id WHERE u.area = a.area_name AND u.taluka_m = a.taluka_m_id  ;
+
+UPDATE user u JOIN area a ON u.area = a.area_name SET u.area = a.area_id WHERE u.area = a.area_name AND u.taluka_m = a.taluka_m_id  ;
+
+
+UPDATE user u JOIN district d ON u.district = d.district_name SET u.district = d.district_id WHERE u.district = d.district_name;
+
+
+UPDATE user u JOIN district_m d ON u.district_m = d.district_m_name SET u.district_m = d.district_m_id WHERE u.district_m = d.district_m_name;
+
+
+
+UPDATE user u JOIN taluka t ON u.taluka = t.taluka_name SET u.taluka  = t.taluka_id WHERE u.taluka  = t.taluka_name;
+
+UPDATE user u JOIN taluka_m t ON u.taluka_m = t.taluka_m_name SET u.taluka_m  = t.taluka_m_id WHERE u.taluka_m  = t.taluka_m_name;
+
+
+UPDATE user 
+SET gram_panchayat = country;
+
+
+UPDATE user 
+SET country= 1;
+
+UPDATE user 
+SET state = 1;
