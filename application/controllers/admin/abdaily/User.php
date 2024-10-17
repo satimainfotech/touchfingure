@@ -658,6 +658,21 @@ class User extends CI_Controller
 			$this->load->view('back/user/payment_receipt_pdf', $data);
 		}
 		
+		public function certificate()
+		{
+			$user_id = $this->input->get('p_i');
+			$login_data = $this->db->get_where('user', array('id' => $user_id));
+			$data['user_detail'] = $login_data->row_array();   
+			$this->load->view('back/user/certificate_pdf', $data);
+		}
+		public function appointment_letter()
+		{
+			$user_id = $this->input->get('p_i');
+			$login_data = $this->db->get_where('user', array('id' => $user_id));
+			$data['user_detail'] = $login_data->row_array();   
+			$this->load->view('back/user/appointment_letter_pdf', $data);
+		}
+		
 		
 		public function get_state(){
 		$country = $this->input->post('country');

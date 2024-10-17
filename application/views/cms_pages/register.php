@@ -303,6 +303,7 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 		<script>
 		/*  set_select();*/
 		
+		
 		get_state(1);
 		get_division(1);
 		get_district(1);
@@ -389,11 +390,15 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
     if(id == 4)
     { 
 		 $(".district").show();
+		 get_state(1);
+		 get_division(1);
 	}
 	else if(id == 5)
 	{
 		$(".district").hide();
 		$(".district_m").show();
+		get_state(1);
+		get_division(1);
 	}
 	
 	else if(id == 6)
@@ -435,7 +440,8 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 	
 	function get_state(country){
 		var base_url = $('#base_url').val();	
-		var gender = $('#gender').val();			
+		var gender = $('#gender').val();
+			
 			$.ajax({
 				url : base_url+'register/get_state',
 				type: 'POST',

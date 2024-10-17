@@ -437,6 +437,24 @@ function get_field_id_name($table_name,$field_id,$field,$id){
 	}
 }
 
+function get_field_array($table_name,$field_id,$field,$id){
+	$CI = get_instance();
+	$CI->db->select($field);
+	$CI->db->from($table_name);
+	$CI->db->where($field_id,$id);
+	$res = $CI->db->get()->result_array();
+
+	if (!empty($res)) {
+	$output = [];
+	foreach ($res as $row) {
+	$output[] = $row[$field];
+	}
+	return array_unique($output);
+	} else {
+	return '';
+	}
+}
+
 function get_category(){
 	$CI = get_instance();
 	$CI->db->select('*');

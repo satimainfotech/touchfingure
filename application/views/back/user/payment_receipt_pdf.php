@@ -5,10 +5,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="x-apple-disable-message-reformatting">
-    <title>Receipt</title>
-    
-
-   <!--[if !mso]><!--><link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"><!--<![endif]-->
+    <title>Certificate</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
