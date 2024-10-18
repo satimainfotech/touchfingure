@@ -282,14 +282,24 @@ class Register extends CI_Controller
 	public function get_district(){
 		$division = $this->input->post('division');
 		$gender = $this->input->post('gender');
-		$existing_data = get_field_array('user','gender','district',$gender);
+		$member_type_id = $this->input->post('member_type_id');
+		if($member_type_id == '4')
+		{	
+		$existing_data = get_field_array('user','gender','district',$gender,'member_type_id',$member_type_id);
 		$district_data = $this->db->where('division_id', $division)
                        ->where('district_status', 'active')
                        ->where_not_in('district_id', $existing_data) // Exclude specific states
                        ->get('district')
                        ->result_array();
+		}
+		else
+		{
+			
+			$district_data = $this->db->get_where('district',array('division_id'=>$division,'district_status'=>'active'))->result_array();
+		}
 		
-	//	$district_data = $this->db->get_where('district',array('division_id'=>$division,'district_status'=>'active'))->result_array();
+		
+	//	
 		$html = '<option value="0" >Select District</option>';
 		foreach($district_data as $district_row){
 			$district_id = $district_row['district_id'];
@@ -299,14 +309,25 @@ class Register extends CI_Controller
 		echo $html;
 	}
 	public function get_district_m(){
+		
 		$division = $this->input->post('division');
-		$existing_data = get_field_array('user','gender','district_m',$gender);
+		$gender = $this->input->post('gender');
+		$member_type_id = $this->input->post('member_type_id');
+		if($member_type_id == '5')
+		{	
+		$existing_data = get_field_array('user','gender','district_m',$gender,'member_type_id',$member_type_id);
+		//$existing_data = get_field_array('user','gender','district_m',$gender);
 		$district_data = $this->db->where('division_id', $division)
                        ->where('district_m_status', 'active')
                        ->where_not_in('district_m_id', $existing_data) // Exclude specific states
                        ->get('district_m')
                        ->result_array();
-		//$district_data = $this->db->get_where('district_m',array('division_id'=>$division,'district_m_status'=>'active'))->result_array();
+		}
+		else
+		{
+			$district_data = $this->db->get_where('district_m',array('division_id'=>$division,'district_m_status'=>'active'))->result_array();
+		}
+		
 		$html = '<option value="0" >Select District-M</option>';
 		foreach($district_data as $district_row){
 			$district_id = $district_row['district_m_id'];
@@ -320,13 +341,24 @@ class Register extends CI_Controller
 	
 	public function get_taluka(){
 		$district = $this->input->post('district');
-		$existing_data = get_field_array('user','gender','taluka',$gender);
+		
+		$gender = $this->input->post('gender');
+		$member_type_id = $this->input->post('member_type_id');
+		if($member_type_id == '6')
+		{	
+		$existing_data = get_field_array('user','gender','taluka',$gender,'member_type_id',$member_type_id);
+		//$existing_data = get_field_array('user','gender','taluka',$gender);
 		$taluka_data = $this->db->where('district_id', $district)
                        ->where('taluka_status', 'active')
                        ->where_not_in('taluka_id', $existing_data) // Exclude specific states
                        ->get('taluka')
                        ->result_array();
-		//$taluka_data = $this->db->get_where('taluka',array('district_id'=>$district,'taluka_status'=>'active'))->result_array();
+		}
+		else
+		{
+			$taluka_data = $this->db->get_where('taluka',array('district_id'=>$district,'taluka_status'=>'active'))->result_array();
+		}
+		
 		$html = '<option value="0" >Select Taluka</option>';
 		foreach($taluka_data as $taluka_row){
 			$taluka_id = $taluka_row['taluka_id'];
@@ -337,13 +369,31 @@ class Register extends CI_Controller
 	}
 	public function get_taluka_m(){
 		$district = $this->input->post('district');
-		$existing_data = get_field_array('user','gender','taluka_m',$gender);
+		$gender = $this->input->post('gender');
+		$member_type_id = $this->input->post('member_type_id');
+		if($member_type_id == '7')
+		{	
+		$existing_data = get_field_array('user','gender','taluka_m',$gender,'member_type_id',$member_type_id);
+		//$existing_data = get_field_array('user','gender','taluka',$gender);
 		$taluka_data = $this->db->where('district_id', $district)
                        ->where('taluka_m_status', 'active')
                        ->where_not_in('taluka_m_id', $existing_data) // Exclude specific states
                        ->get('taluka_m')
                        ->result_array();
-		//$taluka_data = $this->db->get_where('taluka_m',array('district_id'=>$district,'taluka_m_status'=>'active'))->result_array();
+		}
+		else
+		{
+			$taluka_data = $this->db->get_where('taluka_m',array('district_id'=>$district,'taluka_m_status'=>'active'))->result_array();
+		}
+		
+		
+		/*$existing_data = get_field_array('user','gender','taluka_m',$gender);
+		$taluka_data = $this->db->where('district_id', $district)
+                       ->where('taluka_m_status', 'active')
+                       ->where_not_in('taluka_m_id', $existing_data) // Exclude specific states
+                       ->get('taluka_m')
+                       ->result_array();
+		//$taluka_data = $this->db->get_where('taluka_m',array('district_id'=>$district,'taluka_m_status'=>'active'))->result_array();*/
 		$html = '<option value="0" >Select Taluka-M</option>';
 		foreach($taluka_data as $taluka_row){
 			$taluka_id = $taluka_row['taluka_m_id'];
@@ -354,13 +404,34 @@ class Register extends CI_Controller
 	}
 	public function get_gram_panchayat(){
 		$taluka = $this->input->post('taluka');
-		$existing_data = get_field_array('user','gender','gram_panchayat',$gender);
+		$gender = $this->input->post('gender');
+		$member_type_id = $this->input->post('member_type_id');
+		if($member_type_id == '8')
+		{	
+		$existing_data = get_field_array('user','gender','gram_panchayat',$gender,'member_type_id',$member_type_id);
+		//$existing_data = get_field_array('user','gender','taluka',$gender);
 		$gram_panchayat_data = $this->db->where('taluka_id', $taluka)
                        ->where('gram_panchayat_status', 'active')
                        ->where_not_in('gram_panchayat_id', $existing_data) // Exclude specific states
                        ->get('gram_panchayat')
                        ->result_array();
-		//$gram_panchayat_data = $this->db->get_where('gram_panchayat',array('taluka_id'=>$taluka,'gram_panchayat_status'=>'active'))->result_array();
+		}
+		else
+		{
+			$gram_panchayat_data = $this->db->get_where('gram_panchayat',array('taluka_id'=>$taluka,'gram_panchayat_status'=>'active'))->result_array();
+		}
+		
+		
+		/*$existing_data = get_field_array('user','gender','gram_panchayat',$gender);
+		
+		
+		
+		$gram_panchayat_data = $this->db->where('taluka_id', $taluka)
+                       ->where('gram_panchayat_status', 'active')
+                       ->where_not_in('gram_panchayat_id', $existing_data) // Exclude specific states
+                       ->get('gram_panchayat')
+                       ->result_array();
+		//$gram_panchayat_data = $this->db->get_where('gram_panchayat',array('taluka_id'=>$taluka,'gram_panchayat_status'=>'active'))->result_array();*/
 		$html = '<option value="0" >Select Gram Panchayat</option>';
 		foreach($gram_panchayat_data as $gram_panchayat_row){
 			$gram_panchayat_id = $gram_panchayat_row['gram_panchayat_id'];
@@ -371,13 +442,31 @@ class Register extends CI_Controller
 	}
 	public function get_area(){
 		$taluka = $this->input->post('taluka');
+		$gender = $this->input->post('gender');
+		$member_type_id = $this->input->post('member_type_id');
+		if($member_type_id == '9')
+		{	
+		$existing_data = get_field_array('user','gender','gram_panchayat',$gender,'member_type_id',$member_type_id);
+		//$existing_data = get_field_array('user','gender','taluka',$gender);
+		$area_data = $this->db->where('taluka_m_id', $taluka)
+                       ->where('area_status', 'active')
+                       ->where_not_in('area_id', $existing_data) // Exclude specific states
+                       ->get('area')
+                       ->result_array();
+		}
+		else
+		{
+			$area_data = $this->db->get_where('area',array('taluka_m_id'=>$taluka,'area_status'=>'active'))->result_array();
+		}	
+					   
+		/*$taluka = $this->input->post('taluka');
 		$existing_data = get_field_array('user','gender','area',$gender);
 		$area_data = $this->db->where('taluka_m_id', $taluka)
                        ->where('area_status', 'active')
                        ->where_not_in('area_id', $existing_data) // Exclude specific states
                        ->get('area')
                        ->result_array();
-		//$area_data = $this->db->get_where('area',array('taluka_m_id'=>$taluka,'area_status'=>'active'))->result_array();
+		//$area_data = $this->db->get_where('area',array('taluka_m_id'=>$taluka,'area_status'=>'active'))->result_array();*/
 		$html = '<option value="0" >Select Area</option>';
 		foreach($area_data as $area_row){
 			$area_id = $area_row['area_id'];

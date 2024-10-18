@@ -437,11 +437,16 @@ function get_field_id_name($table_name,$field_id,$field,$id){
 	}
 }
 
-function get_field_array($table_name,$field_id,$field,$id){
+function get_field_array($table_name,$field_id,$field,$id,$member_type_id='',$member_type_id_value=''){
 	$CI = get_instance();
 	$CI->db->select($field);
 	$CI->db->from($table_name);
 	$CI->db->where($field_id,$id);
+	if ($member_type_id != '' )
+	{
+		$CI->db->where($member_type_id,$member_type_id_value);
+	}
+	
 	$res = $CI->db->get()->result_array();
 
 	if (!empty($res)) {

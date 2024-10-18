@@ -392,6 +392,7 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 		 $(".district").show();
 		 get_state(1);
 		 get_division(1);
+		 get_district(1);
 	}
 	else if(id == 5)
 	{
@@ -399,6 +400,7 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 		$(".district_m").show();
 		get_state(1);
 		get_division(1);
+		get_district_m(1);
 	}
 	
 	else if(id == 6)
@@ -406,6 +408,9 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 		$(".district").show();
 		$(".taluka").show();
 		$(".district_m").hide();
+		 get_state(1);
+		 get_division(1);
+		 get_district(1);
 	}
 	
 	else if(id == 7)
@@ -414,6 +419,9 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 		$(".taluka_m").show();
 		$(".taluka").hide();
 		$(".district_m").hide();
+		 get_state(1);
+		 get_division(1);
+		 get_district(1);
 	}
 	else if(id == 8)
 	{		
@@ -422,7 +430,10 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 		$(".gram_panchayat").show();
 		$(".taluka_m").hide();	
 		$(".district_m").hide();
-		$(".area").hide()
+		$(".area").hide();
+		get_state(1);
+		get_division(1);
+		get_district(1);
 	}
 	else if(id == 9)
 	{	
@@ -433,6 +444,9 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 		$(".district_m").hide();
 		$(".taluka").hide();
 		$(".gram_panchayat").hide();
+		get_state(1);
+		get_division(1);
+		get_district(1);
 	}	
 }
 
@@ -475,12 +489,14 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 		
 		function get_district(division){
 		var base_url = $('#base_url').val();	
-		var gender = $('#gender').val();				
+		var gender = $('#gender').val();	
+		var member_type_id = $('#member_type_id').val();	
+
 			$.ajax({
 				url : base_url+'register/get_district',
 				type: 'POST',
 				dataType: 'html',
-				data: {division:division,gender:gender},
+				data: {division:division,gender:gender,member_type_id:member_type_id},
 				success: function(data){
 					
 					if(data != ''){
@@ -493,12 +509,13 @@ $image =  base_url().'uploads/second_slider_image/'.$slider_image; ?>
 		
 		function get_district_m(division){
 		var base_url = $('#base_url').val();
-		var gender = $('#gender').val();					
+		var gender = $('#gender').val();	
+		var member_type_id = $('#member_type_id').val();			
 			$.ajax({
 				url : base_url+'register/get_district_m',
 				type: 'POST',
 				dataType: 'html',
-				data: {division:division,gender:gender},
+				data: {division:division,gender:gender,member_type_id:member_type_id},
 				success: function(data){
 					
 					if(data != ''){
