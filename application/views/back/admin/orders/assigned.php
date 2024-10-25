@@ -31,7 +31,7 @@ echo form_open(base_url() . 'admin/orders/assignto/' . $data['orderno'], array(
 ));
 ?>
 <div class="form-group col-sm-12">
-<h4>Assing to:</h4>
+<h4>Assign to :</h4>
 <?php
 $this->db->select('assign_to');
 $this->db->where('orderid',$data['orderno']);

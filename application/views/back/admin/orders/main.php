@@ -41,9 +41,7 @@
 								<table id="example" class="table table-striped table-bordered" style="width:100%">
 									<thead>
 										<tr>
-											<th style="width:4ex"><?php echo translate('ID');?></th>
-											<th><?php echo translate('indent_no');?> </th>
-											<th><?php echo translate('hsn_code');?> </th>
+											<th><?php echo translate('Order_No');?> </th>
 											<th><?php echo translate('date');?> </th>
 											<?php if($this->crud_model->admin_permission('order_view') || $this->crud_model->admin_permission('order_status_update') || $this->crud_model->admin_permission('order_delete')){?>
 												<th class=""><?php echo translate('options');?></th>
@@ -59,9 +57,7 @@
 											$i++; 
 										?>
 										<tr>
-											<td><?php echo $row['orderno']; ?></td>
 											<td><?php echo $row['indent_no']; ?></td>
-											<td><?php echo $row['hsn_code']; ?></td>
 											<td><?php echo date("d-m-Y",strtotime($row['created_date'])); ?></td>
 											<?php if($this->crud_model->admin_permission('order_view') || $this->crud_model->admin_permission('order_status') || $this->crud_model->admin_permission('order_delete')){?>
 												<td class="text-right">

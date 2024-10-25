@@ -205,13 +205,91 @@ class Orders extends CI_Controller {
 			else
 			{
 				$page = 0;
-			}			
+			}	
+			$data['orders'] = $this->order_model->getOrders();		
 			$data['all_sales'] = $this->order_model->get_total_order_data_assignedemployee($order_status,$order_id,$config["per_page"],$page);
 			$data["links"] = $this->pagination->create_links();
 			$data['msg'] = "";		
 			$data['total_rows'] = $config["total_rows"];
 			$data['page_id'] = $page;
 			$data['page_name'] = "orders/assignedorderreport";
+            $data['page_name_link'] = "orders";
+			$this->load->view('back/admin/index', $data);
+        } else {
+            $data['control'] = "admin";
+            $this->load->view('back/admin/login',$data);
+        }
+    }
+	public function getSrnoByParentId()
+    {
+        $parentId = $this->input->post('parentid');
+        $this->load->model('Order_model');
+        $srnos = $this->Order_model->getSrnos($parentId);
+
+        echo json_encode($srnos);
+    }
+	public function emreport()
+    {
+		if ($this->session->userdata('admin_login') == 'yes') {
+	
+			if (!$this->crud_model->admin_permission('or_assign')) {
+				redirect(base_url() . 'admin');
+			}
+			$order_status = $_GET['employee'];
+			$order_id = $_GET['order_id'];
+			$searchurl='employee='.$order_status.'&order_id='.$order_id;
+			$count_data = $this->order_model->get_total_order_data_count_assignedemployee($order_status,$order_id);
+			$data['orders'] = $this->order_model->getOrders();
+			$config = array();		
+			$config['total_rows'] = $count_data;
+			$config['base_url'] = base_url() . "admin/orders/?".$searchurl;
+			$config['per_page'] = 20;
+			$config['uri_segment'] = '3';
+			$config['page_query_string']= TRUE;
+			$config['query_string_segment'] = "page";
+			$choice = $config["total_rows"] / $config["per_page"];
+			
+			$config['full_tag_open'] = '<div class="pagination"><ul>';
+			$config['full_tag_close'] = '</ul></div>';
+		 
+			$config['first_link'] = 'First';
+			$config['first_tag_open'] = '<li class="firstpage page">';
+			$config['first_tag_close'] = '</li>';
+		 
+			$config['last_link'] = 'Last';
+			$config['last_tag_open'] = '<li class="lastpage page">';
+			$config['last_tag_close'] = '</li>';
+		 
+			$config['next_link'] = '»';
+			$config['next_tag_open'] = '<li class="next page">';
+			$config['next_tag_close'] = '</li>';
+		 
+			$config['prev_link'] = '«';
+			$config['prev_tag_open'] = '<li class="prev page">';
+			$config['prev_tag_close'] = '</li>';
+		 
+			$config['cur_tag_open'] = '<li class="active"><a href="">';
+			$config['cur_tag_close'] = '</a></li>';
+		 
+			$config['num_tag_open'] = '<li class="page">';
+			$config['num_tag_close'] = '</li>';
+			
+			$this->pagination->initialize($config);
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			if($this->input->get('page') != '')
+			{
+				$page = ($this->input->get('page'));
+			}
+			else
+			{
+				$page = 0;
+			}			
+			$data['all_sales'] = $this->order_model->get_total_order_data_assignedemployee($order_status,$order_id,$config["per_page"],$page);
+			$data["links"] = $this->pagination->create_links();
+			$data['msg'] = "";		
+			$data['total_rows'] = $config["total_rows"];
+			$data['page_id'] = $page;
+			$data['page_name'] = "orders/emassignedorderreport";
             $data['page_name_link'] = "orders";
 			$this->load->view('back/admin/index', $data);
         } else {
@@ -390,6 +468,7 @@ class Orders extends CI_Controller {
 					if ($pos !== false) {
 					// Extract the Indent No part (before the delimiter)
 					$indent_no = trim(substr($string, 0, $pos));
+					$indent_no = str_replace("Indent No ", "", $indent_no);
 					// Extract the Machining of Components + HSN code part (after the delimiter)
 					$hsn_code_part = trim(substr($string, $pos));
 				    if($indent_no != "" && $hsn_code_part != ""){
@@ -411,6 +490,7 @@ class Orders extends CI_Controller {
 			
 						$data = [
 						'parentid' => $masterOrderId,
+						'indent_no'=>$indent_no,
 						'sr_no' => $rowData[0],
 						'job_description' => $rowData[1],
 						'drawing_no' => $rowData[2],

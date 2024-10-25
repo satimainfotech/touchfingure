@@ -34,23 +34,30 @@
                 <div class="tab-pane fade active in" id="list">
 					<div class="orderstable panel-body">
 						<div class="reportfilterdiv">
-							<form action="<?php echo base_url(); ?>admin/orders/report" method="get">
+							<form action="<?php echo base_url(); ?>admin/orders/emreport" method="get">
 								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
-									<label>Order ID</label>
-									<select name="order" id="order">
-									<option value="">Select Order</option>
-									<?php foreach ($orders as $order): ?>
-									<option <?php if($order->orderno==$_GET['order']){ echo 'selected'; } ?> value="<?= $order->orderno; ?>">
-									<?= $order->indent_no; ?> - <?= $order->orderno; ?>
-									</option>
-									<?php endforeach; ?>
-									</select>
-								</div>
-								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
-									<label>Sr No</label>
-										<select name="order_id" id="order_id">
-										<option value="">Select Sr. No</option>
-										</select>
+									<label>Select Employee</label>
+									<select class="normal_select_option" name="employee">
+										<?php 
+										if($_SESSION['role'] != 1)
+										{	?>
+											<option value="<?php echo $_SESSION['admin_id'];?>"><?php echo $_SESSION['admin_name'];?></option><?php
+										}else{ ?> 
+										<option value="">ALL</option>
+										<?php 										
+										$this->db->select('admin_id,name,pm_id');
+										$this->db->where('pm_id IS NOT NULL');
+										$this->db->where('role !=', 1);
+										$admin = $this->db->get('admin')->result_array();
+										foreach($admin as $a)
+										{
+											$employee = $a['admin_id'];
+										?>
+										<option <?php if($employee == $a['admin_id']){ echo "selected";}?> value="<?php echo $a['admin_id'];?>"><?php echo $a['name'];?>- <?php echo $this->crud_model->get_type_name_by_id('process_master',$a['pm_id'],'pm_name'); ?></option>
+										<?php
+										}
+										?><?php } ?>
+								</select>
 								</div>
 								<div class="col-sm-3 col-xs-6 paddingonlyfive m-b-5px">
 									<button class="reportbutton">Search</button>
@@ -115,27 +122,4 @@
 	</div>
 </div>
 <script>
-	$(document).ready(function() {
-        $('#order').change(function() {
-            var parentid = $(this).val();
-			ajaxload(parentid);            
-        });
-    });
-	ajaxload($('#order').val(),'<?php echo $_GET["order_id"];?>');  
-	function ajaxload(parentid,order_id){
-		$.ajax({
-                url: '<?= base_url("admin/orders/getSrnoByParentId"); ?>',
-                method: 'POST',
-                data: { parentid: parentid },
-                dataType: 'json',
-                success: function(data) {
-                    $('#order_id').empty();
-                    $('#order_id').append('<option value="">Select Sr. No</option>');					
-                    $.each(data, function(key, value) {
-						var isSelected = (value.orderno === order_id) ? 'selected' : '';
-                        $('#order_id').append('<option '+isSelected+' value="' + value.orderno + '">' + value.sr_no + '</option>');
-                    });
-                }
-            });
-	}
 </script>

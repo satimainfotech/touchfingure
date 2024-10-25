@@ -36,6 +36,9 @@
 											<tr>
 												<th><?php echo translate('Sr No.');?></th>
 												<th><?php echo translate('material');?></th>
+												<th><?php echo translate('length');?></th>
+					<th><?php echo translate('width');?></th>
+					<th><?php echo translate('thickness');?></th>
 												<th><?php echo translate('status');?></th>
 												<th ><?php echo translate('options');?></th>
 											</tr>
@@ -51,6 +54,9 @@
 											<tr>
 												<td><?php echo $i; ?></td>
 												<td><?php echo $row['country_name']; ?></td>
+												<td><?php echo $row['length']; ?></td>
+				<td><?php echo $row['width']; ?></td>
+				<td><?php echo $row['thickness']; ?></td>
 												<td>
 													<?php 
 														if($row['country_status'] == 'active'){

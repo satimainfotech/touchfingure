@@ -38,6 +38,18 @@
 														</div>
 													</div>
 												</div>
+												<div class="col-lg-6 col-xs-12 paddingzeroall">
+															<label class="col-sm-12 control-label text-left" for="demo-hor-12"><?php echo translate('Drowning');?></label>
+															<div class="col-sm-12">
+															<span class="pull-left btn btn-default btn-file"> <?php echo translate('choose_file');?>
+																<input type="file" name="profile_main_images" accept="image" id="profile_main_images" class="form-control">
+																</span>
+																<br><br>
+																<span style="width: 50%;float:left; border:1px solid #ddd;border-radius:5px; padding:5px;margin-top:10px;" id="pofile_main_images_wrap">
+																	<img src="<?php echo base_url(); ?>uploads/other_images/default.png" width="100%" id="profile_main_images_blah" />
+																</span>
+															</div>
+														</div>	
 											</div>
 										</div>
 									</div>
@@ -66,5 +78,18 @@
 		$("form").submit(function(e){
 			event.preventDefault();
 		});
+	});
+
+	function profile_main_images(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#profile_main_images_blah').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	$("#profile_main_images").change(function() {
+		profile_main_images(this);
 	});
 </script>

@@ -38,7 +38,7 @@
 						<div class="reportfilterdiv">
 							<form action="<?php echo base_url(); ?>admin/orders/assigned_orders" method="get">
 								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
-									<label>Select Employee</label>
+									<label>Select Status</label>
 									<select class="normal_select_option" name="order_status">
 										<option value="">ALL</option>
 										<option value="assigned" <?php if(@$order_status == "assigned"){ echo 'selected'; }?>>Assigned</option>
@@ -46,10 +46,13 @@
 										<option value="done" <?php if(@$order_status == "done"){ echo 'selected'; }?>>Completed</option>
 </select>
 								</div>
+								<?php /*
 								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
 									<label>Order ID</label>
 									<input type="text" name="order_id" value="<?php echo @$order_id; ?>" placeholder="Order ID">
 								</div>
+								*/
+								?>
 								<div class="col-sm-3 col-xs-6 paddingonlyfive m-b-5px">
 									<button class="reportbutton">Search</button>
 									<?php if(@$from_date != '' || @$to_date != '' || @$order_status != '' || @$order_id != '' || @$customer_name != '' || @$mobile_number != ''){ ?>
@@ -71,42 +74,48 @@
 										?>
 										<div class="card">
 										<div class="card-header align-items-center d-flex">
-										<h5 class="card-title mb-0 flex-grow-1"><?php echo translate('ORDER_NO');?> :  <b> <?php echo $data['orderid']; ?></h5>
+										<h5 class="card-title mb-0 flex-grow-1"><?php echo translate('ORDER_NO');?> :  <b> <?php echo $data['indent_no']; ?></b> | <?php echo translate('sr_no');?> :  <b> <?php echo $data['sr_no']; ?></h5>
 										<div class="flex-shrink-0">
 											<?php 
-											if($data['order_status'] == 'done' && $_SESSION['role'] != 1)
+											if($_SESSION['role'] != 1)
 											{
 												$orderid = $data['orderid'];
-												$assign_to = $data['assign_to'];
-											 	$sql = "SELECT orderno, SUM(TIMESTAMPDIFF(SECOND, starttime, endtime)) / 3600 AS total_time_spent_seconds FROM ordertimelog where orderno='$orderid' and assignto='$assign_to'";
+												$assign_to = $_SESSION['admin_id'];
+											 	$sql = "SELECT orderno,otid,starttime,endtime, SUM(TIMESTAMPDIFF(SECOND, starttime, endtime)) / 3600 AS total_time_spent_seconds FROM ordertimelog where orderno='$orderid' and assignto='$assign_to'";
 												$result =$this->db->query($sql)->row();
 												if($result != ""){
-													echo "Working Hours: ". $result->total_time_spent_seconds;
+													$totalMinutes = $result->total_time_spent_seconds * 60;
+													$hoursPart = floor($hours);
+													$minutesPart = round($totalMinutes % 60);
+													echo "$hoursPart hours and $minutesPart minutes";
 												}
+												if($this->crud_model->admin_permission('orma_track') && $_SESSION['role'] != 1){
+													if($result->{'starttime'} == "" || $result->{'endtime'} != "" ) 
+													{							
+													?>
+													<button class="btn btn-warning addMembers-modal" onclick="Start_end_order('<?php echo $data['id']; ?>','<?php echo $data['assign_by']; ?>','<?php echo $data['assign_to']; ?>','<?php echo $data['orderid']; ?>','<?php echo translate('really_want_to_start_time?'); ?>','start')"><i class="fa fa-clock-o me-1 align-bottom"></i> Start Time</button>
+													<?php }
+													else{
+													?>													 
+													 <button class="btn btn-warning addMembers-modal" onclick="Start_end_order('<?php echo $result->{'otid'}; ?>','<?php echo $data['assign_by']; ?>','<?php echo $data['assign_to']; ?>','<?php echo $data['orderid']; ?>','<?php echo translate('really_want_to_end_time?'); ?>','end')"><i class="fa fa-clock-o me-1 align-bottom"></i> End Time</button>
+													<?php
+													} 
+													?>
+													<button class="btn btn-danger" data-toggle="tooltip" onclick="ajax_modal_order('edit','<?php echo translate('Assign'); ?> order no <?php echo $data['orderno']; ?> to employee','<?php echo translate('successfully_assign!'); ?>','order_assign','<?php echo $data['orderno']; ?>')" data-original-title="Edit" data-container="body"> <i class="fa fa-soccer-ball-o me-1 align-bottom"></i> <?php echo translate('Emergency');?> </button>
+													<button class="btn btn-success addMembers-modal" onclick="Start_end_order('<?php echo $data['id']; ?>','<?php echo $data['assign_by']; ?>','<?php echo $data['assign_to']; ?>','<?php echo $data['orderid']; ?>','<?php echo translate('really_want_to_start_time?'); ?>','done')"><i class="fa fa-check me-1 align-bottom"></i> Job Done</button>
+												<?php }
 
 											}else{
-												$orderid = $data['orderid'];
-												$assign_to = $data['assign_to'];
+												$orderid = $data['orderid'];												
 											 	$sql = "SELECT orderno, SUM(TIMESTAMPDIFF(SECOND, starttime, endtime)) / 3600 AS total_time_spent_seconds FROM ordertimelog where orderno='$orderid'";
-												$resultt =$this->db->query($sql)->row();
-												if($resultt != ""){
-													echo "Working Hours: ". $resultt->total_time_spent_seconds;
+												$result =$this->db->query($sql)->row();
+												if($result != ""){
+													$totalMinutes = $result->total_time_spent_seconds * 60;
+													$hoursPart = floor($hours);
+													$minutesPart = round($totalMinutes % 60);
+													echo "$hoursPart hours and $minutesPart minutes";
 												}
-											if($this->crud_model->admin_permission('orma_track') && $_SESSION['role'] != 1){
-											if($result != "") 
-											{
-											?> 
-											<button class="btn btn-warning addMembers-modal" onclick="Start_end_order('<?php echo $result->{'otid'}; ?>','<?php echo $data['assign_by']; ?>','<?php echo $data['assign_to']; ?>','<?php echo $data['orderid']; ?>','<?php echo translate('really_want_to_start_time?'); ?>','end')"><i class="fa fa-clock-o me-1 align-bottom"></i> End Time</button>
-											<?php }
-											else{
-											?>
-											<button class="btn btn-warning addMembers-modal" onclick="Start_end_order('<?php echo $data['id']; ?>','<?php echo $data['assign_by']; ?>','<?php echo $data['assign_to']; ?>','<?php echo $data['orderid']; ?>','<?php echo translate('really_want_to_start_time?'); ?>','start')"><i class="fa fa-clock-o me-1 align-bottom"></i> Start Time</button>
-											<?php
-											} 
-											?>
-											<button class="btn btn-danger" data-toggle="tooltip" onclick="ajax_modal_order('edit','<?php echo translate('Assign'); ?> order no <?php echo $data['orderno']; ?> to employee','<?php echo translate('successfully_assign!'); ?>','order_assign','<?php echo $data['orderno']; ?>')" data-original-title="Edit" data-container="body"> <i class="fa fa-soccer-ball-o me-1 align-bottom"></i> <?php echo translate('Emergency');?> </button>
-											<button class="btn btn-success addMembers-modal" onclick="Start_end_order('<?php echo $data['id']; ?>','<?php echo $data['assign_by']; ?>','<?php echo $data['assign_to']; ?>','<?php echo $data['orderid']; ?>','<?php echo translate('really_want_to_start_time?'); ?>','done')"><i class="fa fa-check me-1 align-bottom"></i> Job Done</button>
-										<?php }  } ?>
+											  } ?>
 										</div>
 										</div>
 									<div class="row" style="margin: 0px -5px;">

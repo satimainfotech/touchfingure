@@ -36,24 +36,25 @@ $(document).ready(function () {
     </div>
   </div>
 </div>
+<?php /*
 <script>
-
 function StopYesterday() {
-          $.ajax({
-              url: '<?php echo site_url();?>/admin/orders/stopyesterday',  // Update this URL
-              method: 'POST',
-              dataType: 'json',
-              success: function(response) {
-                  if (response.status === 'success') {
-                      alert(response.notification_content);
-            location.reload(true);
-                  }
-              }
-          });
-      }
-      StopYesterday();
+    $.ajax({
+        url: '<?php echo site_url();?>/admin/orders/stopyesterday',  // Update this URL
+        method: 'POST',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 'success') {
+                alert(response.notification_content);
+    location.reload(true);
+            }
+        }
+    });
+}
+StopYesterday();
 </script>
 <?php 
+*/
 if($_SESSION['role'] !=1){?>
 <script>
  

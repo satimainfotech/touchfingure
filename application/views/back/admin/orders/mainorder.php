@@ -27,8 +27,8 @@
 	$admin = $this->db->select('admin_id,name,pm_id')->get_where('admin')->result_array();
 	foreach($admin as $ap){
 		$process = $this->crud_model->get_type_name_by_id('process_master',$ap['pm_id'],'pm_name');
-		$process = " - ".$process;
-		$username[$ap['admin_id']] =$ap['name'].$process;
+		$username[$ap['admin_id']] =$ap['name'];
+		$usernamep[$ap['admin_id']] = $process;
 	}
 	$order_status=$_GET['order_status'];
 	$order_id = $_GET['order_id'];
@@ -52,7 +52,7 @@
 										?>
 										<div class="card">
 										<div class="card-header align-items-center d-flex">
-										<h5 class="card-title mb-0 flex-grow-1"><?php echo translate('SR. NO.');?> :  <b> <?php echo $data['sr_no']; ?></h5>
+										<h5 class="card-title mb-0 flex-grow-1"><?php echo translate('ORDER_NO');?> :  <b> <?php echo $data['indent_no']; ?></b> | <?php echo translate('sr_no');?> :  <b> <?php echo $data['sr_no']; ?></h5>
 										<div class="flex-shrink-0">
 											<?php
 											if($data['order_status'] == 'done' && $_SESSION['role'] != 1)
@@ -62,7 +62,10 @@
 											 	$sql = "SELECT orderno, SUM(TIMESTAMPDIFF(SECOND, starttime, endtime)) / 3600 AS total_time_spent_seconds FROM ordertimelog where orderno='$orderid' and assignto='$assign_to'";
 												$result =$this->db->query($sql)->row();
 												if($result != ""){
-													echo "Working Hours: ". $result->total_time_spent_seconds;
+													$totalMinutes = $result->total_time_spent_seconds * 60;
+													$hoursPart = floor($hours);
+													$minutesPart = round($totalMinutes % 60);
+													echo "$hoursPart hours and $minutesPart minutes";
 												}
 
 											}else{
@@ -71,7 +74,10 @@
 											 	$sql = "SELECT orderno, SUM(TIMESTAMPDIFF(SECOND, starttime, endtime)) / 3600 AS total_time_spent_seconds FROM ordertimelog where orderno='$orderid'";
 												$result =$this->db->query($sql)->row();
 												if($result != ""){
-													echo "Working Hours: ". $result->total_time_spent_seconds;
+													$totalMinutes = $result->total_time_spent_seconds * 60;
+													$hoursPart = floor($hours);
+													$minutesPart = round($totalMinutes % 60);
+													echo "$hoursPart hours and $minutesPart minutes";
 												}
 											if($this->crud_model->admin_permission('orma_track') && $_SESSION['role'] != 1){
 											if($result != "") 
@@ -111,8 +117,12 @@
 										<th>SR. NO</th>
 										<th>Assigned By</th>
 										<th>Work By</th>
+										<th>Process</th>
+										<th>Start Date</th>
 										<th>Start Time</th>
+										<th>End Date</th>
 										<th>End Time</th>
+										<th>Different</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -124,8 +134,20 @@
 										<td><?php echo $i;?></td>
 										<td><?php echo $username[$r['assignby']];?></td>
 										<td><?php echo $username[$r['assignto']];?></td>
-										<td><?php echo $r['starttime'];?></td>
-										<td><?php echo $r['endtime'];?></td>
+										<td><?php echo $usernamep[$r['assignto']];?></td>
+										<td><?php echo date('d-m-Y', strtotime($r['starttime']));?></td>
+										<td><?php echo date('h:i:s A', strtotime($r['starttime']));?></td>
+										<td><?php if($r['endtime']) { echo date('d-m-Y', strtotime($r['endtime'])); }?></td>
+										<td><?php if($r['endtime']) { echo date('h:i:s A', strtotime($r['endtime'])); }?></td>
+										<td><?php if($r['endtime']) { 
+											$startTime = new DateTime($r['starttime']);
+											$endTime = new DateTime($r['endtime']);
+											$interval = $startTime->diff($endTime);
+											$totalMinutes = ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->i;
+											$hours = floor($totalMinutes / 60);
+											$minutes = $totalMinutes % 60;
+											echo "$hours hours and $minutes minutes";
+										}?></td>
 										</tr>
 											<?php 
 											$i++;

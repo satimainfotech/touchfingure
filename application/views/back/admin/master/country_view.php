@@ -31,8 +31,20 @@
 												<td class="custom_td"><div class="label label-<?php if($row['country_status'] == 'active'){ ?>purple<?php } else { ?>danger<?php } ?>"><?php echo $row['country_status']; ?></div></td>
 											</tr>
 											<tr>
-												<th class="custom_td minwidth210px"><?php echo translate('country_name');?></th>
+												<th class="custom_td minwidth210px"><?php echo translate('Material_name');?></th>
 												<td class="custom_td"><?php echo $row['country_name'];?></td>
+											</tr>
+											<tr>
+												<th class="custom_td minwidth210px"><?php echo translate('width');?></th>
+												<td class="custom_td"><?php echo $row['width'];?></td>
+											</tr>
+											<tr>
+												<th class="custom_td minwidth210px"><?php echo translate('length');?></th>
+												<td class="custom_td"><?php echo $row['length'];?></td>
+											</tr>
+											<tr>
+												<th class="custom_td minwidth210px"><?php echo translate('thickness');?></th>
+												<td class="custom_td"><?php echo $row['thickness'];?></td>
 											</tr>
 										</table>
 									  </div>

@@ -33,7 +33,7 @@ class Order_model extends CI_Model
 		return $this->db->get()->num_rows();
 	}
 	public function get_total_order_data_assigned($status,$order_id,$limit,$start){
-		$this->db->select('*');
+		$this->db->select('*,tn.indent_no as indent_no');
 		$this->db->from($this->order_assign_tbl . ' ors'); // Correcting the alias usage
 		$this->db->join($this->table_name . ' tn', 'tn.orderno = ors.orderid'); // Assuming there's a join condition
 		if (!empty($status)) {
@@ -91,6 +91,23 @@ class Order_model extends CI_Model
 		$this->db->limit($limit,$start);
 		return $this->db->get()->result_array();
 	}
+	public function getOrders()
+    {
+        $this->db->select('indent_no, orderno');
+        $this->db->from('order');
+        $this->db->where('parentid', NULL);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function getSrnos($parentId)
+    {
+        $this->db->select('indent_no, orderno, sr_no');
+        $this->db->from('order');
+        $this->db->where('parentid', $parentId);
+        $query = $this->db->get();
+        return $query->result();
+    }
 
 	public function get_total_order_data_count($order_status,$order_id){
 		$this->db->select('*');

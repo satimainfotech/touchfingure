@@ -159,6 +159,9 @@ class Master_manage extends CI_Controller
 	function country_added($para1 = '', $para2 = '', $para3 = ''){
 		$data['country_name'] = $this->input->post('country_name');
 		$data['country_status'] = 'active';
+		$data['length'] = $this->input->post('length');
+		$data['width'] = $this->input->post('width');
+		$data['thickness'] = $this->input->post('thickness');
 		$this->db->insert('country', $data);
 		$id = $this->db->insert_id();
 		$this->db->trans_complete();
@@ -180,6 +183,9 @@ class Master_manage extends CI_Controller
 	
 	function country_update($para1 = '', $para2 = '', $para3 = ''){
 		$data['country_name'] = $this->input->post('country_name');
+		$data['length'] = $this->input->post('length');
+		$data['width'] = $this->input->post('width');
+		$data['thickness'] = $this->input->post('thickness');
 		$this->db->where('country_id', $para1);
 		$this->db->update('country', $data);
 		$this->db->trans_complete();
@@ -424,6 +430,9 @@ class Master_manage extends CI_Controller
 			$datanui['created_date']= date('Y-m-d H:i:s'); 
 			$datanui['order_id']= $id; 
 			$this->db->insert('logs',$datanui);
+			$this->db->where('process_master_id', $para2);
+			$this->db->delete('process_master');
+			
         }else if ($para1 == 'approval_set') {
             $country = $para2;
 			if ($para3 == 'true') {
@@ -1066,8 +1075,30 @@ class Master_manage extends CI_Controller
 	}
 	
 	function member_type_added($para1 = '', $para2 = '', $para3 = ''){
-		$data['member_type_name'] = $this->input->post('member_type_name');
-			$data['fees'] = $this->input->post('fees');
+		$data['member_type_name'] = $this->input->post('member_type_name');	
+		$profile_main_images = $_FILES['profile_main_images']['name'];
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		$otp2 = $randomString;
+		$profile_main_images = $_FILES['profile_main_images']['name'];
+		if($profile_main_images != ''){
+			$profileext = pathinfo($profile_main_images, PATHINFO_EXTENSION);
+			
+			$profileuploadedFile = $_FILES['profile_main_images']['tmp_name']; 
+			$profiledirPath = "uploads/drawing/";
+			$profilenewFileName = $otp2."_profile_main_images";
+			
+			if (!file_exists($profiledirPath)) {
+			mkdir($profiledirPath, 0777, true); // Create the directory with 0777 permissions
+			}
+			chmod($profiledirPath, 0777);
+			
+			if(move_uploaded_file($profileuploadedFile, $profiledirPath. $profilenewFileName. ".". $profileext)){
+				$data['profile_image'] = $otp2.'_profile_main_images.'.$profileext;
+			}			
+		}		
 		$data['member_type_status'] = 'active';
 		$this->db->insert('member_type', $data);
 		$id = $this->db->insert_id();
@@ -1093,7 +1124,23 @@ class Master_manage extends CI_Controller
 	
 	function member_type_update($para1 = '', $para2 = '', $para3 = ''){
 		$data['member_type_name'] = $this->input->post('member_type_name');
-			$data['fees'] = $this->input->post('fees');
+		$profile_main_images = $_FILES['profile_main_images']['name'];
+		if($profile_main_images != ''){
+			$profileext = pathinfo($profile_main_images, PATHINFO_EXTENSION);
+			
+			$profileuploadedFile = $_FILES['profile_main_images']['tmp_name']; 
+			$profiledirPath = "uploads/drawing/";
+			$profilenewFileName = $otp2."_profile_main_images";
+			
+			if (!file_exists($profiledirPath)) {
+			mkdir($profiledirPath, 0777, true); // Create the directory with 0777 permissions
+			}
+			chmod($profiledirPath, 0777);
+			
+			if(move_uploaded_file($profileuploadedFile, $profiledirPath. $profilenewFileName. ".". $profileext)){
+				$data['profile_image'] = $otp2.'_profile_main_images.'.$profileext;
+			}			
+		}	
 		$this->db->where('member_type_id', $para1);
 		$this->db->update('member_type', $data);
 		$this->db->trans_complete();

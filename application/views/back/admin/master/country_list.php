@@ -5,6 +5,9 @@
 				<tr>
 					<th><?php echo translate('no');?></th>
 					<th><?php echo translate('Material');?></th>
+					<th><?php echo translate('length');?></th>
+					<th><?php echo translate('width');?></th>
+					<th><?php echo translate('thickness');?></th>
 					<?php if($this->crud_model->admin_permission('country_edit') || $this->crud_model->admin_permission('country_delete')){?>
 					<th class="text-right"><?php echo translate('options');?></th>
 					<?php } ?>
@@ -20,6 +23,9 @@
 			<tr>
 				<td><?php echo $i; ?></td>
 				<td><?php echo $row['country_name']; ?></td>
+				<td><?php echo $row['length']; ?></td>
+				<td><?php echo $row['width']; ?></td>
+				<td><?php echo $row['thickness']; ?></td>
 				<?php if($this->crud_model->admin_permission('country_edit') || $this->crud_model->admin_permission('country_delete')){?>
 					<td class="text-right">
 						<?php if($this->crud_model->admin_permission('country_edit')){?>

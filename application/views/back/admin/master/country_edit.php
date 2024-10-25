@@ -39,6 +39,30 @@
 														</div>
 													</div>
 												</div>
+												<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 paddingfive">
+													<div class="form-group">
+														<label class="col-sm-2 control-label paddingfive" for="demo-hor-1"><?php echo translate('Length');?></label>
+														<div class="col-sm-10 paddingfive">
+															<input type="text" name="length" id="demo-hor-1" placeholder="<?php echo translate('Length');?>" value="<?php echo $row['length'];?>" class="form-control required">
+														</div>
+													</div>
+												</div>
+												<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 paddingfive">
+													<div class="form-group">
+														<label class="col-sm-2 control-label paddingfive" for="demo-hor-1"><?php echo translate('Width');?></label>
+														<div class="col-sm-10 paddingfive">
+															<input type="text" name="width" id="demo-hor-1" placeholder="<?php echo translate('Width');?>" value="<?php echo $row['width'];?>" class="form-control required">
+														</div>
+													</div>
+												</div>
+												<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 paddingfive">
+													<div class="form-group">
+														<label class="col-sm-2 control-label paddingfive" for="demo-hor-1"><?php echo translate('thickness');?></label>
+														<div class="col-sm-10 paddingfive">
+															<input type="text" name="thickness" id="demo-hor-1" placeholder="<?php echo translate('thickness');?>" value="<?php echo $row['thickness'];?>" class="form-control required">
+														</div>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>

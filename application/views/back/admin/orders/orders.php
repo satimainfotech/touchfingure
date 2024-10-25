@@ -25,10 +25,10 @@
 										<option value="inprogress" <?php if(@$order_status == "inprogress"){ echo 'selected'; }?>>Processing</option>
 										<option value="done" <?php if(@$order_status == "done"){ echo 'selected'; }?>>Completed</option>
 </select></div>
-								<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
+								<?php /*<div class="col-sm-2 col-xs-6 paddingonlyfive m-b-5px">
 									<label>Order ID</label>
 									<input type="text" name="order_id" value="<?php echo @$order_id; ?>" placeholder="Order ID">
-								</div>
+								</div>*/?>
 								<div class="col-sm-3 col-xs-6 paddingonlyfive m-b-5px">
 									<button class="reportbutton">Search</button>
 									<?php if( @$order_status != '' || @$order_id != ''){ ?>
@@ -42,7 +42,7 @@
 								<table id="example" class="table table-striped table-bordered" style="width:100%">
 									<thead>
 										<tr>
-											<th style="width:4ex"><?php echo translate('ID');?></th>
+											<th style="width:4ex"><?php echo translate('Order_no');?></th>
 											<th><?php echo translate('sr_no');?></th>
 											<th ><?php echo translate('job_description');?> </th>
 											<th ><?php echo translate('drawing_no');?> </th>
@@ -69,7 +69,7 @@
 											$i++; 
 										?>
 										<tr>
-											<td><?php echo $row['orderno']; ?></td>
+											<td><?php echo $row['indent_no']; ?></td>
 											<td><?php echo $row['sr_no']; ?></td>											
 											<td><?php echo $row['job_description']; ?></td>
 											<td><?php echo $row['drawing_no']; ?></td>
@@ -102,7 +102,7 @@
 													<?php if($this->crud_model->admin_permission('orma_add')){
 													
 													?>
-													<a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" onclick="ajax_modal_order('edit','<?php echo translate('Assign'); ?> order no <?php echo $row['orderno']; ?> to employee','<?php echo translate('successfully_assign!'); ?>','order_assign','<?php echo $row['orderno']; ?>')" data-original-title="Edit" data-container="body"> <?php echo translate('assign');?> </a>
+													<a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" onclick="ajax_modal_order('edit','<?php echo translate('Order_no'); ?> - <?php echo $row['indent_no']; ?>','<?php echo translate('successfully_assign!'); ?>','order_assign','<?php echo $row['orderno']; ?>')" data-original-title="Edit" data-container="body"> <?php echo translate('assign');?> </a>
 													<?php } ?>
 												</td>
 											<?php } ?>

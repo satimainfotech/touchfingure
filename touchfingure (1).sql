@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 15, 2024 at 10:01 AM
+-- Generation Time: Oct 23, 2024 at 05:39 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `timestamp` varchar(20) DEFAULT NULL,
   `admin_status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`admin_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `admin`
@@ -51,7 +51,9 @@ INSERT INTO `admin` (`admin_id`, `name`, `phone`, `address`, `email`, `password`
 (1, 'Precise', '', '', 'admin@gmail.com', 'f7c3bc1d808e04732adf679965ccc34ca7ae3441', NULL, '1', NULL, '1549100984', 'Active'),
 (5, 'Jayesh', '1234567890', 'tets', 'jayesh@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '123456', '4', '2', '1550475820', 'Active'),
 (10, 'Paresh', '1234567899', '', 'paresh@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '123456', '4', '3', '1728548754', NULL),
-(11, 'krina', '1245678900', '', 'krina@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '123456', '4', '2', '1728816396', NULL);
+(11, 'krina', '1245678900', '', 'krina@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '123456', '4', '2', '1728816396', NULL),
+(12, 'prashant', '12456789', 'ahm', 'prashant@gmail.com', 'f53d69356677036daec7ea1e25bf13a2780c094c', '124567', '4', '9', '1729607110', NULL),
+(13, 'parag', '12456789', '', 'parag@gmail.com', 'fe291da6ccb1481acddabf5ea402fd11c2021b10', 'parag', '4', '10', '1729610041', NULL);
 
 -- --------------------------------------------------------
 
@@ -72,11 +74,10 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
-('bjuci9dg6gjkgrbh6vej8kse6s0c70gl', '::1', 1728986489, 0x5f5f63695f6c6173745f726567656e65726174657c693a313732383938363033333b6c6f67696e7c733a333a22796573223b61646d696e5f6c6f67696e7c733a333a22796573223b61646d696e5f69647c733a323a223130223b61646d696e5f6e616d657c733a363a22506172657368223b7469746c657c733a353a2261646d696e223b70616e656c5f7469746c657c733a353a2261646d696e223b726f6c657c733a313a2234223b),
-('9kh2dghlm31obfcnr17acfbt684m3s73', '::1', 1728986033, ''),
-('n990mito83aun3hfr0pboa6vt45luo2l', '127.0.0.1', 1728986436, 0x5f5f63695f6c6173745f726567656e65726174657c693a313732383938363039323b6c6f67696e7c733a333a22796573223b61646d696e5f6c6f67696e7c733a333a22796573223b61646d696e5f69647c733a313a2231223b61646d696e5f6e616d657c733a373a2250726563697365223b7469746c657c733a353a2261646d696e223b70616e656c5f7469746c657c733a353a2261646d696e223b726f6c657c733a313a2231223b),
-('cur3p6207q9k53peq9cs580b9a96q1fu', '127.0.0.1', 1728986371, 0x5f5f63695f6c6173745f726567656e65726174657c693a313732383938363337313b),
-('6uoqncb7506c67ivt59qt3nblg3etdv8', '::1', 1728986462, 0x5f5f63695f6c6173745f726567656e65726174657c693a313732383938363434333b6c6f67696e7c733a333a22796573223b61646d696e5f6c6f67696e7c733a333a22796573223b61646d696e5f69647c733a323a223130223b61646d696e5f6e616d657c733a363a22506172657368223b7469746c657c733a353a2261646d696e223b70616e656c5f7469746c657c733a353a2261646d696e223b726f6c657c733a313a2234223b);
+('kaqpe4um6k69uuj4n0hor8ltckkkjh8i', '::1', 1729696855, 0x5f5f63695f6c6173745f726567656e65726174657c693a313732393639363636373b6c6f67696e7c733a333a22796573223b61646d696e5f6c6f67696e7c733a333a22796573223b61646d696e5f69647c733a313a2231223b61646d696e5f6e616d657c733a373a2250726563697365223b7469746c657c733a353a2261646d696e223b70616e656c5f7469746c657c733a353a2261646d696e223b726f6c657c733a313a2231223b),
+('dgos188us34afedgu84mc3br35uutlu8', '::1', 1729697194, 0x5f5f63695f6c6173745f726567656e65726174657c693a313732393639373137393b),
+('kv5sfc73ug6i64qmqrhjgkjkv40t3e58', '::1', 1729705162, 0x5f5f63695f6c6173745f726567656e65726174657c693a313732393730353132393b6c6f67696e7c733a333a22796573223b61646d696e5f6c6f67696e7c733a333a22796573223b61646d696e5f69647c733a323a223132223b61646d696e5f6e616d657c733a383a227072617368616e74223b7469746c657c733a353a2261646d696e223b70616e656c5f7469746c657c733a353a2261646d696e223b726f6c657c733a313a2234223b),
+('i7qldf1chuphdhvkl8au96fko0adefpc', '::1', 1729705166, 0x5f5f63695f6c6173745f726567656e65726174657c693a313732393730353135343b6c6f67696e7c733a333a22796573223b61646d696e5f6c6f67696e7c733a333a22796573223b61646d696e5f69647c733a313a2231223b61646d696e5f6e616d657c733a373a2250726563697365223b7469746c657c733a353a2261646d696e223b70616e656c5f7469746c657c733a353a2261646d696e223b726f6c657c733a313a2231223b);
 
 -- --------------------------------------------------------
 
@@ -89,19 +90,23 @@ CREATE TABLE IF NOT EXISTS `country` (
   `country_id` int NOT NULL AUTO_INCREMENT,
   `country_name` varchar(255) DEFAULT NULL,
   `country_status` varchar(255) NOT NULL,
+  `length` varchar(200) DEFAULT NULL,
+  `width` varchar(200) DEFAULT NULL,
+  `thickness` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`country_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `country`
 --
 
-INSERT INTO `country` (`country_id`, `country_name`, `country_status`) VALUES
-(1, 'AL. ALLOY', 'active'),
-(2, 'demo', 'delete'),
-(3, 'AL. ALLOY9', 'delete'),
-(4, 'Created1', 'delete'),
-(5, 'sadsaddsa', 'delete');
+INSERT INTO `country` (`country_id`, `country_name`, `country_status`, `length`, `width`, `thickness`) VALUES
+(1, 'AL. ALLOY', 'active', NULL, NULL, NULL),
+(2, 'demo', 'delete', NULL, NULL, NULL),
+(3, 'AL. ALLOY9', 'delete', NULL, NULL, NULL),
+(4, 'Created1', 'delete', NULL, NULL, NULL),
+(5, 'sadsaddsa', 'delete', NULL, NULL, NULL),
+(7, 'Aluminium-p', 'active', '251mm', '252mm', '253mm');
 
 -- --------------------------------------------------------
 
@@ -258,19 +263,78 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `created_date` varchar(255) DEFAULT NULL,
   `order_id` int DEFAULT NULL,
   PRIMARY KEY (`notification_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `logs`
 --
 
 INSERT INTO `logs` (`notification_id`, `notification_user_id`, `notification_content`, `notification_read`, `created_by`, `created_date`, `order_id`) VALUES
-(1, '1', 'Precise has created new order - 2', '1', '1', '2024-10-15 15:26:13', 2),
-(2, '1', 'Precise has created new order - 3', '1', '1', '2024-10-15 15:26:13', 3),
-(3, '1', 'Precise has created new order - 4', '1', '1', '2024-10-15 15:26:13', 4),
-(4, '1', 'Precise has created new order - 5', '1', '1', '2024-10-15 15:26:13', 5),
-(5, '5', 'you have been assigned a new order number 5 by Precise', '0', '1', '2024-10-15 15:27:31', 5),
-(6, '10', 'you have been assigned a new order number 5 by Precise', '0', '1', '2024-10-15 15:30:36', 5);
+(1, '1', 'Precise has created new order - 2', '1', '1', '2024-10-22 19:11:08', 2),
+(2, '1', 'Precise has created new order - 3', '1', '1', '2024-10-22 19:11:08', 3),
+(3, '1', 'Precise has created new order - 4', '1', '1', '2024-10-22 19:11:08', 4),
+(4, '1', 'Precise has created new order - 5', '1', '1', '2024-10-22 19:11:08', 5),
+(5, '5', 'you have been assigned a new order number 5 by Precise', '0', '1', '2024-10-22 19:12:07', 5),
+(6, '1', 'Precise has edit permission for Employee', '1', '1', '2024-10-22 19:12:44', NULL),
+(7, '1', 'Precise has update permission for Employee', '1', '1', '2024-10-22 19:13:04', NULL),
+(8, '1', 'Precise has edit permission for Employee', '1', '1', '2024-10-22 19:14:09', NULL),
+(9, '1', 'Precise has update permission for Employee', '1', '1', '2024-10-22 19:14:17', NULL),
+(10, '11', 'you have been assigned a new order number 4 by Precise', '0', '1', '2024-10-22 19:15:12', 4),
+(11, '11', 'you have been assigned a new order number 3 by Precise', '0', '1', '2024-10-22 19:17:18', 3),
+(12, '1', 'krina has started working on order number 4', '0', '11', '2024-10-22 19:23:53', 4),
+(13, '1', 'Precise has added new process Machine BMG', '1', '1', '2024-10-22 19:52:12', 9),
+(14, '1', 'Precise has updated process Machine DMG', '1', '1', '2024-10-22 19:52:22', NULL),
+(15, '1', 'Precise has added user Profile prashant', '1', '1', '2024-10-22 19:55:10', NULL),
+(16, '1', 'Precise has created new order - 2', '1', '1', '2024-10-22 20:06:32', 2),
+(17, '1', 'Precise has created new order - 3', '1', '1', '2024-10-22 20:06:32', 3),
+(18, '1', 'Precise has created new order - 4', '1', '1', '2024-10-22 20:06:32', 4),
+(19, '1', 'Precise has created new order - 5', '1', '1', '2024-10-22 20:06:32', 5),
+(20, '12', 'you have been assigned a new order number 2 by Precise', '0', '1', '2024-10-22 20:14:33', 2),
+(21, '1', 'prashant has started working on order number 2', '0', '12', '2024-10-22 20:19:48', 2),
+(22, '12', 'you have been assigned a new order number 3 by Precise', '0', '1', '2024-10-22 20:21:37', 3),
+(23, '12', 'you have been assigned a new order number 4 by Precise', '0', '1', '2024-10-22 20:23:17', 4),
+(24, '1', 'prashant has started working on order number 2', '0', '12', '2024-10-22 20:34:50', 2),
+(25, '5', 'you have been assigned a new order number 2 by prashant', '0', '12', '2024-10-22 20:36:57', 2),
+(26, '1', 'prashant has completed order number 2', '0', '12', '2024-10-22 20:40:26', 2),
+(27, '1', 'Precise has added new process Machine DMG1', '1', '1', '2024-10-22 20:43:32', 10),
+(28, '1', 'Precise has added user Profile parag', '1', '1', '2024-10-22 20:44:01', NULL),
+(29, '13', 'you have been assigned a new order number 2 by Precise', '0', '1', '2024-10-22 20:45:02', 2),
+(30, '1', 'parag has started working on order number 2', '0', '13', '2024-10-22 20:46:11', 2),
+(31, '1', 'Precise has edit user Profile parag', '1', '1', '2024-10-23 20:22:59', NULL),
+(32, '1', 'Precise has edit user Profile parag', '1', '1', '2024-10-23 20:24:46', NULL),
+(33, '1', 'Precise has added new process test', '1', '1', '2024-10-23 20:26:00', 11),
+(34, '1', 'Precise has delete process test', '1', '1', '2024-10-23 20:26:11', NULL),
+(35, '1', 'Precise has added new process Created1', '1', '1', '2024-10-23 20:28:44', 12),
+(36, '1', 'Precise has delete process Created1', '1', '1', '2024-10-23 20:28:48', NULL),
+(37, '1', 'Precise has added new process demo', '1', '1', '2024-10-23 20:29:40', 13),
+(38, '1', 'Precise has delete process demo', '1', '1', '2024-10-23 20:29:47', NULL),
+(39, '1', 'Precise has updated process Machine DMG1', '1', '1', '2024-10-23 20:29:57', NULL),
+(40, '1', 'Precise has added new process AL. ALLOY', '1', '1', '2024-10-23 20:30:03', 14),
+(41, '1', 'Precise has delete process AL. ALLOY', '1', '1', '2024-10-23 20:30:09', NULL),
+(42, '1', 'Precise has added updated Models NFM', '1', '1', '2024-10-23 20:30:12', NULL),
+(43, '1', 'Precise has updated Material name Aluminium-p', '1', '1', '2024-10-23 20:40:39', 7),
+(44, '1', 'Precise has updated Material name Aluminium-p', '1', '1', '2024-10-23 20:40:49', 7),
+(45, '1', 'Precise has added updated Models NFM', '1', '1', '2024-10-23 21:04:43', NULL),
+(46, '1', 'Precise has added updated Models NFM', '1', '1', '2024-10-23 21:05:20', NULL),
+(47, '1', 'Precise has added updated Models NFM', '1', '1', '2024-10-23 21:05:53', NULL),
+(48, '1', 'Precise has added updated Models NFM', '1', '1', '2024-10-23 21:07:20', NULL),
+(49, '1', 'Precise has added new Models demi', '1', '1', '2024-10-23 21:07:29', 7),
+(50, '1', 'Precise has added updated Models demi', '1', '1', '2024-10-23 21:07:38', NULL),
+(51, '1', 'Precise has deleted models demi', '1', '1', '2024-10-23 21:07:43', 7),
+(52, '1', 'Precise has created new order - 7', '1', '1', '2024-10-23 21:11:07', 7),
+(53, '1', 'Precise has created new order - 8', '1', '1', '2024-10-23 21:11:07', 8),
+(54, '1', 'Precise has created new order - 9', '1', '1', '2024-10-23 21:11:07', 9),
+(55, '1', 'Precise has created new order - 10', '1', '1', '2024-10-23 21:11:07', 10),
+(56, '5', 'you have been assigned a new order number 10 by Precise', '0', '1', '2024-10-23 21:27:30', 10),
+(57, '12', 'you have been assigned a new order number 7 by Precise', '0', '1', '2024-10-23 22:29:34', 7),
+(58, '13', 'you have been assigned a new order number 7 by Precise', '0', '1', '2024-10-23 22:30:29', 7),
+(59, '1', 'parag has started working on order number 7', '0', '13', '2024-10-23 22:30:36', 7),
+(60, '1', 'parag has completed order number 7', '0', '13', '2024-10-23 22:41:22', 7),
+(61, '12', 'you have been assigned a new order number 7 by Precise', '0', '1', '2024-10-23 22:42:21', 7),
+(62, '1', 'prashant has started working on order number 7', '0', '12', '2024-10-23 22:58:32', 7),
+(63, '1', 'prashant has started working on order number 7', '0', '12', '2024-10-23 23:00:53', 7),
+(64, '1', 'prashant has started working on order number 7', '0', '12', '2024-10-23 23:03:21', 7),
+(65, '1', 'prashant has started working on order number 7', '0', '12', '2024-10-23 23:09:00', 7);
 
 -- --------------------------------------------------------
 
@@ -286,19 +350,22 @@ CREATE TABLE IF NOT EXISTS `member_type` (
   `member_type_status` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `member_type_position` int DEFAULT NULL,
   `fees` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `profile_image` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   PRIMARY KEY (`member_type_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `member_type`
 --
 
-INSERT INTO `member_type` (`member_type_id`, `member_type_token`, `member_type_name`, `member_type_status`, `member_type_position`, `fees`) VALUES
-(1, NULL, 'Color work', 'delete', NULL, NULL),
-(2, NULL, 'NFM', 'active', NULL, NULL),
-(3, NULL, 'RD', NULL, NULL, NULL),
-(4, NULL, 'sdsddsaswewew', 'delete', NULL, NULL),
-(5, NULL, 'NPP', 'delete', NULL, NULL);
+INSERT INTO `member_type` (`member_type_id`, `member_type_token`, `member_type_name`, `member_type_status`, `member_type_position`, `fees`, `profile_image`) VALUES
+(1, NULL, 'Color work', 'delete', NULL, NULL, NULL),
+(2, NULL, 'NFM', 'active', NULL, NULL, '_profile_main_images.jpg'),
+(3, NULL, 'RD', NULL, NULL, NULL, NULL),
+(4, NULL, 'sdsddsaswewew', 'delete', NULL, NULL, NULL),
+(5, NULL, 'NPP', 'delete', NULL, NULL, NULL),
+(6, NULL, 'NFMP', 'delete', NULL, NULL, NULL),
+(7, NULL, 'demi', 'delete', NULL, NULL, '_profile_main_images.jfif');
 
 -- --------------------------------------------------------
 
@@ -321,15 +388,32 @@ CREATE TABLE IF NOT EXISTS `notification` (
   `order_token` varchar(255) DEFAULT NULL,
   `table_date` date DEFAULT NULL,
   PRIMARY KEY (`notification_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `notification`
 --
 
 INSERT INTO `notification` (`notification_id`, `notification_user_id`, `notification_content`, `notification_read`, `user_type`, `notification_type`, `notification_type_id`, `created_by`, `created_date`, `order_id`, `order_token`, `table_date`) VALUES
-(1, '5', 'you have been assigned a new order number 5 by Precise', '0', NULL, NULL, NULL, '1', '2024-10-15 15:27:31', 5, NULL, NULL),
-(2, '10', 'you have been assigned a new order number 5 by Precise', '0', NULL, NULL, NULL, '1', '2024-10-15 15:30:36', 5, NULL, NULL);
+(1, '12', 'you have been assigned a new order number 2 by Precise', '1', NULL, NULL, NULL, '1', '2024-10-22 20:14:33', 2, NULL, NULL),
+(2, '1', 'prashant has started working on order number 2', '1', NULL, NULL, NULL, '12', '2024-10-22 20:19:48', 2, NULL, NULL),
+(3, '12', 'you have been assigned a new order number 3 by Precise', '1', NULL, NULL, NULL, '1', '2024-10-22 20:21:37', 3, NULL, NULL),
+(4, '12', 'you have been assigned a new order number 4 by Precise', '1', NULL, NULL, NULL, '1', '2024-10-22 20:23:17', 4, NULL, NULL),
+(5, '1', 'prashant has started working on order number 2', '1', NULL, NULL, NULL, '12', '2024-10-22 20:34:50', 2, NULL, NULL),
+(6, '5', 'you have been assigned a new order number 2 by prashant', '1', NULL, NULL, NULL, '12', '2024-10-22 20:36:57', 2, NULL, NULL),
+(7, '1', 'prashant has completed order number 2', '1', NULL, NULL, NULL, '12', '2024-10-22 20:40:26', 2, NULL, NULL),
+(8, '13', 'you have been assigned a new order number 2 by Precise', '1', NULL, NULL, NULL, '1', '2024-10-22 20:45:02', 2, NULL, NULL),
+(9, '1', 'parag has started working on order number 2', '1', NULL, NULL, NULL, '13', '2024-10-22 20:46:11', 2, NULL, NULL),
+(10, '5', 'you have been assigned a new order number 10 by Precise', '0', NULL, NULL, NULL, '1', '2024-10-23 21:27:30', 10, NULL, NULL),
+(11, '12', 'you have been assigned a new order number 7 by Precise', '1', NULL, NULL, NULL, '1', '2024-10-23 22:29:34', 7, NULL, NULL),
+(12, '13', 'you have been assigned a new order number 7 by Precise', '1', NULL, NULL, NULL, '1', '2024-10-23 22:30:29', 7, NULL, NULL),
+(13, '1', 'parag has started working on order number 7', '0', NULL, NULL, NULL, '13', '2024-10-23 22:30:36', 7, NULL, NULL),
+(14, '1', 'parag has completed order number 7', '0', NULL, NULL, NULL, '13', '2024-10-23 22:41:22', 7, NULL, NULL),
+(15, '12', 'you have been assigned a new order number 7 by Precise', '1', NULL, NULL, NULL, '1', '2024-10-23 22:42:21', 7, NULL, NULL),
+(16, '1', 'prashant has started working on order number 7', '0', NULL, NULL, NULL, '12', '2024-10-23 22:58:32', 7, NULL, NULL),
+(17, '1', 'prashant has started working on order number 7', '0', NULL, NULL, NULL, '12', '2024-10-23 23:00:53', 7, NULL, NULL),
+(18, '1', 'prashant has started working on order number 7', '0', NULL, NULL, NULL, '12', '2024-10-23 23:03:21', 7, NULL, NULL),
+(19, '1', 'prashant has started working on order number 7', '0', NULL, NULL, NULL, '12', '2024-10-23 23:09:00', 7, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -363,18 +447,18 @@ CREATE TABLE IF NOT EXISTS `order` (
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`orderno`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `order`
 --
 
 INSERT INTO `order` (`orderno`, `parentid`, `filename`, `indent_no`, `hsn_code`, `sr_no`, `job_description`, `drawing_no`, `qty`, `material`, `proposed_raw_material_size`, `approx_fim_cost`, `id_no_from`, `id_no_to`, `project`, `model`, `gst_rate`, `status`, `materialname`, `modelname`, `order_status`, `created_date`, `updated_date`) VALUES
-(1, NULL, '2024001194_Annexure_1_with_FIM_cost_(1)_(1)3.xlsx', 'Indent No SAC/APUR/MESA/2024 00 1194', 'Machining of Components-HSN code 88039000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-10-15 15:26:13', '2024-10-15 15:26:13'),
-(2, 1, '', NULL, NULL, 1, 'X-BAND WAVEGUIDE-PATCH ARRAY ANTENNA BASE PLATE', 'GEN-AMDD-AMDD-1156, SH 1/4', 4, '1', 'BY VENDOR', '0.00', 'GEN16768-01-01', 'GEN16768-01-04', 'RD', '2', '5.00', '1', 'AL. ALLOY', 'NFM', 'new', '2024-10-15 15:26:13', '2024-10-15 15:26:13'),
-(3, 1, '', NULL, NULL, 2, 'X-BAND WAVEGUIDE-PATCH ARRAY ANTENNA COVER', 'GEN-AMDD-AMDD-1156, SH 2/4', 4, '1', 'BY VENDOR', '0.00', 'GEN16768-02-01', 'GEN16768-02-04', 'RD', '2', '5.00', '1', 'AL. ALLOY', 'NFM', 'new', '2024-10-15 15:26:13', '2024-10-15 15:26:13'),
-(4, 1, '', NULL, NULL, 3, 'X-BAND WAVEGUIDE-PATCH ARRAY ANTENNA INNER PART', 'GEN-AMDD-AMDD-1156, SH 3/4', 76, '1', 'BY VENDOR', '0.00', 'GEN16768-03-01', 'GEN16768-03-76', 'RD', '2', '5.00', '1', 'AL. ALLOY', 'NFM', 'new', '2024-10-15 15:26:13', '2024-10-15 15:26:13'),
-(5, 1, '', NULL, NULL, 4, 'X-BAND WAVEGUIDE-PATCH ARRAY ANTENNA OUTRER PART', 'GEN-AMDD-AMDD-1156, SH 4/4', 5, '1', 'BY VENDOR', '0.00', 'GEN16768-04-01', 'GEN16768-04-05', 'RD', '2', '5.00', '1', 'AL. ALLOY', 'NFM', 'assigned', '2024-10-15 15:26:13', '2024-10-15 15:27:31');
+(6, NULL, '2024001194_Annexure_1_with_FIM_cost_(1)3.xlsx', 'SAC/APUR/MESA/2024 00 1194', 'Machining of Components-HSN code 88039000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-10-23 21:11:07', '2024-10-23 21:11:07'),
+(7, 6, '', 'SAC/APUR/MESA/2024 00 1194', NULL, 1, 'X-BAND WAVEGUIDE-PATCH ARRAY ANTENNA BASE PLATE', 'GEN-AMDD-AMDD-1156, SH 1/4', 4, '1', 'BY VENDOR', '0.00', 'GEN16768-01-01', 'GEN16768-01-04', 'RD', '2', '5.00', '1', 'AL. ALLOY', 'NFM', 'inprogress', '2024-10-23 21:11:07', '2024-10-23 22:58:32'),
+(8, 6, '', 'SAC/APUR/MESA/2024 00 1194', NULL, 2, 'X-BAND WAVEGUIDE-PATCH ARRAY ANTENNA COVER', 'GEN-AMDD-AMDD-1156, SH 2/4', 4, '1', 'BY VENDOR', '0.00', 'GEN16768-02-01', 'GEN16768-02-04', 'RD', '2', '5.00', '1', 'AL. ALLOY', 'NFM', 'new', '2024-10-23 21:11:07', '2024-10-23 21:11:07'),
+(9, 6, '', 'SAC/APUR/MESA/2024 00 1194', NULL, 3, 'X-BAND WAVEGUIDE-PATCH ARRAY ANTENNA INNER PART', 'GEN-AMDD-AMDD-1156, SH 3/4', 76, '1', 'BY VENDOR', '0.00', 'GEN16768-03-01', 'GEN16768-03-76', 'RD', '2', '5.00', '1', 'AL. ALLOY', 'NFM', 'new', '2024-10-23 21:11:07', '2024-10-23 21:11:07'),
+(10, 6, '', 'SAC/APUR/MESA/2024 00 1194', NULL, 4, 'X-BAND WAVEGUIDE-PATCH ARRAY ANTENNA OUTRER PART', 'GEN-AMDD-AMDD-1156, SH 4/4', 5, '1', 'BY VENDOR', '0.00', 'GEN16768-04-01', 'GEN16768-04-05', 'RD', '2', '5.00', '1', 'AL. ALLOY', 'NFM', 'assigned', '2024-10-23 21:11:07', '2024-10-23 21:27:30');
 
 -- --------------------------------------------------------
 
@@ -394,7 +478,16 @@ CREATE TABLE IF NOT EXISTS `ordertimelog` (
   `notes` text,
   PRIMARY KEY (`otid`),
   KEY `orderno` (`orderno`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `ordertimelog`
+--
+
+INSERT INTO `ordertimelog` (`otid`, `orderno`, `as_id`, `assignby`, `assignto`, `starttime`, `endtime`, `notes`) VALUES
+(1, 7, 1, '1', '13', '2024-10-23 22:30:36', '2024-10-23 22:38:50', NULL),
+(5, 7, 2, '1', '12', '2024-10-23 23:09:00', '2024-10-23 23:09:21', NULL),
+(4, 7, 2, '1', '12', '2024-10-23 23:03:21', '2024-10-23 23:04:52', NULL);
 
 -- --------------------------------------------------------
 
@@ -418,8 +511,8 @@ CREATE TABLE IF NOT EXISTS `order_assign` (
 --
 
 INSERT INTO `order_assign` (`id`, `orderid`, `assign_date`, `assign_by`, `assign_to`, `status`) VALUES
-(1, 5, '2024-10-15', 1, 5, 'new'),
-(2, 5, '2024-10-15', 1, 10, 'new');
+(1, 7, '2024-10-23', 1, 13, 'done'),
+(2, 7, '2024-10-23', 1, 12, 'inprogress');
 
 -- --------------------------------------------------------
 
@@ -508,7 +601,7 @@ CREATE TABLE IF NOT EXISTS `process_master` (
   `pm_name` varchar(255) DEFAULT NULL,
   `pm_status` varchar(255) NOT NULL,
   PRIMARY KEY (`process_master_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `process_master`
@@ -518,10 +611,8 @@ INSERT INTO `process_master` (`process_master_id`, `pm_name`, `pm_status`) VALUE
 (2, 'Colouring', 'active'),
 (3, 'cutting', 'active'),
 (4, 'welding', 'active'),
-(5, 'ssss', 'delete'),
-(6, 'assas', 'delete'),
-(7, 'demop', 'active'),
-(8, 'dssd', 'delete');
+(9, 'Machine DMG', 'active'),
+(10, 'Machine DMG1', 'active');
 
 -- --------------------------------------------------------
 
@@ -543,7 +634,7 @@ CREATE TABLE IF NOT EXISTS `role` (
 --
 
 INSERT INTO `role` (`role_id`, `name`, `permission`, `description`) VALUES
-(4, 'Employee', '[\"37\",\"38\",\"39\",\"40\",\"41\",\"45\"]', 'Employee');
+(4, 'Employee', '[\"2\",\"37\",\"38\",\"39\",\"40\",\"41\",\"45\"]', 'Employee');
 
 -- --------------------------------------------------------
 

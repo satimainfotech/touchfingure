@@ -34,10 +34,6 @@
 												<th class="custom_td minwidth210px"><?php echo translate('member_type_name');?></th>
 												<td class="custom_td"><?php echo $row['member_type_name'];?></td>
 											</tr>
-											<tr>
-												<th class="custom_td minwidth210px"><?php echo translate('fees');?></th>
-												<td class="custom_td"><?php echo $row['fees'];?></td>
-											</tr>
 										</table>
 									  </div>
 									</div>
