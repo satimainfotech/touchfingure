@@ -92,6 +92,12 @@
 						<?php
                             }
                         ?>
+                        <li <?php if($page_name_link=="chat"){?> class="active-link" <?php } ?> >
+                        <a href="<?php echo base_url(); ?>admin/orders/chat/">
+                        <i class="fa fa-wechat"></i>
+                        <?php echo translate('chat');?>
+                        </a>
+                        </li>
                         <?php
 							
                         	if($this->crud_model->admin_permission('staff')){

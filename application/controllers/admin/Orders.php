@@ -7,7 +7,7 @@ class Orders extends CI_Controller {
         parent::__construct();
         $this->load->helper(array('form', 'url'));
         $this->load->database();
-		$this->load->model('order_model');
+		$this->load->model(array('order_model','Chat_model'));
     }
 
 	public function index()
@@ -407,7 +407,30 @@ class Orders extends CI_Controller {
             $this->load->view('back/admin/login',$data);
         }
     }
-
+	public function chat()
+    {
+		$data['users'] = $this->db->get_where('admin')->result_array();
+		$data['page_name'] = "orders/chat_view";
+		$data['page_name_link'] = "orders";
+		$this->load->view('back/admin/index', $data);
+    }
+	public function fetchMessages()
+    {
+        $sender_id = $this->input->post('sender_id');
+        $receiver_id = $this->input->post('receiver_id');
+        $data['messages'] = $this->Chat_model->getMessages($sender_id, $receiver_id);
+        echo json_encode($data);
+    }
+	public function sendMessage()
+    {
+        $data = [
+            'sender_id' => $this->input->post('sender_id'),
+            'receiver_id' => $this->input->post('receiver_id'),
+            'message' => $this->input->post('message')
+        ];
+        $this->Chat_model->insertMessage($data);
+        echo json_encode(['status' => 'Message sent']);
+    }
     public function import() {
       
 		if ($this->session->userdata('admin_login') == ''){
