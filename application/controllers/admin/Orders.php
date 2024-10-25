@@ -649,6 +649,7 @@ class Orders extends CI_Controller {
 
 		$flag = $_GET['flag'];
 		if($flag == "start"){
+			
 			$datap['assignby']= $_GET['assign_by']; 
 			$datap['assignto']= $_GET['assign_to']; 
 			$datap['orderno']= $_GET['orderid']; 
@@ -666,8 +667,11 @@ class Orders extends CI_Controller {
 			$this->db->update('order', $datappp);
 
 			$para1 = $_GET['orderid'];
+
+			$orderdata = $this->Order_model->getorderDetails($para1);
+
 			$datanui['notification_user_id']= $_GET['assign_by'];
-			$datanui['notification_content']= $_SESSION['admin_name']." has started working on order number ".$para1;
+			$datanui['notification_content']= $_SESSION['admin_name']." has started working on order number ".@$orderdata[0]['indent_no'];
 			$datanui['notification_read']= 0;
 			$datanui['created_by']= $_SESSION['admin_id'];
 			$datanui['created_date']= date('Y-m-d H:i:s'); 
@@ -700,8 +704,9 @@ class Orders extends CI_Controller {
 
 
 			$para1 = $_GET['orderid'];
+			$orderdata = $this->Order_model->getorderDetails($para1);
 			$datanui['notification_user_id']= $_GET['assign_by'];
-			$datanui['notification_content']= $_SESSION['admin_name']." has completed order number ".$para1;
+			$datanui['notification_content']= $_SESSION['admin_name']." has completed order number ".@$orderdata[0]['indent_no'];
 			$datanui['notification_read']= 0;
 			$datanui['created_by']= $_SESSION['admin_id'];
 			$datanui['created_date']= date('Y-m-d H:i:s'); 
