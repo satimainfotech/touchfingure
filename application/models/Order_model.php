@@ -108,7 +108,14 @@ class Order_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-
+	public function getorderDetails($parentId)
+    {
+        $this->db->select('indent_no, orderno, sr_no');
+        $this->db->from('order');
+        $this->db->where('orderno', $parentId);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 	public function get_total_order_data_count($order_status,$order_id){
 		$this->db->select('*');
 		$this->db->from($this->table_name);

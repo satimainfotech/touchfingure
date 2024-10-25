@@ -625,9 +625,9 @@ class Orders extends CI_Controller {
 			$this->db->insert('order_assign', $datap);
 			$data['error'] = 'Data insertion successfully.';
 
-
+			$orderdata = $this->order_model->getorderDetails($para1);
 			$datanui['notification_user_id']= $_POST['assignto'];
-			$datanui['notification_content']= "you have been assigned a new order number ".$para1." by ".$_SESSION['admin_name'];
+			$datanui['notification_content']= "you have been assigned a new order number ".@$orderdata[0]['indent_no']." by ".$_SESSION['admin_name'];
 			$datanui['notification_read']= 0;
 			$datanui['created_by']= $_SESSION['admin_id'];
 			$datanui['created_date']= date('Y-m-d H:i:s'); 
@@ -668,7 +668,7 @@ class Orders extends CI_Controller {
 
 			$para1 = $_GET['orderid'];
 
-			$orderdata = $this->Order_model->getorderDetails($para1);
+			$orderdata = $this->order_model->getorderDetails($para1);
 
 			$datanui['notification_user_id']= $_GET['assign_by'];
 			$datanui['notification_content']= $_SESSION['admin_name']." has started working on order number ".@$orderdata[0]['indent_no'];
@@ -704,7 +704,7 @@ class Orders extends CI_Controller {
 
 
 			$para1 = $_GET['orderid'];
-			$orderdata = $this->Order_model->getorderDetails($para1);
+			$orderdata = $this->order_model->getorderDetails($para1);
 			$datanui['notification_user_id']= $_GET['assign_by'];
 			$datanui['notification_content']= $_SESSION['admin_name']." has completed order number ".@$orderdata[0]['indent_no'];
 			$datanui['notification_read']= 0;
